@@ -3,6 +3,9 @@
 {
 
   imports = [
+    # import variables.nix
+    ../../variables/variables.nix
+
     # import base configuration for desktops (can be non linux)
     ../base/desktop
     
@@ -18,7 +21,7 @@
   # paths it should manage.
   home = {
     # TODO set username from variables.
-    username = "tafka";
+    username = tafka;
     homeDirectory = "/home/tafka";
 
     # This value determines the Home Manager release that your
