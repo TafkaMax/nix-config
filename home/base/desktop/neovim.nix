@@ -108,7 +108,7 @@
     withNodeJs = true;
   };
 
-  home-manager.users.${osConfig.variables.username}.editorconfig = {
+  editorconfig = {
     enable = true;
     settings = {
       "*" = {
