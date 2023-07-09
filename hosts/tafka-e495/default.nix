@@ -1,18 +1,19 @@
-{ config, variables, ... } @ args:
+{ config, ... } @ args:
 
 {
   imports = [
+    # Include custom variables.
+    ../../variables/variables.nix
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
     ../../modules/nixos/core-desktop.nix
 		../../modules/nixos/gnome.nix
     ../../modules/nixos/user-group.nix
-    # Include custom variables.
-    ../../modules/nixos/variables.nix
   ];
 
   variables.username = "tafka";
   variables.fullName = "Taavi Ansper";
+  variables.userHashedPassword = config.age.secrets.tafka-e495-password.path;
 
 	# Change this value to point to a storage device where the root partition will live.
 	# eg. /dev/nvme0n1p2

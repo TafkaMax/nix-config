@@ -18,8 +18,8 @@
   # paths it should manage.
   home = {
     # TODO set username from variables.
-    username = variables.username;
-    homeDirectory = "/home/${variables.username}";
+    username = "tafka";
+    homeDirectory = "/home/tafka";
 
     # This value determines the Home Manager release that your
     # configuration is compatible with. This helps avoid breakage
