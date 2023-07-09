@@ -1,3 +1,0 @@
----
-nixos_root_disk: nvme0n1p2
-nixos_systemd_boot: false
