@@ -21,7 +21,7 @@
   # paths it should manage.
   home = {
     # TODO set username from variables.
-    username = tafka;
+    username = "tafka";
     homeDirectory = "/home/tafka";
 
     # This value determines the Home Manager release that your
