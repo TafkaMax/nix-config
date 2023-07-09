@@ -121,8 +121,9 @@
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
 
+          # Merge together extra args.
           home-manager.extraSpecialArgs = x64_specialArgs;
-          home-manager.users.tafka = import ./home/linux/x11.nix;
+          home-manager.users.tafka.imports = [ ./home/linux/x11.nix ];
         }
       ];
     in {
