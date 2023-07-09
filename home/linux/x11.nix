@@ -1,6 +1,7 @@
-{ ... }:
+{ config, variables, ... }:
 
 {
+
   imports = [
     # import base configuration for desktops (can be non linux)
     ../base/desktop
@@ -17,8 +18,8 @@
   # paths it should manage.
   home = {
     # TODO set username from variables.
-    username = "tafka";
-    homeDirectory = "/home/tafka";
+    username = variables.username;
+    homeDirectory = "/home/${variables.username}";
 
     # This value determines the Home Manager release that your
     # configuration is compatible with. This helps avoid breakage

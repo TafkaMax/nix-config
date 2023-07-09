@@ -1,4 +1,4 @@
-{ config, ... } @ args:
+{ config, variables, ... } @ args:
 
 {
   imports = [
@@ -7,8 +7,12 @@
     ../../modules/nixos/core-desktop.nix
 		../../modules/nixos/gnome.nix
     ../../modules/nixos/user-group.nix
-    #../../secrets
+    # Include custom variables.
+    ../../modules/nixos/variables.nix
   ];
+
+  variables.username = "tafka";
+  variables.fullName = "Taavi Ansper";
 
 	# Change this value to point to a storage device where the root partition will live.
 	# eg. /dev/nvme0n1p2
