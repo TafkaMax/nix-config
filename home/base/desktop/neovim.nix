@@ -1,6 +1,6 @@
 { inputs, outputs, nixpkgs, osConfig, config, lib, pkgs, ... }: {
 
-  home-manager.users.${osConfig.variables.username}.programs.neovim = {
+  programs.neovim = {
 
     enable = true;
     coc.enable = true;
