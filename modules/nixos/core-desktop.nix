@@ -1,4 +1,4 @@
-{ lib, pkgs, ... }:
+{ lib, variables, pkgs, ... }:
 
 {
   imports = [
@@ -41,7 +41,7 @@
 
   # DO NOT promote current-user to input password for `nix-store` and `nix-copy-closure`
   security.sudo.extraRules = [
-    { users = [ "tafka" ];
+    { users = [ "${variables.username}" ];
       commands = [
         { command = "/run/current-system/sw/bin/nix-store" ;
           options = [ "NOPASSWD" ];
@@ -152,8 +152,6 @@
 
     udev.packages = with pkgs; [
       gnome.gnome-settings-daemon
-      platformio # udev rules for platformio
-      android-udev-rules
       yubikey-personalization
     ];
   };

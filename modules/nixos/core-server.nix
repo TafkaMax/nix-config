@@ -1,4 +1,4 @@
-{ lib, pkgs, ... }:
+{ lib, variables, pkgs, ... }:
 
 {
 
@@ -7,7 +7,7 @@
   nix = {
     settings = {
       sandbox = true;
-      trusted-users = [ "@wheel" "tafka" ];
+      trusted-users = [ "@wheel" "${variables.username}" ];
       allowed-users = [ "@wheel" ];
       # Manual optimise storage: nix-store --optimise
       # https://nixos.org/manual/nix/stable/command-ref/conf-file.html#conf-auto-optimise-store
