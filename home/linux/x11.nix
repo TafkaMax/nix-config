@@ -1,14 +1,10 @@
-{ config, variables, ... }:
+{ config, osConfig, ... }:
 
 {
 
   imports = [
-    # import variables.nix
-    #../../variables/variables.nix
-
     # import base configuration for desktops (can be non linux)
     ../base/desktop
-    
     # import linux specific base configuration
     ./base
     # import gnome specific configuration
@@ -20,9 +16,8 @@
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
   home = {
-    # TODO set username from variables.
-    username = "${variables.username}";
-    homeDirectory = "/home/tafka";
+    username = "${osConfig.variables.username}";
+    homeDirectory = "/home/${osConfig.variables.username}";
 
     # This value determines the Home Manager release that your
     # configuration is compatible with. This helps avoid breakage
