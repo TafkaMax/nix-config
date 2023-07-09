@@ -1,0 +1,7 @@
+---
+- name: Playbook for configuring NixOS on current system.
+  hosts: nixos
+  become: true
+  become_user: root
+  roles:
+    - nixos

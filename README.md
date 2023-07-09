@@ -1,34 +1,33 @@
-# NixOS
+# NixOS setup
 
-### How to clone this repo?
+## Inspiration
 
-```sh
-git clone --recursiv git@codeberg.org:snd/nixos_conf.git
-```
-### How to choose a device configuartion?
-- add following line to ```/etc/nixos/configuration.nix```
-```nix
-# example
-{ config, pkgs, ... }:
-{
-  imports = [ /home/snd/.nix-dots/machines/thinkpad_e480/setup.nix ];
-}
-```
+1. https://mudrii.medium.com/nixos-native-flake-deployment-with-luks-drive-encryption-and-lvm-b7f3738b71ca
+2. https://github.com/NixOS/nixos-hardware
+3. https://github.com/ryan4yin/nix-config
+4. https://nixos-and-flakes.thiscute.world/
 
-### How to pull the latest commit of submodules?
+## Setup
 
-1. Update submodule
-- has to be done one every device after the update has been commited and pulled
-```sh
-git submodule update --recursive --remote
-```
-2. Commit 
-```sh
-git commit nixos_secrets -m "pulled latest secrets"
-```
+## First Install
 
-### I Screwed up and pushed/commited something in clear-text (method is not recommended)
+For your first install / inital setup, please refer to [README-first-time-install.md](README-first-time-install.md)
 
-```sh
-git filter-repo --invert-paths --path <path to the file or directory>
-```
+## Workflow
+
+### Usage
+
+- Updating lock file.
+  - `sudo nix flake update /etc/nixos`
+- Update system
+  - `sudo nixos-rebuild switch --flake /etc/nixos/flake.nix#nixos_custom
+
+### Structure
+
+1. `flake.nix`
+   1. your-computer-hostname in `flake.nix` will import your computer setup.
+2. `hosts/your-computer-hostname` folder will contain
+   1. `default.nix`
+      1. Will import specific things for your setup.
+   2. `hardware-configuration.nix`
+      1. Hardware configuration for your specific setup.
