@@ -11,16 +11,12 @@
   #
   #############################################################
 
-  imports = [
-    ./neovim.nix
-  ];
-
   home.packages = with pkgs; [
     nil.packages."${pkgs.system}".default # nix language server
     agenix.packages."${pkgs.system}".default # agenix secret manager
-    # cloud native
+
+    # docker
     docker-compose
-    eksctl
 
     # DO NOT install build tools for C/C++, set it per project by devShell instead
     gnumake # used by this repo, to simplify the deployment
@@ -31,10 +27,7 @@
 
     # python
     (python310.withPackages (ps: with ps; [
-      ipython
       requests
-      pyquery
-      pyyaml
     ]))
 
     # db related

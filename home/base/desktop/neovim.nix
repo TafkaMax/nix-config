@@ -6,21 +6,11 @@
     coc.enable = true;
     coc.settings = {
       "languageserver" = {
-        #go = {
-        #  command = "gopls";
-        #  rootPatterns = [ "go.mod" ];
-        #  trace.server = "verbose";
-        #  filetypes = [ "go" ];
-        #};
         nix = {
           command = "nil";
           filetypes = [ "nix" ];
           rootPatterns = [ "flake.nix" ];
         };
-        #bqn = {
-        #  command = "bqnlsp";
-        #  filetypes = [ "bqn" ];
-        #};
       };
     };
     defaultEditor = true;
@@ -57,51 +47,35 @@
         show_current_context = true,
         show_current_context_start = true,
       }
-      vim.cmd('colorscheme base16-ia-dark')
       require'nvim-treesitter.configs'.setup {
         highlight = {
           enable = true,
-          disable = { "rust", "nix" },
+          disable = { "nix" },
         }
       }
-      require('crates').setup()
     '';
     extraPackages = with pkgs; [
-      #cbqn # bqnlsp assumes cbqn in path
-      #gopls
       nil
       nixpkgs-fmt
-      #nodePackages.js-beautify
-      #rustfmt
-      #yamlfmt
-    ] ++ [
-      #inputs.bqnlsp.packages.${pkgs.system}.lsp
+      nodePackages.js-beautify
+      yamlfmt
     ];
     plugins = with pkgs.vimPlugins; [
       (nvim-treesitter.withPlugins (_: pkgs.tree-sitter.allGrammars))
       coc-html
-      #coc-rust-analyzer
       coc-tsserver
       coc-yaml
-      #coq_nvim
-      #crates-nvim
-      #editorconfig-vim
-      #gitsigns-nvim
-      #idris-vim
-      #indent-blankline-nvim
-      #limelight-vim # :LimeLight (also, consider :setlocal spell spelllang=en_us
+      coq_nvim
+      editorconfig-vim
+      gitsigns-nvim
+      indent-blankline-nvim
+      limelight-vim # :LimeLight (also, consider :setlocal spell spelllang=en_us
       markdown-preview-nvim # :MarkdownPreview
       nerdtree
       nerdtree-git-plugin
-      #nvim-base16
-      #nvim-dap
-      #nvim-dap-ui
-      #vim-codefmt
-      #vim-devicons
-      #vim-fugitive
-    ] ++ [
-      #pkgs.nvim-bqn
-      #pkgs.bqn-vim
+      vim-codefmt
+      vim-devicons
+      vim-fugitive
     ];
     viAlias = true;
     vimAlias = true;
