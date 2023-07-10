@@ -1,0 +1,16 @@
+# dont allow vscode stuff
+.vscode
+# dont allow custom host_vars 
+# COMMENT THIS OUT IF YOU FORK THIS REPO
+ansible/host_vars/*
+# nixos stuff
+# We add all the nix configuration items to .gitignore, because they are automatically created by Ansible.
+# After ditching Ansible for variables. Remove these from gitignore.
+#flake.lock
+#configuration.nix
+#hardware-configuration.nix
+#flake.nix
+result
+result/
+# Keep empty host_vars directory
+!ansible/host_vars/.gitkeep

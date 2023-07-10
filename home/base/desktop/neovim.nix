@@ -61,20 +61,33 @@
       yamlfmt
     ];
     plugins = with pkgs.vimPlugins; [
+      # https://github.com/nvim-treesitter/nvim-treesitter
       (nvim-treesitter.withPlugins (_: pkgs.tree-sitter.allGrammars))
+      # Make your Vim/Neovim as smart as VS Code - https://github.com/neoclide/coc.nvim
       coc-html
       coc-tsserver
       coc-yaml
+      # Faster buffers for coc. https://github.com/ms-jpq/coq_nvim
       coq_nvim
+      # Editorconfig - https://github.com/editorconfig/editorconfig-vim
       editorconfig-vim
+      # Super fast git decorations implemented purely in Lua. - https://github.com/lewis6991/gitsigns.nvim
       gitsigns-nvim
+      # This plugin adds indentation guides to all lines (including empty lines). - https://github.com/lukas-reineke/indent-blankline.nvim
       indent-blankline-nvim
+      # Hyperfocus-writing in Vim. - https://github.com/junegunn/limelight.vim
       limelight-vim # :LimeLight (also, consider :setlocal spell spelllang=en_us
+      # Markdown preview - https://github.com/iamcco/markdown-preview.nvim
       markdown-preview-nvim # :MarkdownPreview
+      # file system explorer for vim - https://github.com/preservim/nerdtree
       nerdtree
+      # NB! ARCHIVED Shows Git status flags for files and folders in NERDTree. - https://github.com/Xuyuanp/nerdtree-git-plugin
       nerdtree-git-plugin
+      #built-in formatters and allows new formatters to be registered by other plugins - https://github.com/google/vim-codefmt
       vim-codefmt
+      #Adds filetype-specific icons to NERDTree files and folders, - https://github.com/ryanoasis/vim-devicons
       vim-devicons
+      #git powertools - https://github.com/tpope/vim-fugitive
       vim-fugitive
     ];
     viAlias = true;
