@@ -21,6 +21,11 @@
       set noswapfile
       set relativenumber
       set wrap linebreak
+      :let mapleader = " "
+
+      let g:airline_theme='palenight'
+      set background=dark
+      colorscheme palenight
 
       nnoremap <C-f> :NERDTreeFind<CR>
       nnoremap <C-n> :NERDTree<CR>
@@ -28,16 +33,19 @@
       nnoremap <leader>n :NERDTreeFocus<CR>
       let NERDTreeShowHidden=1
 
+      nmap <Leader>m :MarkdownPreview<CR>
+      nmap <Leader>t :MarkdownPreviewToggle<CR>
+      nmap <Leader>s :MarkdownPreviewStop<CR>
+
       autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
       autocmd VimEnter * NERDTree | wincmd p
 
-      au BufRead,BufNewFile *.bqn setf bqn
-      au BufRead,BufNewFile * if getline(1) =~ '^#!.*bqn$' | setf bqn | endif
+      "Make template just plain text type
+      au BufRead,BufNewFile *.template set filetype=text
 
       augroup autoformat_settings
         autocmd FileType html,css,sass,scss,less,json,js AutoFormatBuffer js-beautify
         autocmd FileType nix AutoFormatBuffer nixpkgs-fmt
-        autocmd FileType rust AutoFormatBuffer rustfmt
         autocmd Filetype yaml AutoFormatBuffer yamlfmt
       augroup END
     '';
@@ -89,6 +97,12 @@
       vim-devicons
       #git powertools - https://github.com/tpope/vim-fugitive
       vim-fugitive
+      #Lean & mean status/tabline for vim that's light as air. - https://github.com/vim-airline/vim-airline
+      vim-airline
+      # Airline themes
+      vim-airline-themes
+      # General theme
+      palenight-vim
     ];
     viAlias = true;
     vimAlias = true;
