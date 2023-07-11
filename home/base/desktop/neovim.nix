@@ -1,5 +1,7 @@
 { inputs, outputs, nixpkgs, osConfig, config, lib, pkgs, ... }: {
 
+  #https://nixos.wiki/wiki/Vim
+
   programs.neovim = {
 
     enable = true;
@@ -21,6 +23,19 @@
       set noswapfile
       set relativenumber
       set wrap linebreak
+
+      " Give more space for displaying messages.
+      set cmdheight=3
+
+      " Smart way to move between windows
+      map <C-j> <C-W>j
+      map <C-k> <C-W>k
+      map <C-h> <C-W>h
+      map <C-l> <C-W>l
+
+
+      " Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable delays and poor user experience.
+      set updatetime=300
       :let mapleader = " "
 
       if (has("nvim"))
@@ -42,21 +57,102 @@
       let g:palenight_terminal_italics=1
 
 
+      " NerdTree configuration.
       nnoremap <C-f> :NERDTreeFind<CR>
       nnoremap <C-n> :NERDTree<CR>
       nnoremap <C-t> :NERDTreeToggle<CR>
       nnoremap <leader>n :NERDTreeFocus<CR>
+      autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
+      autocmd VimEnter * NERDTree | wincmd p
       let NERDTreeShowHidden=1
 
+      " MarkdownPreview configuration.
       nmap <Leader>m :MarkdownPreview<CR>
       nmap <Leader>t :MarkdownPreviewToggle<CR>
       nmap <Leader>s :MarkdownPreviewStop<CR>
 
-      autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
-      autocmd VimEnter * NERDTree | wincmd p
-
       "Make template just plain text type
       au BufRead,BufNewFile *.template set filetype=text
+
+      " Typescript configuration.
+      " Setfiletype as typescript
+      au BufNewFile,BufRead *.ts setlocal filetype=typescript
+      "set filestypes as typescriptreact
+      au BufNewFile,BufRead *.tsx,*.jsx setlocal filetype=typescriptreact
+
+      " Use K to show documentation in preview window.
+      nnoremap <silent> K :call ShowDocumentation()<CR>
+
+      function! ShowDocumentation()
+        if CocAction('hasProvider', 'hover')
+          call CocActionAsync('doHover')
+        else
+          call feedkeys('K', 'in')
+        endif
+      endfunction
+
+
+      " Highlight the symbol and its references when holding the cursor.
+      autocmd CursorHold * silent call CocActionAsync('highlight')
+
+      " Remap <C-f> and <C-b> for scroll float windows/popups.
+      if has('nvim-0.4.0') || has('patch-8.2.0750')
+        nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+        nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+        inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+        inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+        vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+        vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+      endif
+
+      " Use tab for trigger completion with characters ahead and navigate.
+      " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+      " other plugin before putting this into your config.
+      "inoremap <silent><expr> <TAB>
+      "      \ pumvisible() ? "\<C-n>" :
+      "      \ <SID>check_back_space() ? "\<TAB>" :
+      "      \ coc#refresh()
+      "inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+      inoremap <silent><expr> <TAB>
+            \ coc#pum#visible() ? coc#pum#next(1) :
+            \ CheckBackspace() ? "\<Tab>" :
+            \ coc#refresh()
+      inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+
+      function! CheckBackspace() abort
+        let col = col('.') - 1
+        return !col || getline('.')[col - 1]  =~# '\s'
+      endfunction
+
+      " Add `:Format` command to format current buffer.
+      command! -nargs=0 Format :call CocActionAsync('format')
+
+      " Add `:Fold` command to fold current buffer.
+      command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+
+      " Add `:OR` command for organize imports of the current buffer.
+      command! -nargs=0 OR   :call     CocActionAsync('runCommand', 'editor.action.organizeImport')
+
+      " Mappings for CocList
+      " CocList command all expect a 'c' button after 'leader'
+      " Show all diagnostics.
+      noremap <silent><nowait><leader>cd :<C-u>CocList diagnostics<cr>
+      " Manage extensions.
+      nnoremap <silent><nowait><leader>ce  :<C-u>CocList extensions<cr>
+      " Show commands.
+      nnoremap <silent><nowait><leader>cc  :<C-u>CocList commands<cr>
+      " Find symbol of current document.
+      nnoremap <silent><nowait><leader>co  :<C-u>CocList outline<cr>
+      " Search workspace symbols.
+      nnoremap <silent><nowait><leader>cs  :<C-u>CocList -I symbols<cr>
+      " Do default action for next item.
+      nnoremap <silent><nowait><leader>cn  :<C-u>CocNext<CR>
+      " Do default action for previous item.
+      nnoremap <silent><nowait><leader>cp  :<C-u>CocPrev<CR>
+      " Resume latest coc list.
+      nnoremap <silent><nowait><leader>cr  :<C-u>CocListResume<CR>
+
 
       augroup autoformat_settings
         autocmd FileType html,css,sass,scss,less,json,js AutoFormatBuffer js-beautify
@@ -90,6 +186,15 @@
       coc-html
       coc-tsserver
       coc-yaml
+      coc-emmet
+      coc-css
+      coc-json
+      coc-pyright
+      coc-eslint
+      coc-yank
+      coc-git
+      typescript-vim
+      vim-jsx-typescript
       # Faster buffers for coc. https://github.com/ms-jpq/coq_nvim
       coq_nvim
       # Editorconfig - https://github.com/editorconfig/editorconfig-vim
