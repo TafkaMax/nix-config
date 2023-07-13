@@ -4,15 +4,15 @@
   gtk = {
     enable = true;
     iconTheme = {
-      name = "Tela-Circle";
+      name = "Tela-circle";
       package = pkgs.tela-circle-icon-theme;
     };
     cursorTheme = {
-      name = "Capitaine-Cursors";
+      name = "Capitaine Cursors";
       package = pkgs.capitaine-cursors-themed;
     };
     theme = {
-      name = "orchis";
+      name = "Orchis";
       package = pkgs.orchis-theme;
     };
     gtk3.extraConfig = {
@@ -26,7 +26,7 @@
       '';
     };
   };
-  home.sessionVariables.GTK_THEME = "orchis";
+  home.sessionVariables.GTK_THEME = "Orchis";
   dconf.settings = {
     "org/gnome/shell" = {
       disable-user-extensions = false;
@@ -44,7 +44,7 @@
       color-scheme = "prefer-light";
     };
     "org/gnome/shell/extensions/user-theme" = {
-      name = "orchis";
+      name = "Orchis";
     };
   };
 
