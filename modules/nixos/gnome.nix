@@ -1,6 +1,7 @@
 { pkgs, ... }:
 
 {
+  # Enable gdm and gnome.
   services = {
     xserver = {
       enable = true;
@@ -14,4 +15,9 @@
       libinput.enable = true;
     };
   };
+  # Add gnome-tweaks.
+  environment.systemPackages = with pkgs; [
+    gnome.gnome-tweaks
+    gnomeExtensions.user-themes
+  ];
 }
