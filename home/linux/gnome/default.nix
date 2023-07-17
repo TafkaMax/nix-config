@@ -34,7 +34,7 @@
       ];
       favorite-apps = [
         "firefox.desktop"
-        "spotify.desktop"
+        "obsidian.desktop"
         "org.gnome.Console.desktop"
         "org.gnome.Nautilus.desktop"
       ];
