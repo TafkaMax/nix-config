@@ -8,28 +8,28 @@
   # TODO move nonencrypted disks to core-server.nix
   # for desktops always use encrypted disk
   boot = {
-	  loader = {
-  		efi.canTouchEfiVariables = true;
-		  systemd-boot.enable = false;
-  		grub = {
-  		  useOSProber = true;
-  		  enable = true;
-  		  efiSupport = true;
-  		  enableCryptodisk = true;
-  		  device = "nodev";
+    loader = {
+      efi.canTouchEfiVariables = true;
+      systemd-boot.enable = false;
+      grub = {
+        useOSProber = true;
+        enable = true;
+        efiSupport = true;
+        enableCryptodisk = true;
+        device = "nodev";
         # for nix server, we do not need to keep too much generations
         configurationLimit = 10;
-  		};
-	  };
-  	initrd = {
-		  availableKernelModules = [
-			  "cryptd"
-		  ];
-		  luks.devices = {
-    	  crypt = {
-      		preLVM = true;
-    	  };
-		  };
+      };
+    };
+    initrd = {
+      availableKernelModules = [
+        "cryptd"
+      ];
+      luks.devices = {
+        crypt = {
+          preLVM = true;
+        };
+      };
     };
   };
 
@@ -41,19 +41,22 @@
 
   # DO NOT promote current-user to input password for `nix-store` and `nix-copy-closure`
   security.sudo.extraRules = [
-    { users = [ "${variables.username}" ];
+    {
+      users = [ "${variables.username}" ];
       commands = [
-        { command = "/run/current-system/sw/bin/nix-store" ;
+        {
+          command = "/run/current-system/sw/bin/nix-store";
           options = [ "NOPASSWD" ];
         }
-        { command = "/run/current-system/sw/bin/nix-copy-closure" ;
+        {
+          command = "/run/current-system/sw/bin/nix-copy-closure";
           options = [ "NOPASSWD" ];
         }
       ];
     }
   ];
 
-  
+
   fonts = {
     fontDir.enable = true;
 
@@ -78,7 +81,7 @@
   programs.dconf.enable = true;
 
   # The OpenSSH agent remembers private keys for you
-  # so that you don’t have to type in passphrases every time you make an SSH connection. 
+  # so that you don’t have to type in passphrases every time you make an SSH connection.
   # Use `ssh-add` to add a key to the agent.
   programs.ssh.startAgent = true;
 
@@ -96,7 +99,7 @@
 
   # PipeWire is a new low-level multimedia framework.
   # It aims to offer capture and playback for both audio and video with minimal latency.
-  # It support for PulseAudio-, JACK-, ALSA- and GStreamer-based applications. 
+  # It support for PulseAudio-, JACK-, ALSA- and GStreamer-based applications.
   # PipeWire has a great bluetooth support, it can be a good alternative to PulseAudio.
   #     https://nixos.wiki/wiki/PipeWire
   services.pipewire = {

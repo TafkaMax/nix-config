@@ -2,10 +2,10 @@
   description = "NixOS configuration.";
 
   ##################################################################################################################
-  # 
+  #
   # Want to know Nix in details? Looking for a beginner-friendly tutorial?
   # Check out [NixOS & Nix Flakes - A Guide for Beginners](https://thiscute.world/en/posts/nixos-and-flake-basics/)!
-  # 
+  #
   ##################################################################################################################
 
   # the nixConfig here only affects the flake itself, not the system configuration!
@@ -72,13 +72,13 @@
     # nix language server, used by vscode & neovim
     nil.url = "github:oxalica/nil/2023-05-09";
 
-		# nixos-hardware support https://github.com/NixOS/nixos-hardware
-		nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+    # nixos-hardware support https://github.com/NixOS/nixos-hardware
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
   };
 
-  # The `outputs` function will return all the build results of the flake. 
+  # The `outputs` function will return all the build results of the flake.
   # A flake can have many use cases and different types of outputs,
-  # parameters in `outputs` are defined in `inputs` and can be referenced by their names. 
+  # parameters in `outputs` are defined in `inputs` and can be referenced by their names.
   # However, `self` is an exception, this special parameter points to the `outputs` itself (self-reference)
   # The `@` syntax here is used to alias the attribute set of the inputs's parameter, making it convenient to use inside the function.
   outputs =
@@ -86,12 +86,12 @@
     , nixpkgs
     , home-manager
     , nixos-generators
-		, nixos-hardware
+    , nixos-hardware
     , agenix
     , secrets
     , ...
-    }:  
-    
+    }:
+
     let
       x64_system = "x86_64-linux";
       x64_specialArgs = {
@@ -108,7 +108,7 @@
 
         # add your model from this list: https://github.com/NixOS/nixos-hardware/blob/master/flake.nix
         nixos-hardware.nixosModules.lenovo-thinkpad-e495
-        
+
         # Import non-flake config from secrets private-repository.
         (import secrets)
 
@@ -126,7 +126,8 @@
           home-manager.users.tafka.imports = [ ./home/linux/x11.nix ];
         }
       ];
-    in {
+    in
+    {
       nixosConfigurations = let system = x64_system; specialArgs = x64_specialArgs; in {
         tafka-e495 = nixpkgs.lib.nixosSystem {
           inherit system specialArgs;
@@ -138,15 +139,15 @@
         x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixpkgs-fmt;
       };
 
-      packages.x86_64-linux = 
+      packages.x86_64-linux =
         #   https://github.com/nix-community/nixos-generators
-        let system = x64_system; specialArgs = x64_specialArgs; in  {
-        # Tafka E495 is a physical machine, so we need to generate an iso image for it.
-        tafka-e495 = nixos-generators.nixosGenerate {
-          inherit system specialArgs;
-          modules = tafka_e495_modules;
-          format = "iso";
+        let system = x64_system; specialArgs = x64_specialArgs; in {
+          # Tafka E495 is a physical machine, so we need to generate an iso image for it.
+          tafka-e495 = nixos-generators.nixosGenerate {
+            inherit system specialArgs;
+            modules = tafka_e495_modules;
+            format = "iso";
+          };
         };
-      };
     };
 }

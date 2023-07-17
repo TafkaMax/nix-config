@@ -8,25 +8,27 @@
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
     ../../modules/nixos/core-desktop.nix
-		../../modules/nixos/gnome.nix
+    ../../modules/nixos/gnome.nix
     ../../modules/nixos/user-group.nix
   ];
 
+  #import overlays
+  nixpkgs.overlays = import ../../overlays args;
 
-	# Change this value to point to a storage device where the root partition will live.
-	# eg. /dev/nvme0n1p2
-	boot.initrd.luks.devices.crypt.device = "/dev/nvme0n1p2";
-  
+  # Change this value to point to a storage device where the root partition will live.
+  # eg. /dev/nvme0n1p2
+  boot.initrd.luks.devices.crypt.device = "/dev/nvme0n1p2";
+
   networking = {
     hostName = "tafka-e495";
     networkmanager.enable = true;
     interfaces = {
-    	enp2s0 = {
-     		useDHCP = true;
-     	};
-     	wlp4s0 = {
-     		useDHCP = true;
-     	};
+      enp2s0 = {
+        useDHCP = true;
+      };
+      wlp4s0 = {
+        useDHCP = true;
+      };
     };
   };
 
@@ -40,5 +42,3 @@
   system.stateVersion = "23.05"; # Did you read the comment?
 
 }
-
-

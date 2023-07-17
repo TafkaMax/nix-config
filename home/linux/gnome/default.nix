@@ -4,16 +4,16 @@
   gtk = {
     enable = true;
     iconTheme = {
-      name = "Tela-circle";
-      package = pkgs.tela-circle-icon-theme;
+      name = "Fluent";
+      package = pkgs.fluent-icon-theme;
     };
     cursorTheme = {
       name = "Capitaine Cursors";
       package = pkgs.capitaine-cursors-themed;
     };
     theme = {
-      name = "Orchis";
-      package = pkgs.orchis-theme;
+      name = "Fluent";
+      package = pkgs.fluent-gtk-theme;
     };
     gtk3.extraConfig = {
       Settings = ''
@@ -26,7 +26,6 @@
       '';
     };
   };
-  home.sessionVariables.GTK_THEME = "Orchis";
   dconf.settings = {
     "org/gnome/shell" = {
       disable-user-extensions = false;
@@ -36,7 +35,7 @@
       favorite-apps = [
         "firefox.desktop"
         "spotify.desktop"
-        "org.gnome.Terminal.desktop"
+        "org.gnome.Console.desktop"
         "org.gnome.Nautilus.desktop"
       ];
     };
@@ -44,12 +43,18 @@
       color-scheme = "prefer-light";
     };
     "org/gnome/shell/extensions/user-theme" = {
-      name = "Orchis";
+      name = "Fluent";
+    };
+    "org/gnome/desktop/background" = {
+      color-shading-type = "solid";
+      picture-options = "zoom";
+      picture-uri = "file:///etc/nixos/home/linux/gnome/wallpaper.jpg";
     };
   };
 
   home.packages = with pkgs; [
     gnomeExtensions.user-themes
-    gnomeExtensions.sound-output-device-chooser
+    # Sound output not supported yet.
+    #gnomeExtensions.sound-output-device-chooser
   ];
 }
