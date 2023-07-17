@@ -24,21 +24,11 @@
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
     # Flake utils.
-    flake-utils.url = github:numtide/flake-utils;
-
-    # TODO: Wait for internal submodules
-    # see: NixOS/nix/issues/5497
-    # You can set this to sensitive manually with /path?cache-bush=0 but cache
-    # invalidation is hard. Just increment/decrement around or run the fish
-    # command `unlock`, which will scrub flake.lock
-    # Alternatively pointing to spoof and overriding the flake seems to work
-    # best.
-    #sensitive.url = "path:./spoof";
-    #sensitive.inputs.nixpkgs.follows = "nixpkgs";
+    flake-utils.url = "github:numtide/flake-utils";
 
     # Common Grub2 themes
     grub2-themes = {
-      url = github:vinceliuice/grub2-themes;
+      url = "github:vinceliuice/grub2-themes";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

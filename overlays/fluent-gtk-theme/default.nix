@@ -1,4 +1,9 @@
 { ... }:
 (self: super: {
-  fluent-gtk-theme = super.fluent-gtk-theme.override { tweaks = [ "round" ]; };
+  fluent-gtk-theme = super.fluent-gtk-theme.override {
+    tweaks = [
+      "round"
+      "blur"
+    ];
+  };
 })
