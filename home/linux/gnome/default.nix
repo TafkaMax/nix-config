@@ -50,6 +50,11 @@
       picture-options = "zoom";
       picture-uri = "file:///etc/nixos/home/linux/gnome/wallpaper.jpg";
     };
+    "org/gnome/desktop/screensaver" = {
+      color-shading-type = "solid";
+      picture-options = "zoom";
+      picture-uri = "file:///etc/nixos/home/linux/gnome/wallpaper.jpg";
+    };
   };
 
   home.packages = with pkgs; [
