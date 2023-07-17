@@ -50,6 +50,7 @@
       toolkit-accessibility = false;
       clock-show-weekday = true;
       gtk-theme = "Fluent-round-Light";
+      show-battery-percentage = true;
     };
     "org/gnome/shell/extensions/user-theme" = {
       name = "Fluent-round-Light";
@@ -75,6 +76,9 @@
       name = "Launch terminal";
       binding = "<Super>t";
       command = "kgx";
+    };
+    "org/gnome/mutter" = {
+      dynamic-workspaces = true;
     };
   };
 
