@@ -68,21 +68,14 @@
       tap-to-click = true;
       two-finger-scrolling-enabled = true;
     };
-    #"org/gnome/desktop/wm/keybindings" = {
-    #  activate-window-menu = "disabled";
-    #  toggle-message-tray = "disabled";
-    #  close = [ "<Super>q" ];
-    #  maximize = "disabled";
-    #  minimize = [ "<Super>comma" ];
-    #  move-to-monitor-down = "disabled";
-    #  move-to-monitor-left = "disabled";
-    #  move-to-monitor-right = "disabled";
-    #  move-to-monitor-up = "disabled";
-    #  move-to-workspace-down = "disabled";
-    #  move-to-workspace-up = "disabled";
-    #  toggle-maximized = [ "<Super>m" ];
-    #  unmaximize = "disabled";
-    #};
+    "org/gnome/settings-daemon/plugins/media-keys" = {
+      custom-keybindings = [ "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/" ];
+    };
+    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
+      name = "Launch terminal";
+      binding = "<Super>t";
+      command = "kgx";
+    };
   };
 
   home.packages = with pkgs; [

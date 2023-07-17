@@ -1,6 +1,6 @@
 # dont allow vscode stuff
 .vscode
-# dont allow custom host_vars 
+# dont allow custom host_vars
 # COMMENT THIS OUT IF YOU FORK THIS REPO
 ansible/host_vars/*
 # nixos stuff
