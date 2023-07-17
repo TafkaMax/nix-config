@@ -64,6 +64,10 @@
       picture-options = "zoom";
       picture-uri = "file:///etc/nixos/home/linux/gnome/wallpaper.jpg";
     };
+    "org/gnome/desktop/peripherals/touchpad" = {
+      tap-to-click = true;
+      two-finger-scrolling-enabled = true;
+    };
     #"org/gnome/desktop/wm/keybindings" = {
     #  activate-window-menu = "disabled";
     #  toggle-message-tray = "disabled";
