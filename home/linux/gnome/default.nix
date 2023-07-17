@@ -31,6 +31,9 @@
       disable-user-extensions = false;
       enabled-extensions = [
         "user-theme@gnome-shell-extensions.gcampax.github.com"
+        "places-menu@gnome-shell-extensions.gcampax.github.com"
+        "apps-menu@gnome-shell-extensions.gcampax.github.com"
+        "drive-menu@gnome-shell-extensions.gcampax.github.com"
       ];
       favorite-apps = [
         "firefox.desktop"
@@ -61,5 +64,6 @@
     gnomeExtensions.user-themes
     # Sound output not supported yet.
     #gnomeExtensions.sound-output-device-chooser
+    gnomeExtensions.places-status-indicator
   ];
 }
