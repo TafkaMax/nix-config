@@ -1,5 +1,7 @@
-{ pkgs, ... }:
-
+{ pkgs, lib, ... }:
+let
+  mkTuple = lib.hm.gvariant.mkTuple;
+in
 {
   gtk = {
     enable = true;
@@ -39,10 +41,11 @@
       ];
       favorite-apps = [
         "firefox.desktop"
-        "obsidian.desktop"
         "org.gnome.Console.desktop"
-        "org.gnome.Nautilus.desktop"
         "org.remmina.Remmina.desktop"
+        "obsidian.desktop"
+        "spotify.desktop"
+        "org.gnome.Nautilus.desktop"
       ];
     };
     "org/gnome/desktop/interface" = {
@@ -79,6 +82,11 @@
     };
     "org/gnome/mutter" = {
       dynamic-workspaces = true;
+    };
+    "org/gnome/desktop/input-sources" = {
+      sources = [ (mkTuple [ "xkb" "us" ]) (mkTuple [ "xkb" "ee" ]) ];
+      xkb-options = [ "terminate:ctrl_alt_bksp" ];
+      show-all-sources = true;
     };
   };
 
