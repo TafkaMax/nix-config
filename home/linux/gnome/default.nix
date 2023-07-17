@@ -8,11 +8,11 @@
       package = pkgs.fluent-icon-theme;
     };
     cursorTheme = {
-      name = "Capitaine Cursors";
+      name = "Capitaine Cursors - White";
       package = pkgs.capitaine-cursors-themed;
     };
     theme = {
-      name = "Fluent";
+      name = "Fluent-round-Light";
       package = pkgs.fluent-gtk-theme;
     };
     gtk3.extraConfig = {
@@ -43,7 +43,7 @@
       color-scheme = "prefer-light";
     };
     "org/gnome/shell/extensions/user-theme" = {
-      name = "Fluent";
+      name = "Fluent-round-Light";
     };
     "org/gnome/desktop/background" = {
       color-shading-type = "solid";
