@@ -64,6 +64,9 @@
 
     # nixos-hardware support https://github.com/NixOS/nixos-hardware
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+
+    # NUR (Nix User Repository)
+    nur.url = "github:nix-community/NUR";
   };
 
   # The `outputs` function will return all the build results of the flake.
@@ -79,6 +82,7 @@
     , nixos-hardware
     , agenix
     , secrets
+    , nur
     , ...
     }:
 

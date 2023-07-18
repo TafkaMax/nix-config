@@ -3,6 +3,7 @@
   imports = [
     ./creative.nix
     ./media.nix
+    ./firefox.nix
   ];
 
   home.packages = with pkgs; [
