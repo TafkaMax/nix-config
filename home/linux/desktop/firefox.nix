@@ -1,4 +1,4 @@
-{ nur, ... }:
+{ config, ... }:
 {
   programs.firefox = {
     enable = true;
@@ -10,7 +10,7 @@
         "browser.startup.homepage" = "about:blank";
         "browser.urlbar.placeholderName" = "Google";
       };
-      extensions = with nur.repos.rycee.firefox-addons; [
+      extensions = with config.nur.repos.rycee.firefox-addons; [
         ublock-origin
       ];
     };
