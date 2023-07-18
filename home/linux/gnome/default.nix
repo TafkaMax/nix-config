@@ -41,7 +41,9 @@ in
       ];
       favorite-apps = [
         "firefox.desktop"
-        "org.gnome.Console.desktop"
+        "kitty.desktop"
+        # Remove built-in console from favourites
+        #"org.gnome.Console.desktop"
         "org.remmina.Remmina.desktop"
         "obsidian.desktop"
         "spotify.desktop"
@@ -78,7 +80,7 @@ in
     "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
       name = "Launch terminal";
       binding = "<Super>t";
-      command = "kgx";
+      command = "kitty";
     };
     "org/gnome/mutter" = {
       dynamic-workspaces = true;
