@@ -10,7 +10,7 @@
   boot = {
     loader = {
       efi.canTouchEfiVariables = true;
-      systemd-boot.enable = true;
+      systemd-boot.enable = false;
       grub = {
         useOSProber = true;
         enable = true;
