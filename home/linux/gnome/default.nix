@@ -108,5 +108,6 @@ in
     gnomeExtensions.no-overview
     gnomeExtensions.removable-drive-menu
     gnomeExtensions.workspace-indicator
+    gnomeExtensions.appindicator
   ];
 }
