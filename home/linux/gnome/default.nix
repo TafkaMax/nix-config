@@ -109,5 +109,7 @@ in
     gnomeExtensions.removable-drive-menu
     gnomeExtensions.workspace-indicator
     gnomeExtensions.appindicator
+    gnomeExtensions.pano
+    gnomeExtensions.top-panel-workspace-scroll
   ];
 }
