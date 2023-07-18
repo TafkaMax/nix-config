@@ -67,6 +67,14 @@ in
       clock-show-weekday = true;
       gtk-theme = "Fluent-round-Light";
       show-battery-percentage = true;
+      font-name = "Noto Sans 11";
+      monospace-font-name = "JetBrainsMono Nerd Font 10";
+      document-font-name = "Noto Sans 11";
+      font-hinting = "slight";
+      font-antialiasing = "grayscale";
+    };
+    "org/gnome/desktop/wm/preferences" = {
+      titlebar-font = "Noto Sans 11";
     };
     "org/gnome/shell/extensions/user-theme" = {
       name = "Fluent-round-Light";
