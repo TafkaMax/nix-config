@@ -10,7 +10,7 @@
   boot = {
     loader = {
       efi.canTouchEfiVariables = true;
-      systemd-boot.enable = false;
+      systemd-boot.enable = true;
       grub = {
         useOSProber = true;
         enable = true;
@@ -68,6 +68,7 @@
       noto-fonts
 
       # nerdfonts
+      # Install only specific fonts.
       (nerdfonts.override {
         fonts = [
           "JetBrainsMono"
@@ -75,6 +76,7 @@
       })
     ];
 
+    # TODO make fonts a 'variable'.
     fontconfig.defaultFonts = {
       serif = [ "Noto Serif" "Noto Color Emoji" ];
       sansSerif = [ "Noto Sans" "Noto Color Emoji" ];
@@ -84,7 +86,7 @@
 
   };
 
-  # dconf is a low-level configuration system.
+  # dconf is a low-level configuration system, which is good for gnome/gtk settings.
   programs.dconf.enable = true;
 
   # The OpenSSH agent remembers private keys for you
@@ -161,7 +163,6 @@
     geoclue2.enable = true;
 
     udev.packages = with pkgs; [
-      gnome.gnome-settings-daemon
       yubikey-personalization
     ];
   };

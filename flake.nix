@@ -121,7 +121,7 @@
           # Merge together extra args.
           home-manager.extraSpecialArgs = x64_specialArgs;
           home-manager.users.tafka.imports = [
-            ./home/linux/x11.nix
+            ./home/linux/wayland.nix
             nur.hmModules.nur
           ];
         }

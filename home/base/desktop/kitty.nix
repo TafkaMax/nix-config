@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 
 ###########################################################
 #
@@ -27,4 +27,7 @@
       enable_audio_bell = false;
     };
   };
+
+  # Remove gnome-console if using kitty
+  gnome.excludePackages = [ pkgs.gnome-console ];
 }
