@@ -15,4 +15,8 @@
       ];
     };
   };
+  systemd.user.sessionVariables = {
+    "MOZ_ENABLE_WAYLAND" = "1";
+    "MOZ_WEBRENDER" = "1";
+  };
 }
