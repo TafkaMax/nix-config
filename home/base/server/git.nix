@@ -1,6 +1,6 @@
 { config
 , lib
-, variables
+, osConfig
 , pkgs
 , ...
 }: {
@@ -16,8 +16,8 @@
     enable = true;
     lfs.enable = true;
 
-    userName = "Taavi Ansper";
-    userEmail = "taaviansperr@gmail.com";
+    userName = "${osConfig.variables.fullName}";
+    userEmail = "${osConfig.variables.email}";
 
 
     extraConfig = {
