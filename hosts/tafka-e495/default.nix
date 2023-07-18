@@ -10,6 +10,7 @@
     ../../modules/nixos/core-desktop.nix
     ../../modules/nixos/gnome.nix
     ../../modules/nixos/user-group.nix
+    ../../modules/nixos/terminal.nix
   ];
 
   #import overlays
