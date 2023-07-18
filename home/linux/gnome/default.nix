@@ -14,7 +14,7 @@ in
       package = pkgs.capitaine-cursors-themed;
     };
     theme = {
-      name = "Fluent-round-Light";
+      name = "Fluent-round";
       package = pkgs.fluent-gtk-theme;
     };
     gtk3.extraConfig = {
@@ -65,7 +65,7 @@ in
       color-scheme = "prefer-light";
       toolkit-accessibility = false;
       clock-show-weekday = true;
-      gtk-theme = "Fluent-round-Light";
+      gtk-theme = "Fluent-round";
       show-battery-percentage = true;
       font-name = "Noto Sans 11";
       monospace-font-name = "JetBrainsMono Nerd Font 10";
@@ -77,7 +77,7 @@ in
       titlebar-font = "Noto Sans 11";
     };
     "org/gnome/shell/extensions/user-theme" = {
-      name = "Fluent-round-Light";
+      name = "Fluent-round";
     };
     "org/gnome/desktop/background" = {
       color-shading-type = "solid";
