@@ -109,6 +109,9 @@
         # add agenix
         agenix.nixosModules.default
 
+        # add nur modules
+        nur.nixosModules.nur
+
         # add home manager
         home-manager.nixosModules.home-manager
         {
@@ -117,7 +120,10 @@
 
           # Merge together extra args.
           home-manager.extraSpecialArgs = x64_specialArgs;
-          home-manager.users.tafka.imports = [ ./home/linux/x11.nix ];
+          home-manager.users.tafka.imports = [
+            ./home/linux/x11.nix
+            nur.hmModules.nur
+          ];
         }
       ];
     in
