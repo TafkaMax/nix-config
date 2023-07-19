@@ -126,12 +126,47 @@
           ];
         }
       ];
+      # Tansper 3106
+      tansper_3106_modules = [
+        ./hosts/tansper-3106
+
+        # add your model from this list: https://github.com/NixOS/nixos-hardware/blob/master/flake.nix
+        nixos-hardware.nixosModules.common-cpu-intel
+        nixos-hardware.nixosModules.common-gpu-amd
+
+        # Import non-flake config from secrets private-repository.
+        (import secrets)
+
+        # add agenix
+        agenix.nixosModules.default
+
+        # add nur modules
+        nur.nixosModules.nur
+
+        # add home manager
+        home-manager.nixosModules.home-manager
+        {
+          home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
+
+          # Merge together extra args.
+          home-manager.extraSpecialArgs = x64_specialArgs;
+          home-manager.users.tafka.imports = [
+            ./home/linux/wayland.nix
+            nur.hmModules.nur
+          ];
+        }
+      ];
     in
     {
       nixosConfigurations = let system = x64_system; specialArgs = x64_specialArgs; in {
         tafka-e495 = nixpkgs.lib.nixosSystem {
           inherit system specialArgs;
           modules = tafka_e495_modules;
+        };
+        tansper-3106 = nixpkgs.lib.nixosSystem {
+          inherit system specialArgs;
+          modules = tansper_3106_modules;
         };
       };
 
@@ -148,6 +183,12 @@
             modules = tafka_e495_modules;
             format = "iso";
           };
+          # Tansper 3106 is a physical machine, so we need to generate an iso image for it.
+          tansper-3106 = nixos-generators.nixosGenerate {
+            inherit system specialArgs;
+            modules = tansper_3106_modules;
+            format = "iso";
+          }
         };
     };
 }
