@@ -26,6 +26,12 @@
     # Flake utils.
     flake-utils.url = "github:numtide/flake-utils";
 
+    # Flake Parts
+    flake-parts = {
+      url = "github:hercules-ci/flake-parts";
+      inputs.nixpkgs-lib.follows = "nixpkgs";
+    };
+
     # Common Grub2 themes
     grub2-themes = {
       url = "github:vinceliuice/grub2-themes";
@@ -53,12 +59,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # secrets in a separate repository.
-    secrets = {
-      url = "git+ssh://git@gitlab.cyber.ee/tansper/nix-secrets";
-      flake = false;
-    };
-
     # nix language server, used by vscode & neovim
     nil.url = "github:oxalica/nil/2023-05-09";
 
@@ -67,6 +67,28 @@
 
     # NUR (Nix User Repository)
     nur.url = "github:nix-community/NUR";
+
+    # virtulenv, but for all languages
+    devshell = {
+      url = "github:numtide/devshell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # Flake-parts modules.
+    flake-root.url = "github:srid/flake-root";
+    mission-control.url = "github:Platonic-Systems/mission-control";
+
+    # TODO separate secrets better..
+    # secrets in a separate repository.
+    #secrets = {
+    #  url = "git+ssh://git@gitlab.cyber.ee/tansper/nix-secrets";
+    #  flake = false;
+    #};
+
+    secrets = {
+      url = "git+ssh://git@github.com/tafkamax/nix-secrets";
+      flake = false;
+    };
   };
 
   # The `outputs` function will return all the build results of the flake.
@@ -83,9 +105,9 @@
     , agenix
     , secrets
     , nur
+    , flake-parts
     , ...
     }:
-
     let
       x64_system = "x86_64-linux";
       x64_specialArgs = {
