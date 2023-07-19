@@ -94,6 +94,7 @@ in
       two-finger-scrolling-enabled = true;
     };
     "org/gnome/settings-daemon/plugins/media-keys" = {
+      screensaver = [ "<Shift>Escape" ];
       custom-keybindings = [
         "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/"
         "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/"
@@ -120,6 +121,11 @@ in
     };
     "org/gnome/shell/extensions/pop-shell" = {
       tile-by-default = true;
+      show-title = true;
+      smart-gaps = true;
+      stacking-with-mouse = true;
+      snap-to-grid = false;
+      show-skip-taskbar = true;
     };
   };
 
