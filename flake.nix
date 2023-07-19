@@ -188,7 +188,7 @@
             inherit system specialArgs;
             modules = tansper_3106_modules;
             format = "iso";
-          }
+          };
         };
     };
 }
