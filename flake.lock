@@ -265,11 +265,11 @@
     },
     "nur": {
       "locked": {
-        "lastModified": 1689677173,
-        "narHash": "sha256-3+fmtpxs2lzOxQqpuvT+nDJDQbtruglubaBbv3veN3U=",
+        "lastModified": 1689753560,
+        "narHash": "sha256-q+Qy39/GgttBYFkzBzP7V+3T91crsZLeTnr+cdvQe0U=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "cd31d89a192ada1e054e0d19f68033e6de51adff",
+        "rev": "05c6d9d00750b03b56f7792e8f60ba67f78e869f",
         "type": "github"
       },
       "original": {
@@ -321,17 +321,17 @@
     "secrets": {
       "flake": false,
       "locked": {
-        "lastModified": 1688895931,
-        "narHash": "sha256-HZSaDNMhRfPh+/YeqOgWp7GxiT2GZ2mlIFcGLloyPjQ=",
-        "ref": "refs/heads/main",
-        "rev": "1ec88de9d62bf226d657fa09a1d8018f01842ceb",
-        "revCount": 7,
+        "lastModified": 1689774020,
+        "narHash": "sha256-0nxZSUji3jns/58JADhkSbFf7UhjSOXFz3YzFSx42N0=",
+        "ref": "master",
+        "rev": "800094748fe8e9978b13904d13304c659e2515c3",
+        "revCount": 2,
         "type": "git",
-        "url": "ssh://git@github.com/tafkamax/nix-secrets"
+        "url": "ssh://git@gitlab.cyber.ee/tansper/nix-secrets"
       },
       "original": {
         "type": "git",
-        "url": "ssh://git@github.com/tafkamax/nix-secrets"
+        "url": "ssh://git@gitlab.cyber.ee/tansper/nix-secrets"
       }
     },
     "systems": {

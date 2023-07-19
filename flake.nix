@@ -151,7 +151,7 @@
 
           # Merge together extra args.
           home-manager.extraSpecialArgs = x64_specialArgs;
-          home-manager.users.tafka.imports = [
+          home-manager.users.tansper.imports = [
             ./home/linux/wayland.nix
             nur.hmModules.nur
           ];

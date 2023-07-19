@@ -68,3 +68,7 @@ in
   "./encrypt/$secret_name.age".publicKeys = [ $username $root-hostname ];
 }
 ```
+
+## TODO
+
+nix run github:ryantm/agenix -- -e ./encrypt/tansper-3106-password.age
