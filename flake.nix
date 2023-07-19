@@ -55,7 +55,7 @@
 
     # secrets in a separate repository.
     secrets = {
-      url = "git+ssh://git@github.com/tafkamax/nix-secrets";
+      url = "git+ssh://git@gitlab.cyber.ee/tansper/nix-secrets";
       flake = false;
     };
 
