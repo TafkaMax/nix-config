@@ -111,11 +111,15 @@ in
     };
     "org/gnome/mutter" = {
       dynamic-workspaces = true;
+      edge-tiling = true;
     };
     "org/gnome/desktop/input-sources" = {
       sources = [ (mkTuple [ "xkb" "us" ]) (mkTuple [ "xkb" "ee" ]) ];
       xkb-options = [ "terminate:ctrl_alt_bksp" ];
       show-all-sources = true;
+    };
+    "org/gnome/shell/extensions/pop-shell" = {
+      tile-by-default = true;
     };
   };
 
