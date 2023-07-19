@@ -1,5 +1,5 @@
 #
-#  NOTE: Makefile's target name should not be the same as one of the file or directory in the current directory, 
+#  NOTE: Makefile's target name should not be the same as one of the file or directory in the current directory,
 #    otherwise the target will not be executed!
 #
 
@@ -10,7 +10,7 @@
 #
 ############################################################################
 
-deploy: 
+deploy:
 	nixos-rebuild switch --flake . --use-remote-sudo
 
 debug:
@@ -40,6 +40,6 @@ fmt:
 	# format the nix files in this repo
 	nix fmt
 
-.PHONY: clean  
-clean:  
+.PHONY: clean
+clean:
 	rm -rf result

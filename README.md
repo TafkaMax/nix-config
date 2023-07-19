@@ -3,7 +3,6 @@
 ## Inspiration
 
 1. https://mudrii.medium.com/nixos-native-flake-deployment-with-luks-drive-encryption-and-lvm-b7f3738b71ca
-2. https://github.com/NixOS/nixos-hardware
 3. https://github.com/ryan4yin/nix-config
 4. https://nixos-and-flakes.thiscute.world/
 
@@ -11,18 +10,23 @@
 
 ## First Install
 
-For your first install / inital setup, please refer to [README-first-time-install.md](README-first-time-install.md)
+For your first install / inital setup, please refer to [README-first-time-install.md](README-first-time-install.md) for instructions.
 
-## Workflow
+## Secrets
 
-### Usage
+Information regarding `secrets` e.g. root password and so on, can be found here: [README-secrets.md](README-secrets.md).
 
-- Updating lock file.
-  - `sudo nix flake update /etc/nixos`
-- Update system
-  - `sudo nixos-rebuild switch --flake /etc/nixos/flake.nix#nixos_custom
+## Usage
 
-### Structure
+### Update pkgs e.g. `apt update`
+
+Sometimes you need to update the `flake.lock` file to get new versions of programs. The command to update your pkgs versions is `nix flake update`, but the Makefile provided with this repository allows you to also use `make update`
+
+### Install pkgs e.g. `apt upgrade / apt install`
+
+To then install the new pkgs that have been configured in the `flake.lock` file you need to use `nixos-rebuild switch --flake . --use-remote-sudo`. The Makefile also provides a simpler command `make deploy` and a debug version of that named `make debug`.
+
+## Structure
 
 1. `flake.nix`
    1. your-computer-hostname in `flake.nix` will import your computer setup.

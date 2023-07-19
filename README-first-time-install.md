@@ -2,21 +2,19 @@
 
 Create a bootable NixOS installer USB. https://nixos.org/download.html
 
-After booting from the USB, clone this to repo to `~/nixconf` e.g `sudo git clone git@github.com:TafkaMax/nixconf.git ~/nixconf`
+After booting from the USB, clone this to repo to `~/nix-config` e.g `sudo git clone git@github.com:TafkaMax/nix-config.git`
 
-## Paritioning
+## Partitioning
 
-For first time install, the disks need to be modified and **partitions** need to be made.
-
-Partitions can be created using `setup_disks.sh` script
+For first time install, the disks need to be modified and **partitions** need to be made. Partitions can be created using `setup_disks.sh` script.
 
 ## setup_disks.sh
 
-This script expects a single input, your disk name. 
+This script expects a single input, your disk name.
 1. e.g. For modern Laptops/Desktops you are using a **NVME** drive which would be under `/dev/` as `nvme0n1`.
-2. e.g. For older systems with **SATA*** drive, we would be under `/dev` as `sda`.
+2. e.g. For older systems with **SATA*** drive, it would be under `/dev` as `sda`.
 
-This script creats the fellowing partition on your drive:
+This script creats the following partitions on your drive:
 
 1. 512MB boot parition
 2. The rest of the available disk space will be used for a **encrypted** drive, that uses LVM on top.
@@ -29,18 +27,27 @@ This script creats the fellowing partition on your drive:
 
 ```bash
 # Setting up LUKS
+# Create a luks encrypted partition and set the password.
 cryptsetup luksFormat /dev/disk/by-partlabel/root
+# Open the partition to work on it.
 cryptsetup luksOpen /dev/disk/by-partlabel/root root
+# Create a physical volume on the now opened encrypted partition.
 pvcreate /dev/mapper/root
+# Create a virtual group on the now opened encryption partition.
 vgcreate vg /dev/mapper/root
 # Setting up LVM disks
+# Create a logical volume on the volume group you just created for your SWAP. Check how much RAM you have and based on that.
 lvcreate -L 20G -n swap vg
+# The rest of the available space goes to the root / logical volume, which will host your OS.
 lvcreate -l '100%FREE' -n root vg
+# Create a FAT filesystem for your boot partition.
 mkfs.fat -F 32 -n boot /dev/disk/by-partlabel/boot
+# Create an ext4 or whatever filesystem you like on the root logical volume.
 mkfs.ext4 -L root /dev/vg/root
+# Create a swap on the logical volume you created for swap.
 mkswap -L swap /dev/vg/swap
 
-# Mounting for installation
+# Mounting for installation.
 mount /dev/disk/by-label/root /mnt
 mkdir -p /mnt/boot
 mount /dev/disk/by-label/boot /mnt/boot
@@ -68,9 +75,3 @@ sudo ln -s ~/nixos-config/ /etc/nixos
 # Deploy the flake.nix located at the default location (/etc/nixos)
 sudo nixos-rebuild switch
 ```
-
-## Secrets submodule
-
-Rename `secrets` folder to point to your secret git repo.
-
-Create a new repository for yourself where you will place your secrets and add it as a submodule: `git submodule add git@github.com:Username/nix-secrets.git secrets`
