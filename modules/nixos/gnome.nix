@@ -7,6 +7,7 @@
       enable = true;
       # Remove xterm, because we dont need too many different terminals.
       excludePackages = [ pkgs.xterm ];
+      # Enable Gnome Desktop Manager
       displayManager = {
         gdm.enable = true;
       };
@@ -25,6 +26,7 @@
       layout = "us";
       libinput.enable = true;
     };
+    # Remove additionaly connectivity and beginner setup things.
     gnome = {
       gnome-browser-connector.enable = false;
       gnome-initial-setup.enable = false;
@@ -34,13 +36,14 @@
       gnome.gnome-settings-daemon
     ];
   };
-  # Add gnome-tweaks.
+  # Add gnome-tweaks and other tools to configure gnome.
   environment = {
     systemPackages = with pkgs; [
       gnome.dconf-editor
       gnome.gnome-tweaks
       gnomeExtensions.user-themes
     ];
+    # Remove unwanted packages that come with gnome otherwise.
     gnome.excludePackages = [
       pkgs.gnome-connections #rdp/remmina like tool
       pkgs.gnome-photos #photo gallery like thingy
