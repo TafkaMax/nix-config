@@ -23,6 +23,10 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
+    # macOS Support (master)
+    darwin.url = "github:lnl7/nix-darwin";
+    darwin.inputs.nixpkgs.follows = "nixpkgs";
+
     # Flake utils.
     flake-utils.url = "github:numtide/flake-utils";
 
@@ -68,6 +72,18 @@
     # NUR (Nix User Repository)
     nur.url = "github:nix-community/NUR";
 
+    # Snowfall Lib
+    snowfall-lib.url = "github:snowfallorg/lib/dev";
+    snowfall-lib.inputs.nixpkgs.follows = "nixpkgs";
+
+    # Snowfall Flake
+    flake.url = "github:snowfallorg/flake";
+    flake.inputs.nixpkgs.follows = "nixpkgs-unstable";
+
+    # System Deployment
+    deploy-rs.url = "github:serokell/deploy-rs";
+    deploy-rs.inputs.nixpkgs.follows = "nixpkgs-unstable";
+
     # virtulenv, but for all languages
     devshell = {
       url = "github:numtide/devshell";
@@ -96,121 +112,154 @@
   # parameters in `outputs` are defined in `inputs` and can be referenced by their names.
   # However, `self` is an exception, this special parameter points to the `outputs` itself (self-reference)
   # The `@` syntax here is used to alias the attribute set of the inputs's parameter, making it convenient to use inside the function.
-  outputs =
-    inputs@{ self
-    , nixpkgs
-    , home-manager
-    , nixos-generators
-    , nixos-hardware
-    , agenix
-    , secrets
-    , nur
-    , flake-parts
-    , ...
-    }:
+  outputs = inputs:
     let
-      x64_system = "x86_64-linux";
-      x64_specialArgs = {
-        # use unstable branch for some packages to get the latest updates
-        pkgs-unstable = import inputs.nixpkgs-unstable {
-          system = x64_system; # refer the `system` parameter form outer scope recursively
-          # To use chrome, we need to allow the installation of non-free software
-          config.allowUnfree = true;
+      # Create lib from information from current directory. e.g. if there is a lib directory present functions from there will we imported so you can use them. E.g. mkDeploy
+      lib = inputs.snowfall-lib.mkLib
+        {
+          inherit inputs;
+          src = ./.;
         };
-      } // inputs;
-      # Tafka Lenovo E495
-      tafka_e495_modules = [
-        ./hosts/tafka-e495
-
-        # add your model from this list: https://github.com/NixOS/nixos-hardware/blob/master/flake.nix
-        nixos-hardware.nixosModules.lenovo-thinkpad-e495
-
-        # Import non-flake config from secrets private-repository.
-        (import secrets)
-
-        # add agenix
-        agenix.nixosModules.default
-
-        # add nur modules
-        nur.nixosModules.nur
-
-        # add home manager
-        home-manager.nixosModules.home-manager
-        {
-          home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
-
-          # Merge together extra args.
-          home-manager.extraSpecialArgs = x64_specialArgs;
-          home-manager.users.tafka.imports = [
-            ./home/linux/wayland.nix
-            nur.hmModules.nur
-          ];
-        }
-      ];
-      # Tansper 3106
-      tansper_3106_modules = [
-        ./hosts/tansper-3106
-
-        # add your model from this list: https://github.com/NixOS/nixos-hardware/blob/master/flake.nix
-        nixos-hardware.nixosModules.common-cpu-intel
-        nixos-hardware.nixosModules.common-gpu-amd
-
-        # Import non-flake config from secrets private-repository.
-        (import secrets)
-
-        # add agenix
-        agenix.nixosModules.default
-
-        # add nur modules
-        nur.nixosModules.nur
-
-        # add home manager
-        home-manager.nixosModules.home-manager
-        {
-          home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
-
-          # Merge together extra args.
-          home-manager.extraSpecialArgs = x64_specialArgs;
-          home-manager.users.tansper.imports = [
-            ./home/linux/wayland.nix
-            nur.hmModules.nur
-          ];
-        }
-      ];
     in
-    {
-      nixosConfigurations = let system = x64_system; specialArgs = x64_specialArgs; in {
-        tafka-e495 = nixpkgs.lib.nixosSystem {
-          inherit system specialArgs;
-          modules = tafka_e495_modules;
-        };
-        tansper-3106 = nixpkgs.lib.nixosSystem {
-          inherit system specialArgs;
-          modules = tansper_3106_modules;
-        };
+    lib.mkFlake {
+      # Name snowfall because it uses snowfallorg lib at its core.
+      package-namespace = "nixos-snowfall";
+
+      # Configure channels.
+      channels-config = {
+        # Allow unfree pkgs.
+        allowUnfree = true;
       };
 
-      formatter = {
-        x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixpkgs-fmt;
+      # Import overlays from other inputs than just nixpkgs.
+      overlays = with inputs; [
+        flake.overlay
+      ];
+
+      # Import modules from other inputs than just nixpkgs.
+      systems.modules = with inputs; [
+        # Add home-manager for managing /home
+        home-manager.nixosModules.home-manager
+        # Add agenix for managing secrets.
+        agenix.nixosModules.default
+        # Import non-flake config from secrets private-repository.
+        (import secrets)
+      ];
+
+      # mkDeploy is defined under ./lib/deploy/default.nix
+      deploy = lib.mkDeploy {
+        inherit (inputs) self;
       };
 
-      packages.x86_64-linux =
-        #   https://github.com/nix-community/nixos-generators
-        let system = x64_system; specialArgs = x64_specialArgs; in {
-          # Tafka E495 is a physical machine, so we need to generate an iso image for it.
-          tafka-e495 = nixos-generators.nixosGenerate {
-            inherit system specialArgs;
-            modules = tafka_e495_modules;
-            format = "iso";
-          };
-          # Tansper 3106 is a physical machine, so we need to generate an iso image for it.
-          tansper-3106 = nixos-generators.nixosGenerate {
-            inherit system specialArgs;
-            modules = tansper_3106_modules;
-            format = "iso";
-          };
-        };
+      checks =
+        builtins.mapAttrs
+          (system: deploy-lib:
+            deploy-lib.deployChecks inputs.self.deploy)
+          inputs.deploy-rs.lib;
     };
 }
+#x64_system = "x86_64-linux";
+#x64_specialArgs = {
+## use unstable branch for some packages to get the latest updates
+#pkgs-unstable = import inputs.nixpkgs-unstable {
+#system = x64_system; # refer the `system` parameter form outer scope recursively
+## To use chrome, we need to allow the installation of non-free software
+#config.allowUnfree = true;
+#};
+#} // inputs;
+## Tafka Lenovo E495
+#tafka_e495_modules = [
+#./hosts/tafka-e495
+#
+## add your model from this list: https://github.com/NixOS/nixos-hardware/blob/master/flake.nix
+#nixos-hardware.nixosModules.lenovo-thinkpad-e495
+#
+## Import non-flake config from secrets private-repository.
+#(import secrets)
+#
+## add agenix
+#agenix.nixosModules.default
+#
+## add nur modules
+#nur.nixosModules.nur
+#
+## add home manager
+#home-manager.nixosModules.home-manager
+#{
+#home-manager.useGlobalPkgs = true;
+#home-manager.useUserPackages = true;
+#
+## Merge together extra args.
+#home-manager.extraSpecialArgs = x64_specialArgs;
+#home-manager.users.tafka.imports = [
+#./home/linux/wayland.nix
+#nur.hmModules.nur
+#];
+#}
+#];
+## Tansper 3106
+#tansper_3106_modules = [
+#./hosts/tansper-3106
+#
+## add your model from this list: https://github.com/NixOS/nixos-hardware/blob/master/flake.nix
+#nixos-hardware.nixosModules.common-cpu-intel
+#nixos-hardware.nixosModules.common-gpu-amd
+#
+## Import non-flake config from secrets private-repository.
+#(import secrets)
+#
+## add agenix
+#agenix.nixosModules.default
+#
+## add nur modules
+#nur.nixosModules.nur
+#
+## add home manager
+#home-manager.nixosModules.home-manager
+#{
+#home-manager.useGlobalPkgs = true;
+#home-manager.useUserPackages = true;
+#
+## Merge together extra args.
+#home-manager.extraSpecialArgs = x64_specialArgs;
+#home-manager.users.tansper.imports = [
+#./home/linux/wayland.nix
+#nur.hmModules.nur
+#];
+#}
+#];
+#in
+#{
+#nixosConfigurations = let system = x64_system; specialArgs = x64_specialArgs; in {
+#tafka-e495 = nixpkgs.lib.nixosSystem {
+#inherit system specialArgs;
+#modules = tafka_e495_modules;
+#};
+#tansper-3106 = nixpkgs.lib.nixosSystem {
+#inherit system specialArgs;
+#modules = tansper_3106_modules;
+#};
+#};
+#
+#formatter = {
+#x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixpkgs-fmt;
+#};
+#
+#packages.x86_64-linux =
+##   https://github.com/nix-community/nixos-generators
+#let system = x64_system; specialArgs = x64_specialArgs; in {
+## Tafka E495 is a physical machine, so we need to generate an iso image for it.
+#tafka-e495 = nixos-generators.nixosGenerate {
+#inherit system specialArgs;
+#modules = tafka_e495_modules;
+#format = "iso";
+#};
+## Tansper 3106 is a physical machine, so we need to generate an iso image for it.
+#tansper-3106 = nixos-generators.nixosGenerate {
+#inherit system specialArgs;
+#modules = tansper_3106_modules;
+#format = "iso";
+#};
+#};
+#};
+#}
