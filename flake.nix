@@ -115,10 +115,10 @@
   outputs = inputs:
     let
       # Create lib from information from current directory. e.g. if there is a lib directory present functions from there will we imported so you can use them. E.g. mkDeploy
-      inputs = lib.mkForce (let inputs = inputs; in builtins.removeAttrs inputs [ "agenix" ]);
+      inputs_no_agenix = lib.mkForce (let inputs = inputs; in builtins.removeAttrs inputs [ "agenix" ]);
       lib = inputs.snowfall-lib.mkLib
         {
-          inherit inputs;
+          inherit inputs_no_agenix;
           src = ./.;
         };
     in
