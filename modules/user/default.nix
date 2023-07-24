@@ -4,28 +4,27 @@ with lib;
 with lib.internal;
 let
   cfg = config.nixos-snowfall.user;
-  # TODO add icon
-  #defaultIconFileName = "profile.png";
-  #defaultIcon = pkgs.stdenvNoCC.mkDerivation {
-  #  name = "default-icon";
-  #  src = ./. + "/${defaultIconFileName}";
+  defaultIconFileName = "profile.png";
+  defaultIcon = pkgs.stdenvNoCC.mkDerivation {
+    name = "default-icon";
+    src = ./. + "/${defaultIconFileName}";
 
-  #  dontUnpack = true;
+    dontUnpack = true;
 
-  #  installPhase = ''
-  #    cp $src $out
-  #  '';
+    installPhase = ''
+      cp $src $out
+    '';
 
-  #  passthru = { fileName = defaultIconFileName; };
-  #};
-  #propagatedIcon = pkgs.runCommandNoCC "propagated-icon"
-  #  { passthru = { fileName = cfg.icon.fileName; }; }
-  #  ''
-  #    local target="$out/share/nixos-snowfall-icons/user/${cfg.name}"
-  #    mkdir -p "$target"
+    passthru = { fileName = defaultIconFileName; };
+  };
+  propagatedIcon = pkgs.runCommandNoCC "propagated-icon"
+    { passthru = { fileName = cfg.icon.fileName; }; }
+    ''
+      local target="$out/share/nixos-snowfall-icons/user/${cfg.name}"
+      mkdir -p "$target"
 
-  #    cp ${cfg.icon} "$target/${cfg.icon.fileName}"
-  #  '';
+      cp ${cfg.icon} "$target/${cfg.icon.fileName}"
+    '';
 in
 {
   options.nixos-snowfall.user = with types; {
