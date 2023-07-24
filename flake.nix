@@ -142,9 +142,9 @@
         # Add home-manager for managing /home
         home-manager.nixosModules.home-manager
         # Add agenix for managing secrets.
-        agenix.nixosModules.default
+        #agenix.nixosModules.default
         # Import non-flake config from secrets private-repository.
-        (import secrets)
+        #(import secrets)
       ];
 
       # mkDeploy is defined under ./lib/deploy/default.nix
