@@ -20,22 +20,23 @@ with lib.internal;
       monitors = ./monitors.xml;
     };
 
-    # Enable both wirless and wired connection.
-    # Set hostname.
-    networking = {
-      hostName = "tafka-e495";
-      interfaces = {
-        enp2s0 = {
-          useDHCP = true;
-        };
-        wlp4s0 = {
-          useDHCP = true;
-        };
-      };
-    };
 
     user = {
       initialPassword = age.secrets.tafka-e495-password.path;
+    };
+  };
+
+  # Enable both wirless and wired connection.
+  # Set hostname.
+  networking = {
+    hostName = "tafka-e495";
+    interfaces = {
+      enp2s0 = {
+        useDHCP = true;
+      };
+      wlp4s0 = {
+        useDHCP = true;
+      };
     };
   };
 
