@@ -18,7 +18,7 @@ in
     nixos-snowfall = {
       nix = enabled;
 
-      cache.public = enabled;
+      #cache.public = enabled;
 
       cli-apps = {
         flake = enabled;
