@@ -130,7 +130,7 @@ in
 
     # Disable inital setup and online accounts in gnome.
     services.gnome = {
-      gnome-inital-setup.enable = false;
+      gnome-initial-setup.enable = false;
       gnome-online-accounts.enable = false;
     };
 
