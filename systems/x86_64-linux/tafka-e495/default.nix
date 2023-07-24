@@ -37,6 +37,10 @@ with lib.internal;
     };
   };
 
+  user = {
+    initialPassword = age.secrets.tafka-e495-password.path;
+  };
+
   system.stateVersion = "23.05"; # Did you read the comment?
 }
 

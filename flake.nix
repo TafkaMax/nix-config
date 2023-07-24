@@ -117,7 +117,7 @@
       # Create lib from information from current directory. e.g. if there is a lib directory present functions from there will we imported so you can use them. E.g. mkDeploy
       lib = inputs.snowfall-lib.mkLib
         {
-          inputs = builtins.removeAttrs [ "agenix" ] inputs;
+          inputs = builtins.removeAttrs inputs [ "agenix" ];
           src = ./.;
         };
     in
