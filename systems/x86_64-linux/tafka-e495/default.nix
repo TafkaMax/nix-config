@@ -11,34 +11,32 @@ with lib.internal;
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
 
+  nixos-snowfall = {
+    archetypes = {
+      workstation = enabled;
+    };
+    # Set monitors.
+    desktop.gnome = {
+      monitors = ./monitors.xml;
+    };
 
-  # Set monitors.
-  desktop.gnome = {
-    monitors = ./monitors.xml;
-  };
-
-  nixos-snowfall = { };
-
-  archetypes = {
-    workstation = enabled;
-  };
-
-  # Enable both wirless and wired connection.
-  # Set hostname.
-  networking = {
-    hostName = "tafka-e495";
-    interfaces = {
-      enp2s0 = {
-        useDHCP = true;
-      };
-      wlp4s0 = {
-        useDHCP = true;
+    # Enable both wirless and wired connection.
+    # Set hostname.
+    networking = {
+      hostName = "tafka-e495";
+      interfaces = {
+        enp2s0 = {
+          useDHCP = true;
+        };
+        wlp4s0 = {
+          useDHCP = true;
+        };
       };
     };
-  };
 
-  user = {
-    initialPassword = age.secrets.tafka-e495-password.path;
+    user = {
+      initialPassword = age.secrets.tafka-e495-password.path;
+    };
   };
 
   system.stateVersion = "23.05"; # Did you read the comment?
