@@ -13,10 +13,10 @@ in
   config = mkIf cfg.enable {
     nixos-snowfall.suites = {
       common = enabled;
-      #      desktop = enabled;
+      desktop = enabled;
+      social = enabled;
+      media = enabled;
       #      games = enabled;
-      #      social = enabled;
-      #      media = enabled;
     };
   };
 }

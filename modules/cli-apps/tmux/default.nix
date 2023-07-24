@@ -14,7 +14,7 @@ let
       owner = "laktak";
       repo = "extrakto";
       rev = "efca89800293cbb8224463d82eeecffdb2f7036a";
-      sha256 = "0000000000000000000000000000000000000000000000000000";
+      sha256 = "${lib.fakeSha256}";
     };
     nativeBuildInputs = [ pkgs.makeWrapper ];
     postInstall = ''
