@@ -10,10 +10,10 @@ in
   };
 
   config = mkIf cfg.enable {
-    # TODO enable systemd boot
-    boot.loader.systemd-boot.enable = false;
     boot = {
       loader = {
+        # TODO enable systemd boot
+        systemd-boot.enable = false;
         efi.canTouchEfiVariables = true;
         grub = {
           useOSProber = true;
