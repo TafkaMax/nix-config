@@ -33,8 +33,8 @@ in
     email = mkOpt str "taaviansperr@gmail.com" "The email of the user.";
     initialPassword = mkOpt str "password"
       "The initial password to use when the user is first created.";
-    #icon = mkOpt (nullOr package) defaultIcon
-    #  "The profile picture to use for the user.";
+    icon = mkOpt (nullOr package) defaultIcon
+      "The profile picture to use for the user.";
     extraGroups = mkOpt (listOf str) [ ] "Groups for the user to be assigned.";
     extraOptions = mkOpt attrs { }
       "Extra options passed to <option>users.users.<name></option>.";
