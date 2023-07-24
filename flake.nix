@@ -58,10 +58,10 @@
     };
 
     # secrets management
-    #agenix = {
-    #  url = "github:ryantm/agenix";
-    #  inputs.nixpkgs.follows = "nixpkgs";
-    #};
+    agenix = {
+      url = "github:ryantm/agenix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # nix language server, used by vscode & neovim
     nil.url = "github:oxalica/nil/2023-05-09";
@@ -118,8 +118,7 @@
       lib = inputs.snowfall-lib.mkLib
         {
           # Remove agenix from inputs to flake-utils-plus, as agenix does not have a default system target.
-          #inputs = builtins.removeAttrs inputs [ "agenix" ];
-          inherit inputs;
+          inputs = builtins.removeAttrs inputs [ "agenix" ];
           src = ./.;
         };
     in
