@@ -18,7 +18,7 @@ let
     pano
     hot-edge
     pop-shell
-    alphabetcial-app-grid
+    alphabetical-app-grid
     just-perfection
     freon
   ];
@@ -190,8 +190,8 @@ in
               ++ optional config.nixos-snowfall.apps.remmina.enable "org.remmina.Remmina.desktop"
               ++ optional config.nixos-snowfall.apps.obsidian.enable "obsidian.desktop"
               ++ optional config.nixos-snowfall.apps.spotify.enable "spotify.desktop"
-              ++ optional config.nixos-snowfall.apps.element.enable "element-desktop.desktop"
-              ++ optional config.nixos-snowfall.apps.steam.enable "steam.desktop";
+              ++ optional config.nixos-snowfall.apps.element.enable "element-desktop.desktop";
+            #++ optional config.nixos-snowfall.apps.steam.enable "steam.desktop";
           };
 
           "org/gnome/desktop/background" = {

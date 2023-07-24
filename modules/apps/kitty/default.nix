@@ -11,19 +11,5 @@ in
   };
 
   config =
-    mkIf cfg.enable {
-      programs.kitty = {
-        enable = true;
-        theme = "Relaxed Afterglow";
-        font = {
-          name = "JetBrainsMono Nerd Font";
-        };
-
-        settings = {
-          background_opacity = "0.95";
-          scrollback_lines = 10000;
-          enable_audio_bell = false;
-        };
-      };
-    };
+    mkIf cfg.enable { environment.systemPackages = with pkgs; [ kitty ]; };
 }
