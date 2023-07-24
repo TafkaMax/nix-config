@@ -3,7 +3,7 @@
 with lib;
 with lib.internal;
 let
-  mkTuple = lib.mkTuple;
+  mkTuple = lib.hm.gvariant.mkTuple;
   cfg = config.nixos-snowfall.desktop.gnome;
   gdmHome = config.users.users.gdm.home;
 
