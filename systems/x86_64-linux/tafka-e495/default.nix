@@ -22,7 +22,7 @@ with lib.internal;
 
 
     user = {
-      initialPassword = age.secrets.tafka-e495-password.path;
+      initialPassword = config.age.secrets.tafka-e495-password.path;
     };
   };
 
