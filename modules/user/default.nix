@@ -4,7 +4,7 @@ with lib;
 with lib.internal;
 let
   cfg = config.nixos-snowfall.user;
-  defaultIconFileName = "profile.png";
+  defaultIconFileName = "profile.webp";
   defaultIcon = pkgs.stdenvNoCC.mkDerivation {
     name = "default-icon";
     src = ./. + "/${defaultIconFileName}";
