@@ -27,6 +27,7 @@ in
 
     home-manager = {
       useUserPackages = true;
+      useGlobalPkgs = true;
 
       users.${config.nixos-snowfall.user.name} =
         mkAliasDefinitions options.nixos-snowfall.home.extraOptions;

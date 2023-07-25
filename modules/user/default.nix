@@ -46,7 +46,13 @@ in
       enable = true;
       autosuggestions.enable = true;
       histFile = "$XDG_CACHE_HOME/zsh.history";
+      ohMyZsh = {
+    	enable = true;
+	plugins = [ "git"];
+	theme = "agnoster";
+      };
     };
+
 
     nixos-snowfall.home = {
       file = {
@@ -90,6 +96,9 @@ in
             enableCompletion = true;
             enableAutosuggestions = true;
             enableSyntaxHighlighting = true;
+      	    history = {
+              size = 10000;
+            };
 
             initExtra = ''
               # Fix an issue with tmux.
