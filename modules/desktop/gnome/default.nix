@@ -102,7 +102,7 @@ in
 
       script = ''
         config_file=/var/lib/AccountsService/users/${config.nixos-snowfall.user.name}
-        icon_file=/run/current-system/sw/share/nixos-snowfall-icons/user/${config.plusultra.user.name}/${config.plusultra.user.icon.fileName}
+        icon_file=/run/current-system/sw/share/nixos-snowfall-icons/user/${config.nixos-snowfall.user.name}/${config.nixos-snowfall.user.icon.fileName}
 
         if ! [ -d "$(dirname "$config_file")"]; then
           mkdir -p "$(dirname "$config_file")"
