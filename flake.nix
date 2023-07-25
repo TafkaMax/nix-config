@@ -90,6 +90,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Flake Hygiene
+    flake-checker = {
+      url = "github:DeterminateSystems/flake-checker";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # Flake-parts modules.
     flake-root.url = "github:srid/flake-root";
     mission-control.url = "github:Platonic-Systems/mission-control";
