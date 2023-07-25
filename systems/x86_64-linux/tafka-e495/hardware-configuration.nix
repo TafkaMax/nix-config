@@ -19,6 +19,7 @@ in
       availableKernelModules =
         [ "nvme" "xhci_pci" "ahci" "usb_storage" "sd_mod" "rtsx_pci_sdmmc" ];
       kernelModules = [ "dm-snapshot" ];
+      luks.devices.crypt.device = "/dev/nvme0n1p2";
     };
     extraModulePackages = [ ];
   };
