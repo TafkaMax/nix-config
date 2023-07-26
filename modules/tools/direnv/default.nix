@@ -14,6 +14,8 @@ in
       programs.direnv = {
         enable = true;
         nix-direnv = enabled;
+        enableZshIntegration = true;
+        enableBashIntegration = true;
       };
     };
   };

@@ -5,6 +5,7 @@ with lib.internal;
 let
   cfg = config.nixos-snowfall.suites.development;
   apps = {
+    dbeaver = enabled;
     #    vscode = enabled;
     #    yubikey = enabled;
   };
@@ -35,13 +36,21 @@ in
 
       tools = {
         #attic = enabled;
-        #direnv = enabled;
+        direnv = enabled;
         http = enabled;
+        docker = enabled;
         #k8s = enabled;
         #node = enabled;
       };
 
       #virtualisation = { podman = enabled; };
+    };
+
+    nixos-snowfall.home.extraOptions = {
+      packages = with pkgs; [
+        nil.packages."${pkgs.system}".default # nix language server
+        agenix.packages."${pkgs.system}".default # agenix secret manager
+      ];
     };
   };
 }

@@ -31,6 +31,7 @@ in
       tools = {
         git = enabled;
         misc = enabled;
+        gnumake = enabled;
       };
 
       hardware = {

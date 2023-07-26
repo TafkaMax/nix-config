@@ -39,6 +39,10 @@ in
       gnupg
       killall
       clac
+
+      # embedded development
+      # console
+      minicom
     ];
   };
 }
