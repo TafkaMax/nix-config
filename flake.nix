@@ -141,6 +141,7 @@
       # Import overlays from other inputs than just nixpkgs.
       overlays = with inputs; [
         flake.overlay
+        agenix.overlays.default
       ];
 
       # Import modules from other inputs than just nixpkgs.

@@ -30,7 +30,7 @@ in
         #fup-repl = enabled;
         #comma = enabled;
         #bottom = enabled;
-        #direnv = enabled;
+        direnv = enabled;
       };
 
       hardware = {

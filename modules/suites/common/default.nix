@@ -29,6 +29,7 @@ in
       };
 
       tools = {
+        agenix = enabled;
         git = enabled;
         misc = enabled;
         gnumake = enabled;

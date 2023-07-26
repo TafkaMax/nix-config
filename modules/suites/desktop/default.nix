@@ -21,6 +21,7 @@ in
       apps = {
         firefox = enabled;
         vlc = enabled;
+        remmina = enabled;
       };
 
       tools = {
