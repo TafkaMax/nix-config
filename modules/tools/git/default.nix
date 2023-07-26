@@ -1,4 +1,4 @@
-{ options, config, pkgs, lib, ... }:
+{ options, config, pkgs, lib, inputs, ... }:
 
 #TODO enable gpg if comfortable
 with lib;
