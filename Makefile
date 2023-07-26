@@ -11,10 +11,10 @@
 ############################################################################
 
 deploy:
-	nixos-rebuild switch --flake . --use-remote-sudo
+	doas nixos-rebuild switch --flake .
 
 debug:
-	nixos-rebuild switch --flake . --use-remote-sudo --show-trace --verbose
+	doas nixos-rebuild switch --flake . --show-trace --verbose
 
 update:
 	nix flake update
