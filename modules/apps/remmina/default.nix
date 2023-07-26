@@ -11,5 +11,10 @@ in
   };
 
   config =
-    mkIf cfg.enable { environment.systemPackages = with pkgs; [ remmina ]; };
+    mkIf cfg.enable {
+      environment.systemPackages = with pkgs; [
+        remmina
+        freerdp
+      ];
+    };
 }

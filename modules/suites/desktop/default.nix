@@ -22,6 +22,10 @@ in
         firefox = enabled;
         vlc = enabled;
       };
+
+      tools = {
+        flameshot = enabled;
+      };
     };
   };
 }
