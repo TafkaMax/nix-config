@@ -1,9 +1,8 @@
-{ nixpkgs-unstable, ... }:
-final: prev:
-{
-  fluent-gtk-theme = prev.nixpkgs-unstable.pkgs.fluent-gtk-theme.override {
+{ pkgs, ... }:
+(final: prev: {
+  fluent-gtk-theme = pkgs.fluent-gtk-theme.override {
     tweaks = [
       "round"
     ];
   };
-}
+})
