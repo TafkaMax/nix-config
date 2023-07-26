@@ -1,4 +1,4 @@
-{ options, config, lib, pkgs, ... }:
+{ options, config, lib, pkgs, inputs, ... }:
 
 with lib;
 with lib.internal;
@@ -47,9 +47,9 @@ in
     };
 
     nixos-snowfall.home.extraOptions = {
-      packages = with pkgs; [
-        nil.packages."${pkgs.system}".default # nix language server
-        agenix.packages."${pkgs.system}".default # agenix secret manager
+      home.packages = with pkgs; [
+        inputs.nil.packages."${pkgs.system}".default # nix language server
+        #agenix.packages."${pkgs.system}".default # agenix secret manager
       ];
     };
   };

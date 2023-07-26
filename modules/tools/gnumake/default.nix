@@ -11,11 +11,14 @@ in
 
   config =
     mkIf cfg.enable {
-      environment.systemPackages = with pkgs; [
-        # DO NOT install build tools for C/C++, set it per project by devShell instead
-        gnumake # used by this repo, to simplify the deployment
-        clangtools
-        clang-analyzer
-      ];
+      nixos-snowfall.home.extraOptions = {
+
+        home.packages = with pkgs; [
+          # DO NOT install build tools for C/C++, set it per project by devShell instead
+          gnumake # used by this repo, to simplify the deployment
+          clang-tools
+          clang-analyzer
+        ];
+      };
     };
 }
