@@ -3,10 +3,10 @@ inputs@{ options, config, lib, pkgs, ... }:
 with lib;
 with lib.internal;
 let
-  cfg = config.nixos-snowfall.cli-apps.agenix;
+  cfg = config.nixos-snowfall.tools.agenix;
 in
 {
-  options.nixos-snowfall.cli-apps.agenix = with types; {
+  options.nixos-snowfall.tools.agenix = with types; {
     enable = mkBoolOpt false "Whether or not to enable agenix.";
   };
 
