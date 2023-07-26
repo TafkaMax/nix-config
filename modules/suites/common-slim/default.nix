@@ -26,6 +26,7 @@ in
 
       tools = {
         git = enabled;
+        agenix = enabled;
         #fup-repl = enabled;
         #comma = enabled;
         #bottom = enabled;
