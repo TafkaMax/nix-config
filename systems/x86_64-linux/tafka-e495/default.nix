@@ -1,4 +1,4 @@
-{ pkgs, config, lib, channel, ... }:
+{ pkgs, config, lib, channel, inputs, ... }:
 
 with lib;
 with lib.internal;
@@ -39,6 +39,12 @@ with lib.internal;
       };
     };
   };
+
+  # Add agenix outside.
+  #home-manager.users.tafka.home.packages = with pkgs; [
+  #  inputs.agenix.packages."${pkgs.system}".default # agenix secret manager
+  #];
+
 
   system.stateVersion = "23.05"; # Did you read the comment?
 }

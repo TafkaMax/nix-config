@@ -141,6 +141,7 @@
       # Import overlays from other inputs than just nixpkgs.
       overlays = with inputs; [
         flake.overlay
+        agenix.overlay
       ];
 
       # Import modules from other inputs than just nixpkgs.
@@ -152,6 +153,7 @@
         # Import non-flake config from secrets private-repository.
         (import secrets)
       ];
+
 
       # mkDeploy is defined under ./lib/deploy/default.nix
       deploy = lib.mkDeploy {

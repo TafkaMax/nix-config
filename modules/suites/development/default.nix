@@ -49,7 +49,8 @@ in
     nixos-snowfall.home.extraOptions = {
       home.packages = with pkgs; [
         inputs.nil.packages."${pkgs.system}".default # nix language server
-        #agenix.packages."${pkgs.system}".default # agenix secret manager
+        # TODO we need to add agenix somehow aswell
+        #inputs.agenix.packages."${pkgs.system}".default # agenix secret manager
       ];
     };
   };
