@@ -11,5 +11,11 @@ in
   };
 
   config =
-    mkIf cfg.enable { environment.systemPackages = with pkgs; [ spotify ]; };
+    mkIf cfg.enable {
+      nixos-snowfall.home.extraOptions = {
+        home.packages = with pkgs; [
+          spotify
+        ];
+      };
+    };
 }

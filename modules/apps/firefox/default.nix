@@ -54,7 +54,11 @@ in
           profiles.${config.nixos-snowfall.user.name} = {
             inherit (cfg) extraConfig userChrome settings;
             id = 0;
+            isDefault = true;
             name = config.nixos-snowfall.user.name;
+            extensions = with config.nur.repos.rycee.firefox-addons; [
+              ublock-origin
+            ];
           };
         };
       };

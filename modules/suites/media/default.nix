@@ -10,5 +10,11 @@ in
     enable = mkBoolOpt false "Whether or not to enable media configuration.";
   };
 
-  config = mkIf cfg.enable { nixos-snowfall = { apps = { }; }; };
+  config = mkIf cfg.enable {
+    nixos-snowfall = {
+      apps = {
+        spotify = enabled;
+      };
+    };
+  };
 }

@@ -152,6 +152,8 @@
         agenix.nixosModules.default
         # Import non-flake config from secrets private-repository.
         (import secrets)
+        # Add NUR (Nix User Repository), similar to AUR, as it is not as protected as nixpkgs.
+        nur.nixosModules.nur
       ];
 
 
