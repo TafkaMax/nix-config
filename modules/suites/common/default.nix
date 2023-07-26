@@ -20,6 +20,10 @@ in
 
       #cache.public = enabled;
 
+      apps = {
+        kitty = enabled;
+      };
+
       cli-apps = {
         flake = enabled;
       };
