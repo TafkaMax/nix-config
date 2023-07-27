@@ -47,7 +47,6 @@ in
     nixos-snowfall.desktop.addons = {
       gtk = enabled;
       wallpapers = enabled;
-      #      electron-support = enabled;
     };
 
     # dconf is a low-level configuration system, which is good for gnome/gtk settings.
@@ -86,6 +85,7 @@ in
       cheese # front camera app to record yourself or whatever
       yelp # help viewer
       gnome-disk-utility # A udisks graphical front-end
+      baobab #Graphical application to analyse disk usage in any GNOME environment
     ]);
 
     systemd.tmpfiles.rules = [
@@ -162,8 +162,15 @@ in
             background-size='cover'
             background-color='#777777'
           '';
-          # TODO add this back
-          #background-picture-uri='file:///etc/nixos/home/linux/gnome/wallpaper.jpg'
+          background-picture-uri =
+            let
+              get-wallpaper = wallpaper:
+                if lib.isDerivation wallpaper then
+                  builtins.toString wallpaper
+                else
+                  wallpaper;
+            in
+            get-wallpaper cfg.wallpaper.light;
         };
       };
 
@@ -200,8 +207,8 @@ in
               ++ optional config.nixos-snowfall.apps.remmina.enable "org.remmina.Remmina.desktop"
               ++ optional config.nixos-snowfall.apps.obsidian.enable "obsidian.desktop"
               ++ optional config.nixos-snowfall.apps.spotify.enable "spotify.desktop"
-              ++ optional config.nixos-snowfall.apps.element.enable "element-desktop.desktop";
-            #++ optional config.nixos-snowfall.apps.steam.enable "steam.desktop";
+              ++ optional config.nixos-snowfall.apps.element.enable "element-desktop.desktop"
+              ++ optional config.nixos-snowfall.apps.steam.enable "steam.desktop";
           };
 
           "org/gnome/desktop/background" = {
@@ -217,7 +224,7 @@ in
             enable-hot-corners = false;
             toolkit-accessibility = false;
             clock-show-weekday = true;
-            gtk-theme = "Fluent-round";
+            gtk-theme = "Fluent-round-datk";
             show-battery-percentage = true;
             font-name = "Noto Sans 11";
             monospace-font-name = "JetBrainsMono Nerd Font 10";
@@ -234,7 +241,7 @@ in
             two-finger-scrolling-enabled = true;
           };
           "org/gnome/shell/extensions/user-theme" = {
-            name = "Fluent-round";
+            name = "Fluent-round-dark";
           };
           "org/gnome/mutter" = {
             dynamic-workspaces = true;

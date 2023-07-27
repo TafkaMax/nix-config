@@ -10,19 +10,19 @@ in
   options.nixos-snowfall.desktop.addons.gtk = with types; {
     enable = mkBoolOpt false "Whether to customize GTK and apply themes.";
     theme = {
-      name = mkOpt str "Fluent"
+      name = mkOpt str "Fluent-round-Dark"
         "The name of the GTK theme to apply.";
       pkg = mkOpt package pkgs.fluent-gtk-theme "The package to use for the theme.";
       # TODO add the override
       # .override { tweaks = [ "round" "blur" ]; }
     };
     cursor = {
-      name = mkOpt str "Capitaine Cursors - White"
+      name = mkOpt str "Capitaine Cursors (Nord)"
         "The name of the cursor theme to apply.";
       pkg = mkOpt package pkgs.capitaine-cursors-themed "The package to use for the cursor theme.";
     };
     icon = {
-      name = mkOpt str "Fluent"
+      name = mkOpt str "Fluent-dark"
         "The name of the icon theme to apply.";
       pkg = mkOpt package pkgs.fluent-icon-theme "The package to use for the icon theme.";
     };

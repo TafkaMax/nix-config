@@ -6,14 +6,11 @@ let
   cfg = config.nixos-snowfall.suites.development;
   apps = {
     dbeaver = enabled;
-    #    vscode = enabled;
-    #    yubikey = enabled;
+    obsidian = enabled;
   };
   cli-apps = {
-    #tmux = enabled;
     neovim = enabled;
-    #yubikey = enabled;
-    #prisma = enabled;
+    tmux = enabled;
   };
 in
 {
@@ -23,27 +20,16 @@ in
   };
 
   config = mkIf cfg.enable {
-    #networking.firewall.allowedTCPPorts = [
-    #  12345
-    #  3000
-    #  3001
-    #  8080
-    #  8081
-    #];
 
     nixos-snowfall = {
       inherit apps cli-apps;
 
       tools = {
-        #attic = enabled;
         direnv = enabled;
         http = enabled;
         docker = enabled;
-        #k8s = enabled;
-        #node = enabled;
       };
 
-      #virtualisation = { podman = enabled; };
     };
 
     nixos-snowfall.home.extraOptions = {

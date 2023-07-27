@@ -7,34 +7,35 @@ let
   configFiles = lib.snowfall.fs.get-files ./config;
 
   # Extrakto with wl-clipboard patched in.
-  extrakto = pkgs.tmuxPlugins.mkTmuxPlugin {
-    pluginName = "extrakto";
-    version = "unstable-2021-04-04-wayland";
-    src = pkgs.fetchFromGitHub {
-      owner = "laktak";
-      repo = "extrakto";
-      rev = "efca89800293cbb8224463d82eeecffdb2f7036a";
-      sha256 = "${lib.fakeSha256}";
-    };
-    nativeBuildInputs = [ pkgs.makeWrapper ];
-    postInstall = ''
-      for f in extrakto.sh open.sh tmux-extrakto.sh; do
-        wrapProgram $target/scripts/$f \
-          --prefix PATH : ${with pkgs; lib.makeBinPath (
-          [ pkgs.fzf pkgs.python3 pkgs.xclip wl-clipboard ]
-          )}
-      done
-    '';
-    meta = {
-      homepage = "https://github.com/laktak/extrakto";
-      description = "Fuzzy find your text with fzf instead of selecting it by hand ";
-      license = lib.licenses.mit;
-      platforms = lib.platforms.unix;
-    };
-  };
+  # extrakto = pkgs.tmuxPlugins.mkTmuxPlugin {
+  #   pluginName = "extrakto";
+  #   version = "unstable-2021-04-04-wayland";
+  #   src = pkgs.fetchFromGitHub {
+  #     owner = "laktak";
+  #     repo = "extrakto";
+  #     rev = "efca89800293cbb8224463d82eeecffdb2f7036a";
+  #     sha256 = "sha256-KBt7XxOP54s7sju0bclPJdP9bXT8wjHucTpbE3WqY2w=";
+  #   };
+  #   nativeBuildInputs = [ pkgs.makeWrapper ];
+  #   postInstall = ''
+  #     for f in extrakto.sh open.sh tmux-extrakto.sh; do
+  #       wrapProgram $target/scripts/$f \
+  #         --prefix PATH : ${with pkgs; lib.makeBinPath (
+  #         [ pkgs.fzf pkgs.python3 pkgs.xclip wl-clipboard ]
+  #         )}
+  #     done
+  #   '';
+  #   meta = {
+  #     homepage = "https://github.com/laktak/extrakto";
+  #     description = "Fuzzy find your text with fzf instead of selecting it by hand ";
+  #     license = lib.licenses.mit;
+  #     platforms = lib.platforms.unix;
+  #   };
+  # };
 
   plugins =
-    [ extrakto ] ++
+    #extrakto
+    [ ] ++
     (with pkgs.tmuxPlugins; [
       continuum
       nord
