@@ -87,8 +87,6 @@ in
       cheese # front camera app to record yourself or whatever
     ]);
 
-    environment.
-
     systemd.tmpfiles.rules = [
       "d ${gdmHome}/.config 0711 gdm gdm"
     ] ++ (

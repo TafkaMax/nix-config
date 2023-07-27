@@ -29,7 +29,7 @@ in
       environment.systemPackages = with pkgs; [ kitty ];
 
       # remove gnome console if kitty installed.
-      environment.excludePackages = with pkgs; [
+      environment.gnome.excludePackages = with pkgs; [
         gnome-console
       ];
 
