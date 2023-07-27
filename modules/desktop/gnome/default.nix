@@ -50,17 +50,21 @@ in
       #      electron-support = enabled;
     };
 
+    # dconf is a low-level configuration system, which is good for gnome/gtk settings.
+    programs.dconf.enable = true;
+
     environment.systemPackages = with pkgs; [
       gnome.gnome-tweaks
       gnome.dconf-editor
     ] ++ defaultExtensions ++ cfg.extensions;
 
-    environment.gnome.excludePackages = with pkgs.gnome; [
-      pkgs.gnome-connections #rdp/remmina like tool
-      pkgs.gnome-photos #photo gallery like thingy
-      pkgs.gnome-tour # welcome thingy that shows new things in a gnome release
-      pkgs.gnome-text-editor
-      pkgs.xterm # we dont need too many terminals
+    environment.gnome.excludePackages = (with pkgs; [
+      gnome-connections #rdp/remmina like tool
+      gnome-photos #photo gallery like thingy
+      gnome-tour # welcome thingy that shows new things in a gnome release
+      gnome-text-editor
+      xterm # we dont need too many terminals
+    ]) ++ (with pkgs.gnome; [
       epiphany # web-browser, use firefox instead
       geary # email client, use thundebird instead
       adwaita-icon-theme # default icons
@@ -80,7 +84,10 @@ in
       gnome-calendar
       gnome-characters
       gnome-clocks
-    ];
+      cheese # front camera app to record yourself or whatever
+    ]);
+
+    environment.
 
     systemd.tmpfiles.rules = [
       "d ${gdmHome}/.config 0711 gdm gdm"

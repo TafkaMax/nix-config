@@ -28,6 +28,11 @@ in
     mkIf cfg.enable {
       environment.systemPackages = with pkgs; [ kitty ];
 
+      # remove gnome console if kitty installed.
+      environment.excludePackages = with pkgs; [
+        gnome-console
+      ];
+
       nixos-snowfall.home = {
         extraOptions = {
           programs.kitty = {
