@@ -63,7 +63,6 @@ in
       gnome-photos #photo gallery like thingy
       gnome-tour # welcome thingy that shows new things in a gnome release
       gnome-text-editor
-      xterm # we dont need too many terminals
     ]) ++ (with pkgs.gnome; [
       epiphany # web-browser, use firefox instead
       geary # email client, use thundebird instead
@@ -85,6 +84,8 @@ in
       gnome-characters
       gnome-clocks
       cheese # front camera app to record yourself or whatever
+      yelp # help viewer
+      gnome-disk-utility # A udisks graphical front-end
     ]);
 
     systemd.tmpfiles.rules = [
@@ -148,6 +149,10 @@ in
         wayland = cfg.wayland;
         autoSuspend = cfg.suspend;
       };
+
+      # we dont need too many terminals
+      excludePackages = [ pkgs.xterm ];
+
       desktopManager = {
         gnome = {
           enable = true;
