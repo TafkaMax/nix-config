@@ -1,8 +1,9 @@
-{ pkgs, ... }:
+{ channels, ... }:
 (final: prev: {
-  fluent-gtk-theme = pkgs.fluent-gtk-theme.override {
+  fluent-gtk-theme = channels.nixpkgs-unstable.fluent-gtk-theme.override {
     tweaks = [
       "round"
+      "blur"
     ];
   };
 })
