@@ -4,6 +4,7 @@
     tweaks = [
       "round"
       "blur"
+      "noborder"
     ];
   };
 })

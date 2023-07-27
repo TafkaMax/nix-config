@@ -13,6 +13,7 @@ in
 
   config = mkIf cfg.enable {
     nixos-snowfall.apps.firefox = {
+      extraConfig = "user_pref(\"toolkit.legacyUserProfileCustomizations.stylesheets\", true)";
       userChrome = ''
         @import "${pkgs.nixos-snowfall.firefox-cascade-theme}/chrome/userChrome.css";
       '';
