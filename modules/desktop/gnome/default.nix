@@ -162,15 +162,15 @@ in
             background-size='cover'
             background-color='#777777'
           '';
-          background-picture-uri =
-            let
-              get-wallpaper = wallpaper:
-                if lib.isDerivation wallpaper then
-                  builtins.toString wallpaper
-                else
-                  wallpaper;
-            in
-            get-wallpaper cfg.wallpaper.light;
+          #background-picture-uri =
+          #  let
+          #    get-wallpaper = wallpaper:
+          #      if lib.isDerivation wallpaper then
+          #        builtins.toString wallpaper
+          #      else
+          #        wallpaper;
+          #  in
+          #  get-wallpaper cfg.wallpaper.light;
         };
       };
 
@@ -224,7 +224,7 @@ in
             enable-hot-corners = false;
             toolkit-accessibility = false;
             clock-show-weekday = true;
-            gtk-theme = "Fluent-round-datk";
+            gtk-theme = "Fluent-round-Dark";
             show-battery-percentage = true;
             font-name = "Noto Sans 11";
             monospace-font-name = "JetBrainsMono Nerd Font 10";
@@ -241,7 +241,7 @@ in
             two-finger-scrolling-enabled = true;
           };
           "org/gnome/shell/extensions/user-theme" = {
-            name = "Fluent-round-dark";
+            name = "Fluent-round-Dark";
           };
           "org/gnome/mutter" = {
             dynamic-workspaces = true;
