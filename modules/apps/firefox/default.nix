@@ -26,7 +26,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    nixos-snowfall.desktop.addons.firefox-nordic-theme = enabled;
+    nixos-snowfall.desktop.addons.firefox-cascade-theme = enabled;
 
     services.gnome.gnome-browser-connector.enable = config.nixos-snowfall.desktop.gnome.enable;
 
