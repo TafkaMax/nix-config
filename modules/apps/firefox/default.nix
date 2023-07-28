@@ -26,7 +26,8 @@ in
   };
 
   config = mkIf cfg.enable {
-    nixos-snowfall.desktop.addons.firefox-cascade-theme = enabled;
+    #nixos-snowfall.desktop.addons.firefox-cascade-theme = enabled;
+    nixos-snowfall.desktop.addons.firefox-mod-blur = enabled;
 
     services.gnome.gnome-browser-connector.enable = config.nixos-snowfall.desktop.gnome.enable;
 
