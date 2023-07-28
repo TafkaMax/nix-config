@@ -16,9 +16,16 @@ in
       extraConfig = "user_pref(\"toolkit.legacyUserProfileCustomizations.stylesheets\", true)";
       userChrome = ''
         @import "${pkgs.nixos-snowfall.firefox-mod-blur}/userChrome.css";
-        @import "${pkgs.nixos-snowfall.firefox-mod-blur}/userContent.css";
-        @import "${pkgs.nixos-snowfall.firefox-mod-blur}/image";
       '';
+    };
+    nixos-snowfall.home.extraOptions = {
+      programs.firefox = {
+        profiles.${config.nixos-snowfall.user.name} = {
+          userContent = ''
+            @import "${pkgs.nixos-snowfall.firefox-mod-blur}/userContent.css";
+          '';
+        };
+      };
     };
   };
 }
