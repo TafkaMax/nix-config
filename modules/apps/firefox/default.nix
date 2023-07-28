@@ -54,6 +54,9 @@ in
             name = config.nixos-snowfall.user.name;
             extensions = with config.nur.repos.rycee.firefox-addons; [
               ublock-origin
+              keepassxc-browser
+              user-agent-string-switcher
+              gnome-shell-integration
             ];
           };
         };
