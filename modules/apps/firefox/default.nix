@@ -33,11 +33,6 @@ in
 
     # manage firefox using home-manager
     nixos-snowfall.home = {
-      #file = {
-      #  ".mozilla/native-messaging-hosts/com.dannyvankooten.browserpass.json".source = "${pkgs.browserpass}/lib/mozilla/native-messaging-hosts/com.dannyvankooten.browserpass.json";
-
-      #  ".mozilla/native-messaging-hosts/org.gnome.chrome_gnome_shell.json".source = mkIf config.nixos-snowfall.desktop.gnome.enable "${pkgs.chrome-gnome-shell}/lib/mozilla/native-messaging-hosts/org.gnome.chrome_gnome_shell.json";
-      #};
 
       extraOptions = {
         programs.firefox = {

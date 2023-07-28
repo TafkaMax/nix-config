@@ -18,12 +18,19 @@ in
         @import "${pkgs.nixos-snowfall.firefox-mod-blur}/userChrome.css";
       '';
     };
-    nixos-snowfall.home.extraOptions = {
-      programs.firefox = {
-        profiles.${config.nixos-snowfall.user.name} = {
-          userContent = ''
-            @import "${pkgs.nixos-snowfall.firefox-mod-blur}/userContent.css";
-          '';
+    nixos-snowfall.home = {
+
+      #file = {
+      #  ".mozilla/firefox/${config.nixos-snowfall.user.name}/chrome/image/" = "${pkgs.nixos-snowfall.firefox-mod-blur}/image/";
+      #  ".mozilla/firefox/${config.nixos-snowfall.user.name}/chrome/acrylic_micaforeveryone.css" = "${pkgs.nixos-snowfall.firefox-mod-blur}/EXTRA THEMES/MicaForEveryone Files/acrylic_micaforeveryone.css";
+      #};
+      extraOptions = {
+        programs.firefox = {
+          profiles.${config.nixos-snowfall.user.name} = {
+            userContent = ''
+              @import "${pkgs.nixos-snowfall.firefox-mod-blur}/userContent.css";
+            '';
+          };
         };
       };
     };
