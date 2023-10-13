@@ -14,6 +14,7 @@ in
     nixos-snowfall = {
       apps = {
         spotify = enabled;
+        transmission = enabled;
       };
     };
   };
