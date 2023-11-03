@@ -78,11 +78,11 @@
 
     # Snowfall Flake
     flake.url = "github:snowfallorg/flake";
-    flake.inputs.nixpkgs.follows = "nixpkgs-unstable";
+    flake.inputs.nixpkgs.follows = "nixpkgs";
 
     # System Deployment
     deploy-rs.url = "github:serokell/deploy-rs";
-    deploy-rs.inputs.nixpkgs.follows = "nixpkgs-unstable";
+    deploy-rs.inputs.nixpkgs.follows = "nixpkgs";
 
     # virtulenv, but for all languages
     devshell = {
@@ -91,10 +91,10 @@
     };
 
     # Flake Hygiene
-    flake-checker = {
-      url = "github:DeterminateSystems/flake-checker";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    #flake-checker = {
+    #  url = "github:DeterminateSystems/flake-checker";
+    #  inputs.nixpkgs.follows = "nixpkgs";
+    #};
 
     # Flake-parts modules.
     flake-root.url = "github:srid/flake-root";
@@ -140,7 +140,7 @@
 
       # Import overlays from other inputs than just nixpkgs.
       overlays = with inputs; [
-        flake.overlay
+        flake.overlays
         agenix.overlays.default
       ];
 
