@@ -121,18 +121,19 @@
   outputs = inputs:
     let
       # Create lib from information from current directory. e.g. if there is a lib directory present functions from there will we imported so you can use them. E.g. mkDeploy
-      lib = inputs.snowfall-lib.mkLib
-        {
-          # Remove agenix from inputs to flake-utils-plus, as agenix does not have a default system target.
-          inputs = builtins.removeAttrs inputs [ "agenix" ];
-          src = ./.;
-          snowfall = {
-            meta = "nixos-snowfall";
+      lib = inputs.snowfall-lib.mkLib {
+        # Remove agenix from inputs to flake-utils-plus, as agenix does not have a default system target.
+        inputs = builtins.removeAttrs inputs [ "agenix" ];
+        src = ./.;
+        snowfall = {
+          meta = {
+            name = "nixos-snowfall";
             title = "NixOS Snowfall systems";
           };
           # Name nixos-snowfall because it uses snowfallorg lib at its core.
           namespace = "nixos-snowfall";
         };
+      };
     in
     lib.mkFlake {
       # Configure channels.
