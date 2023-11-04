@@ -130,7 +130,8 @@
     in
     lib.mkFlake {
       # Name nixos-snowfall because it uses snowfallorg lib at its core.
-      snowfall.namespace = "nixos-snowfall";
+      #snowfall.namespace = "nixos-snowfall";
+      package-namespace = "nixos-snowfall";
 
       # Configure channels.
       channels-config = {
