@@ -130,7 +130,7 @@
     in
     lib.mkFlake {
       # Name nixos-snowfall because it uses snowfallorg lib at its core.
-      package-namespace = "nixos-snowfall";
+      snowfall.namespace = "nixos-snowfall";
 
       # Configure channels.
       channels-config = {
@@ -145,7 +145,7 @@
       ];
 
       # Import modules from other inputs than just nixpkgs.
-      systems.modules = with inputs; [
+      systems.modules.nixos = with inputs; [
         # Add home-manager for managing /home
         home-manager.nixosModules.home-manager
         # Add agenix for managing secrets.
