@@ -15,7 +15,7 @@
 ###########################################################
 
 with lib;
-with lib.internal;
+with lib.nixos-snowfall;
 let
   cfg = config.nixos-snowfall.apps.kitty;
 in

@@ -2,7 +2,7 @@
 { options, config, lib, pkgs, ... }:
 
 with lib;
-with lib.internal;
+with lib.nixos-snowfall;
 let
   cfg = config.nixos-snowfall.archetypes.server;
 in

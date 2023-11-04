@@ -1,7 +1,7 @@
 { options, config, lib, pkgs, inputs, ... }:
 
 with lib;
-with lib.internal;
+with lib.nixos-snowfall;
 let
   mkTuple = inputs.home-manager.lib.hm.gvariant.mkTuple;
   cfg = config.nixos-snowfall.desktop.gnome;

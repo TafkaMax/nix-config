@@ -1,7 +1,7 @@
 { options, config, lib, pkgs, ... }:
 
 with lib;
-with lib.internal;
+with lib.nixos-snowfall;
 let
   cfg = config.nixos-snowfall.desktop.addons.gtk;
   gdmCfg = config.services.xserver.displayManager.gdm;

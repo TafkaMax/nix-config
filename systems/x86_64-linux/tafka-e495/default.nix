@@ -1,7 +1,7 @@
 { pkgs, config, lib, channel, inputs, ... }:
 
 with lib;
-with lib.internal;
+with lib.nixos-snowfall;
 {
   imports = [ ./hardware-configuration.nix ];
   # This value determines the NixOS release from which the default

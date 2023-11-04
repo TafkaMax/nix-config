@@ -1,7 +1,7 @@
 { options, config, pkgs, lib, ... }:
 
 with lib;
-with lib.internal;
+with lib.nixos-snowfall;
 let cfg = config.nixos-snowfall.hardware.networking;
 in
 {

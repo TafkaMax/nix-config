@@ -2,7 +2,7 @@
 
 #TODO enable gpg if comfortable
 with lib;
-with lib.internal;
+with lib.nixos-snowfall;
 let
   cfg = config.nixos-snowfall.tools.git;
   #gpg = config.nixos-snowfall.security.gpg;

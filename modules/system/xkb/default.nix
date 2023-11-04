@@ -1,7 +1,7 @@
 { options, config, lib, ... }:
 
 with lib;
-with lib.internal;
+with lib.nixos-snowfall;
 let cfg = config.nixos-snowfall.system.xkb;
 in
 {
