@@ -1,3 +1,6 @@
+{ ... }:
+final: prev:
+{ }
 #{ flake-checker, ... }:
 #
 #final: prev:
