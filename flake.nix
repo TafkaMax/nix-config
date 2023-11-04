@@ -91,10 +91,10 @@
     };
 
     # Flake Hygiene
-    #flake-checker = {
-    #  url = "github:DeterminateSystems/flake-checker";
-    #  inputs.nixpkgs.follows = "nixpkgs";
-    #};
+    flake-checker = {
+      url = "github:DeterminateSystems/flake-checker";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # Flake-parts modules.
     flake-root.url = "github:srid/flake-root";
@@ -140,7 +140,7 @@
 
       # Import overlays from other inputs than just nixpkgs.
       overlays = with inputs; [
-        flake.overlays
+        flake.overlays.default
         agenix.overlays.default
       ];
 
