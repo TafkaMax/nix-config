@@ -86,6 +86,7 @@ in
       guideDesktopItem
       reload-yubikey
       yubikey-personalization-gui
+      age-plugin-yubikey
     ];
 
     programs = {
