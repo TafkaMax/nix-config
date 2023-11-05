@@ -64,7 +64,7 @@
     };
 
     # nix language server, used by vscode & neovim
-    nil.url = "github:oxalica/nil/2023-05-09";
+    nil.url = "github:oxalica/nil/2023-08-09";
 
     # nixos-hardware support https://github.com/NixOS/nixos-hardware
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
@@ -122,6 +122,12 @@
     gpg-base-conf = {
       url = "github:drduh/config";
       flake = false;
+    };
+
+    # snowfall-lib docs
+    snowfall-docs = {
+      url = "github:snowfallorg/docs";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
