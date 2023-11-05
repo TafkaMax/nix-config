@@ -11,6 +11,6 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = with pkgs; [ transmission ];
+    environment.systemPackages = with pkgs; [ transmission transmission-gtk ];
   };
 }
