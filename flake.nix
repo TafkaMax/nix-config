@@ -91,10 +91,10 @@
     };
 
     # Flake Hygiene
-    #flake-checker = {
-    #  url = "github:DeterminateSystems/flake-checker";
-    #  inputs.nixpkgs.follows = "nixpkgs";
-    #};
+    flake-checker = {
+      url = "github:DeterminateSystems/flake-checker";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # Flake-parts modules.
     flake-root.url = "github:srid/flake-root";
