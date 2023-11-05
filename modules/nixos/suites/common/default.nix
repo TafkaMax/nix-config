@@ -46,8 +46,7 @@ in
       };
 
       security = {
-        # disable for now
-        #gpg = enabled;
+        gpg = enabled;
         doas = enabled;
       };
 
