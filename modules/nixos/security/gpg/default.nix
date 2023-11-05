@@ -100,6 +100,8 @@ in
 
     nixos-snowfall = {
       home.file = {
+        ".gnupg/.keep".text = "";
+
         ".gnupg/yubikey-guide.md".source = guide;
         ".gnupg/yubikey-guide.html".source = guideHTML;
 

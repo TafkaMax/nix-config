@@ -111,6 +111,12 @@
       url = "git+ssh://git@github.com/tafkamax/nix-secrets";
       flake = false;
     };
+
+    # GPG default configuration
+    gpg-base-conf = {
+      url = "github:drduh/config";
+      flake = false;
+    };
   };
 
   # The `outputs` function will return all the build results of the flake.
