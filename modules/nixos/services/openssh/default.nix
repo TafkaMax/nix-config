@@ -1,4 +1,4 @@
-{ options, config, pkgs, lib, systems, name, format, inputs, ... }:
+{ options, config, pkgs, lib, systems, format, inputs, ... }:
 
 with lib;
 with lib.nixos-snowfall;

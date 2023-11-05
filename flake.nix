@@ -140,6 +140,9 @@
       channels-config = {
         # Allow unfree pkgs.
         allowUnfree = true;
+        permittedInsecurePackages = [
+          "electron-24.8.6"
+        ];
       };
 
       # Import overlays from other inputs than just nixpkgs.
