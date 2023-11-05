@@ -20,10 +20,6 @@ in
         social = enabled;
         media = enabled;
       };
-
-      #tools = {
-      #  appimage-run = enabled;
-      #};
     };
   };
 }
