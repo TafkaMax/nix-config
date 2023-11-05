@@ -85,6 +85,7 @@ in
       paperkey
       guideDesktopItem
       reload-yubikey
+      yubikey-personalization-gui
     ];
 
     programs = {
