@@ -663,7 +663,8 @@
         "nixpkgs-unstable": "nixpkgs-unstable",
         "nur": "nur",
         "secrets": "secrets",
-        "snowfall-lib": "snowfall-lib_2"
+        "snowfall-lib": "snowfall-lib_2",
+        "yubikey-guide": "yubikey-guide"
       }
     },
     "rust-overlay": {
@@ -877,6 +878,22 @@
       "original": {
         "owner": "numtide",
         "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "yubikey-guide": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1697429042,
+        "narHash": "sha256-ZgSMNWFtRICcv/BStmFMiXbx4Xa9d4bbhqxSVb8NhJg=",
+        "owner": "drduh",
+        "repo": "YubiKey-Guide",
+        "rev": "c41729520faf06c352510118ec9bb042bf4a40e7",
+        "type": "github"
+      },
+      "original": {
+        "owner": "drduh",
+        "repo": "YubiKey-Guide",
         "type": "github"
       }
     }

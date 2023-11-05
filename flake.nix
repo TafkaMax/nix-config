@@ -112,6 +112,12 @@
       flake = false;
     };
 
+    # Yubikey Guide
+    yubikey-guide = {
+      url = "github:drduh/YubiKey-Guide";
+      flake = false;
+    };
+
     # GPG default configuration
     gpg-base-conf = {
       url = "github:drduh/config";
