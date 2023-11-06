@@ -69,6 +69,12 @@ in
 }
 ```
 
-## TODO
+## Actually create the encrypted file
 
-nix run github:ryantm/agenix -- -e ./encrypt/tansper-3106-password.age
+If you have agenix installed:
+
+`agenix -e ./encrypt/$secret_name.age`
+
+If you don't have agenix installed:
+
+`bash nix run github:ryantm/agenix -- -e ./encrypt/$secret_name.age`
