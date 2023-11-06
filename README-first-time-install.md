@@ -59,6 +59,12 @@ swapon -s
 ```bash
 # Prerequisities
 nix-shell -p git nixFlakes
+# Make the etc folder if it is not yet present.
+mkdir /mnt/etc
+# Depending on the version of your nixos installer you can't use symlink.
+git clone https://github.com/ExampleUserName/nix-config /mnt/etc/nixos
+# Upgrade the flakes.
+nix --extra-experimental-features "nix-command flakes"  flake update /mnt/etc/nixos
 # Install
 nixos-install --root /mnt --flake /mnt/etc/nixos#HOSTNAME
 ```
@@ -70,8 +76,11 @@ NixOS uses `/etc/nixos` as its base configuration. The files there are owned by 
 ```bash
 sudo mv /etc/nixos /etc/nixos.bak  # Backup the original configuration
 # Symlink the repository you are using to /etc/nixos
-sudo ln -s ~/nixos-config/ /etc/nixos
-
+sudo ln -s /path/to/nix-config/ /etc/nixos
+# Change directory to your config dir.
+cd /path/to/nix-config
 # Deploy the flake.nix located at the default location (/etc/nixos)
 sudo nixos-rebuild switch
+# Or when using this repository, you can use the Makefile commands.
+make deploy
 ```
