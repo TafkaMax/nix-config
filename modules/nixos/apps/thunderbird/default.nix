@@ -25,7 +25,7 @@ in
             };
           };
         };
-        accounts.email.account.${user.name} = {
+        accounts.email.accounts.${user.name} = {
           primary = true;
           address = user.email;
           thunderbird.enable = true;
