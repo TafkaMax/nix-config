@@ -26,6 +26,7 @@ in
 
       tools = {
         flameshot = enabled;
+        wl-clipboard = enabled;
       };
     };
   };
