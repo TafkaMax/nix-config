@@ -17,19 +17,19 @@ in
     # manage thunderbird using home-manager
     nixos-snowfall.home = {
       extraOptions = {
+        programs.thunderbird = {
+          enable = true;
+          profiles = {
+            ${user.name} = {
+              isDefault = true;
+            };
+          };
+        };
         accounts.email.account.${user.name} = {
           primary = true;
           address = user.email;
           thunderbird.enable = true;
           realname = user.fullName;
-        };
-      };
-      programs.thunderbird = {
-        enable = true;
-        profiles = {
-          ${user.name} = {
-            isDefault = true;
-          };
         };
       };
     };
