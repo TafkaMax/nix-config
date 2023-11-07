@@ -22,6 +22,7 @@ in
           profiles = {
             "${user.name}-profile" = {
               isDefault = true;
+              settings = user.emailOptions.settings;
             };
           };
         };

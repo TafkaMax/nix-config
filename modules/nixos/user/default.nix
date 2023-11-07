@@ -38,6 +38,8 @@ in
     extraGroups = mkOpt (listOf str) [ ] "Groups for the user to be assigned.";
     extraOptions = mkOpt attrs { }
       "Extra options passed to <option>users.users.<name></option>.";
+    emailOptions = mkOpt attrs { }
+      "Extra options passed to thunderbird.";
   };
 
   config = {
