@@ -26,12 +26,12 @@ in
             };
           };
         };
-        accounts.email.accounts.${user.name} = {
-          primary = true;
-          address = user.email;
-          thunderbird.enable = true;
-          realName = user.fullName;
-        };
+        #accounts.email.accounts.${user.name} = {
+        #  primary = true;
+        #  address = user.email;
+        #  thunderbird.enable = true;
+        #  realName = user.fullName;
+        #};
       };
     };
   };
