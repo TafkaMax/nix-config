@@ -29,7 +29,7 @@ in
           primary = true;
           address = user.email;
           thunderbird.enable = true;
-          realname = user.fullName;
+          realName = user.fullName;
         };
       };
     };
