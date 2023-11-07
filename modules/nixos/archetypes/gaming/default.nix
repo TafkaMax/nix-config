@@ -18,6 +18,7 @@ in
       media = enabled;
       video = enabled;
       games = enabled;
+      art = enabled;
     };
   };
 }
