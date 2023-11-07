@@ -20,10 +20,10 @@ in
         programs.thunderbird = {
           enable = true;
           profiles = {
-            ${user.name} = {
-              name = user.name;
-              isDefault = true;
-            };
+            #${user.name} = {
+            #  name = user.name;
+            #  isDefault = true;
+            #};
           };
         };
         #accounts.email.accounts.${user.name} = {
