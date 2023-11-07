@@ -20,18 +20,18 @@ in
         programs.thunderbird = {
           enable = true;
           profiles = {
-            #${user.name} = {
-            #  name = user.name;
-            #  isDefault = true;
-            #};
+            "${user.name}-profile" = {
+              name = user.name;
+              isDefault = true;
+            };
           };
         };
-        #accounts.email.accounts.${user.name} = {
-        #  primary = true;
-        #  address = user.email;
-        #  thunderbird.enable = true;
-        #  realName = user.fullName;
-        #};
+        accounts.email.accounts.${user.name} = {
+          primary = true;
+          address = user.email;
+          thunderbird.enable = true;
+          realName = user.fullName;
+        };
       };
     };
   };
