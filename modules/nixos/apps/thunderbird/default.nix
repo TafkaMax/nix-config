@@ -31,6 +31,24 @@ in
           address = user.email;
           thunderbird.enable = true;
           realName = user.fullName;
+          imap = {
+            host = user.emailOptions.host;
+            port = 993;
+            tls = {
+              enable = true;
+            };
+          };
+          signature = user.emailOptions.signature;
+          smtp =
+            {
+              host = user.emailOptions.host;
+              port = 25;
+              tls = {
+                enable = true;
+                useStartTls = true;
+              };
+            };
+          userName = user.name;
         };
       };
     };
