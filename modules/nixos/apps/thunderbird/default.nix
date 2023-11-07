@@ -44,6 +44,9 @@ in
               "toolkit.telemetry.enabled" = false;
               "toolkit.telemetry.rejected" = true;
               "toolkit.telemetry.prompted" = 2;
+              "msgcompose.default_colors" = false;
+              "msgcompose.text_color" = "#9a9996";
+              "msgcompose.background_color" = "#000000";
             };
           };
           realName = user.fullName;

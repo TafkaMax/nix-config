@@ -28,6 +28,10 @@ in
         flameshot = enabled;
         wl-clipboard = enabled;
       };
+
+      security = {
+        keepassxc = enabled;
+      };
     };
   };
 }
