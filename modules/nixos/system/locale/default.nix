@@ -14,7 +14,7 @@ in
       defaultLocale = "en_US.UTF-8";
       supportedLocales = [ "en_US.UTF-8/UTF-8" "et_EE.UTF-8/UTF-8" ];
       extraLocaleSettings = {
-        LC_TIME = "en_EE.UTF-8";
+        LC_TIME = "et_EE.UTF-8";
       };
     };
 
