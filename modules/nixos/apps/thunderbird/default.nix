@@ -21,7 +21,6 @@ in
           enable = true;
           profiles = {
             "${user.name}-profile" = {
-              name = user.name;
               isDefault = true;
             };
           };
