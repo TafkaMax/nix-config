@@ -4,7 +4,7 @@ with lib;
 with lib.nixos-snowfall;
 let
   cfg = config.nixos-snowfall.apps.thunderbird;
-  user = config.nixos-snowfall.user.name;
+  user = config.nixos-snowfall.user;
 in
 {
   options.nixos-snowfall.apps.thunderbird = with types; {
