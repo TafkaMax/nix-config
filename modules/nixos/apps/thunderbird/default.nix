@@ -29,7 +29,23 @@ in
         accounts.email.accounts.${user.name} = {
           primary = true;
           address = user.email;
-          thunderbird.enable = true;
+          thunderbird = {
+            enable = true;
+            settings = id: {
+              "mail.identity.id_${id}.reply_on_top" = 1;
+              "mail.identity.id_${id}.sig_bottom" = false;
+              "mailnews.default_sort_order" = 2;
+              "mailnews.default_sort_type" = 18;
+              "mailnews.default_view_flags" = 0;
+              "mail.imap.expunge_after_delete" = true;
+              "mail.server.default.delete_model" = 2;
+              "mail.warn_on_delete_from_trash" = false;
+              "mail.warn_on_shift_delete" = false;
+              "toolkit.telemetry.enabled" = false;
+              "toolkit.telemetry.rejected" = true;
+              "toolkit.telemetry.prompted" = 2;
+            };
+          };
           realName = user.fullName;
           imap = {
             host = user.emailOptions.host;
