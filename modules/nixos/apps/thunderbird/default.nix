@@ -23,6 +23,7 @@ in
             ${user.name} = {
               name = user.name;
               isDefault = true;
+              #settings = user.default-email.settings;
             };
           };
         };

@@ -47,9 +47,9 @@ in
       autosuggestions.enable = true;
       histFile = "$XDG_CACHE_HOME/zsh.history";
       ohMyZsh = {
-    	enable = true;
-	plugins = [ "git"];
-	theme = "agnoster";
+        enable = true;
+        plugins = [ "git" ];
+        theme = "agnoster";
       };
     };
 
@@ -96,7 +96,7 @@ in
             enableCompletion = true;
             enableAutosuggestions = true;
             enableSyntaxHighlighting = true;
-      	    history = {
+            history = {
               size = 10000;
             };
 
