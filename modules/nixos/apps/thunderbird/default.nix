@@ -21,6 +21,7 @@ in
           enable = true;
           profiles = {
             ${user.name} = {
+              name = user.name;
               isDefault = true;
             };
           };
