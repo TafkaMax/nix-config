@@ -13,7 +13,7 @@ with lib.nixos-snowfall;
 
   nixos-snowfall = {
     archetypes = {
-      workstation = enabled;
+      gaming = enabled;
     };
     # Set monitors.
     desktop.gnome = {
