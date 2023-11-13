@@ -209,6 +209,7 @@ in
               ++ optional config.nixos-snowfall.apps.obsidian.enable "obsidian.desktop"
               ++ optional config.nixos-snowfall.apps.spotify.enable "spotify.desktop"
               ++ optional config.nixos-snowfall.apps.element.enable "element-desktop.desktop"
+              ++ optional config.nixos-snowfall.security.keepassxc.enable "org.keepassxc.KeePassXC.desktop"
               ++ optional config.nixos-snowfall.apps.steam.enable "steam.desktop";
           };
 
