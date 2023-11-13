@@ -202,6 +202,7 @@ in
             ];
             favorite-apps =
               [ "org.gnome.Nautilus.desktop" ]
+              ++ optional config.nixos-snowfall.apps.thunderbird.enable "thunderbird.desktop"
               ++ optional config.nixos-snowfall.apps.firefox.enable "firefox.desktop"
               ++ optional config.nixos-snowfall.apps.kitty.enable "kitty.desktop"
               ++ optional config.nixos-snowfall.apps.remmina.enable "org.remmina.Remmina.desktop"
