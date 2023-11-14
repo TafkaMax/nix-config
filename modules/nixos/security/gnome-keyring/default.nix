@@ -20,12 +20,6 @@ in
     nixos-snowfall.home = {
       extraOptions = {
         home.file = mkIf config.nixos-snowfall.security.gpg.enable {
-          ".config/autostart/gnome-keyring-ssh.desktop" = {
-            text = ''
-              Hidden=true
-            '';
-          };
-
           ".config/environment.d/10-ssh-auth-sock.conf" = {
             text = ''
               SSH_AUTH_SOCK=$XDG_RUNTIME_DIR/gnupg/S.gpg-agent.ssh
