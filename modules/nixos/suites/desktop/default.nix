@@ -31,6 +31,7 @@ in
 
       security = {
         keepassxc = enabled;
+        keyring = enabled;
       };
     };
   };
