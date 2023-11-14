@@ -87,6 +87,8 @@ in
       reload-yubikey
       yubikey-personalization-gui
       age-plugin-yubikey
+      libyubikey
+      libfido2
     ];
 
     programs = {
