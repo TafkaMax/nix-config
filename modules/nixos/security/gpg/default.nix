@@ -57,7 +57,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    services.pcscd.enable = true;
+    services.pcscd.enable = false;
     services.udev.packages = with pkgs; [ yubikey-personalization ];
 
     # @NOTE(jakehamilton): This should already have been added by programs.gpg, but
