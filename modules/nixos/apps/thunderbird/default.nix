@@ -47,7 +47,7 @@ in
               "msgcompose.default_colors" = false;
               "msgcompose.text_color" = "#9a9996";
               "msgcompose.background_color" = "#000000";
-              "mail.server.default.check_all_folder_fow_new" = true;
+              "mail.server.default.check_all_folders_for_new" = true;
             };
           };
           realName = user.fullName;
