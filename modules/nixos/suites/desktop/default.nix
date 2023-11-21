@@ -22,6 +22,7 @@ in
         firefox = enabled;
         vlc = enabled;
         remmina = enabled;
+        libreoffice = enabled;
       };
 
       tools = {
