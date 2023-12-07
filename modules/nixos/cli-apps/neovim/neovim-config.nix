@@ -1,4 +1,4 @@
-{ inputs, outputs, nixpkgs, osConfig, config, lib, pkgs, ... }: {
+{ inputs, outputs, osConfig, config, lib, pkgs, ... }: {
 
   #https://nixos.wiki/wiki/Vim
 
