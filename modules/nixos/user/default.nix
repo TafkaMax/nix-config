@@ -40,6 +40,7 @@ in
       "Extra options passed to <option>users.users.<name></option>.";
     emailOptions = mkOpt attrs { }
       "Extra options passed to thunderbird.";
+    mountpoints = mkOpt (listOf str) [ ] "Mountpoints to mount in Nautilus.";
   };
 
   config = {

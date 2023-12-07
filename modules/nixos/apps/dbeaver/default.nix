@@ -7,7 +7,7 @@ let
 in
 {
   options.nixos-snowfall.apps.dbeaver = with types; {
-    enable = mkBoolOpt false "Whether or not to enable Element.";
+    enable = mkBoolOpt false "Whether or not to enable Dbeaver.";
   };
 
   config = mkIf cfg.enable {

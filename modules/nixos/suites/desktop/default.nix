@@ -22,6 +22,7 @@ in
         firefox = enabled;
         vlc = enabled;
         remmina = enabled;
+        libreoffice = enabled;
       };
 
       tools = {
@@ -31,6 +32,7 @@ in
 
       security = {
         keepassxc = enabled;
+        keyring = enabled;
       };
     };
   };
