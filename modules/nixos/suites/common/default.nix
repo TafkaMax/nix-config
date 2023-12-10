@@ -26,6 +26,7 @@ in
 
       cli-apps = {
         flake = enabled;
+        neovim = enabled;
       };
 
       tools = {
