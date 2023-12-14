@@ -15,6 +15,7 @@ in
       apps = {
         element = enabled;
         thunderbird = enabled;
+        zoom-us = enabled;
       };
       tools = {
         #sshfs = enabled;
