@@ -80,6 +80,7 @@ in
       cryptsetup
       paperkey
       gnupg
+      pinentry
       pinentry-curses
       pinentry-gnome
       pinentry-qt
