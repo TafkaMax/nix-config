@@ -81,6 +81,7 @@ in
       paperkey
       gnupg
       pinentry-curses
+      pinentry-gnome
       pinentry-qt
       paperkey
       guideDesktopItem
