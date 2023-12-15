@@ -288,7 +288,7 @@ in
             "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1" = {
               name = "Flameshot screenshot";
               binding = "<Super>Print";
-              command = "flameshot gui";
+              command = "fixflameshot";
             };
           };
       };
