@@ -39,6 +39,7 @@ in
       hardware = {
         audio = enabled;
         networking = enabled;
+        diagnostics = enabled;
       };
 
       services = {
