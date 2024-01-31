@@ -29,6 +29,7 @@ in
           powerline-fonts
           material-design-icons
           font-awesome
+          dejavu-fonts
           (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
         ] ++ cfg.fonts;
 
