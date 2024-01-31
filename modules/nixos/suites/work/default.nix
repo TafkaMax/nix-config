@@ -18,6 +18,8 @@ in
         zoom-us = enabled;
       };
       tools = {
+        gns3 = enabled;
+        virtualbox = enabled;
         #sshfs = enabled;
       };
     };

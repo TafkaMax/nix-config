@@ -4,7 +4,6 @@ with lib;
 with lib.nixos-snowfall;
 let
   cfg = config.nixos-snowfall.tools.gns3;
-  user = config.nixos-snowfall.user;
 in
 {
   options.nixos-snowfall.tools.gns3 = with types; {
@@ -13,10 +12,9 @@ in
 
   config = mkIf cfg.enable {
     environment.systemPackages = with pkgs; [ gns3-server ];
-    users.users.${user.name} = {
-      packages = with pkgs; [
+    nixos-snowfall.home.extraOptions = {
+      home.packages = with pkgs; [
         gns3-gui
       ];
     };
-  };
-}
+  }

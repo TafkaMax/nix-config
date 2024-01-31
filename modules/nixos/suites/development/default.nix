@@ -29,7 +29,6 @@ in
         direnv = enabled;
         http = enabled;
         docker = enabled;
-        virtualbox = enabled;
       };
 
     };
