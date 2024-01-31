@@ -9,5 +9,5 @@ in
     enable = mkBoolOpt false "Whether or not to enable diagnostics support";
   };
 
-  config = mkIf cfg.enable { environment.systemPackages = with pkgs; [ dmidecode ]; };
+  config = mkIf cfg.enable { environment.systemPackages = with pkgs; [ dmidecode gparted ]; };
 }
