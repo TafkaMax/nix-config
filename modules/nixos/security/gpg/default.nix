@@ -11,7 +11,7 @@ let
     enable-ssh-support
     default-cache-ttl 60
     max-cache-ttl 120
-    pinentry-program ${pkgs.pinentry-gnome}/bin/pinentry-gnome
+    pinentry-program ${pkgs.pinentry-gnome}/bin/pinentry
   '';
 
   guide = "${inputs.yubikey-guide}/README.md";
@@ -80,7 +80,9 @@ in
       cryptsetup
       paperkey
       gnupg
+      pinentry
       pinentry-curses
+      pinentry-gnome
       pinentry-qt
       paperkey
       guideDesktopItem

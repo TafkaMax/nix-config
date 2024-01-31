@@ -73,7 +73,7 @@
     nur.url = "github:nix-community/NUR";
 
     # Snowfall Lib
-    snowfall-lib.url = "github:snowfallorg/lib/dev";
+    snowfall-lib.url = "github:snowfallorg/lib";
     snowfall-lib.inputs.nixpkgs.follows = "nixpkgs";
 
     # Snowfall Flake
@@ -159,7 +159,7 @@
         # Allow unfree pkgs.
         allowUnfree = true;
         permittedInsecurePackages = [
-          "electron-24.8.6"
+          "electron-25.9.0"
         ];
       };
 

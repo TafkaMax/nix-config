@@ -15,8 +15,11 @@ in
       apps = {
         element = enabled;
         thunderbird = enabled;
+        zoom-us = enabled;
       };
       tools = {
+        gns3 = enabled;
+        virtualbox = enabled;
         #sshfs = enabled;
       };
     };

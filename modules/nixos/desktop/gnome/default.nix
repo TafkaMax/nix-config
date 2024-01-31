@@ -151,7 +151,8 @@ in
       };
 
       # we dont need too many terminals
-      excludePackages = [ pkgs.xterm ];
+      # Some applications use xterm for console connections. E.g. gns3
+      #excludePackages = [ pkgs.xterm ];
 
       desktopManager = {
         gnome = {
@@ -288,7 +289,7 @@ in
             "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1" = {
               name = "Flameshot screenshot";
               binding = "<Super>Print";
-              command = "flameshot gui";
+              command = "fixflameshot";
             };
           };
       };

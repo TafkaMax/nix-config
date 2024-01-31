@@ -11,6 +11,7 @@ let
   cli-apps = {
     neovim = enabled;
     tmux = enabled;
+    docker = enabled;
   };
 in
 {

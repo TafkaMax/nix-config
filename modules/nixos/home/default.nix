@@ -18,6 +18,8 @@ in
   };
 
   config = {
+    # enable .local/bin 
+    environment.localBinInPath = true;
     nixos-snowfall.home.extraOptions = {
       home.stateVersion = config.system.stateVersion;
       home.file = mkAliasDefinitions options.nixos-snowfall.home.file;

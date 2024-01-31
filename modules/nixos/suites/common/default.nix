@@ -26,6 +26,7 @@ in
 
       cli-apps = {
         flake = enabled;
+        neovim = enabled;
       };
 
       tools = {
@@ -38,6 +39,7 @@ in
       hardware = {
         audio = enabled;
         networking = enabled;
+        diagnostics = enabled;
       };
 
       services = {
