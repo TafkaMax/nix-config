@@ -19,6 +19,9 @@ debug:
 update:
 	nix flake update
 
+deploy-bootloader:
+  doas nixos-rebuild --install-bootloader boot
+
 history:
 	nix profile history --profile /nix/var/nix/profiles/system
 
