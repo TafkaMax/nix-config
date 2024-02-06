@@ -151,8 +151,7 @@ in
       };
 
       # we dont need too many terminals
-      # Some applications use xterm for console connections. E.g. gns3
-      #excludePackages = [ pkgs.xterm ];
+      excludePackages = [ pkgs.xterm ];
 
       desktopManager = {
         gnome = {
