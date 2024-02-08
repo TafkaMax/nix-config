@@ -13,6 +13,6 @@ in
 
   config = mkIf cfg.enable {
     virtualisation.libvirtd.enable = true;
-    users.users.${user.name}.extraOptions = [ "qemu-libvirtd" "libvirtd" ];
+    users.users.${user.name}.extraGroups = [ "qemu-libvirtd" "libvirtd" ];
   };
 }
