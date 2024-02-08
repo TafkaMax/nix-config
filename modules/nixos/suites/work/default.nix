@@ -20,6 +20,7 @@ in
       tools = {
         gns3 = enabled;
         virtualbox = enabled;
+        libvirtd = enabled;
         #sshfs = enabled;
       };
     };
