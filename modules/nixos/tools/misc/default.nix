@@ -17,6 +17,7 @@ in
       zip
       xz
       unzip
+      cabextract
 
       # utils
       ripgrep # recursively searches directories for a regex pattern
