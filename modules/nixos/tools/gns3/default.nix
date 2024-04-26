@@ -15,6 +15,7 @@ in
     nixos-snowfall.home.extraOptions = {
       home.packages = with pkgs; [
         gns3-gui
+        ubridge
       ];
     };
     security.wrappers = {
@@ -22,7 +23,7 @@ in
         source = "/run/current-system/sw/bin/ubridge";
         capabilities = "cap_net_admin,cap_net_raw=ep";
         owner = "root";
-        group = "ubridge";
+        group = "root";
         permissions = "u+rx,g+x";
       };
     };

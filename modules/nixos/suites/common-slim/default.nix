@@ -43,9 +43,7 @@ in
         #tailscale = enabled;
       };
 
-      security = {
-        doas = enabled;
-      };
+      security = { };
 
       system = {
         boot = enabled;
