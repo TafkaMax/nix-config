@@ -4,6 +4,7 @@ with lib;
 with lib.nixos-snowfall;
 let
   cfg = config.nixos-snowfall.tools.gns3;
+  user = config.nixos-snowfall.user;
 in
 {
   options.nixos-snowfall.tools.gns3 = with types; {
@@ -17,14 +18,15 @@ in
         gns3-gui
       ];
     };
-    security.wrappers = {
-      ubridge = {
-        source = "/run/current-system/sw/bin/ubridge";
-        capabilities = "cap_net_admin,cap_net_raw=ep";
-        owner = "root";
-        group = "root";
-        permissions = "u+rx,g+x";
-      };
+    # Add ubridge
+    users.groups.ubridge = { };
+    users.users.${user.name}.extraGroups = [ "ubridge" ];
+    security.wrappers.ubridge = {
+      source = "${pkgs.ubridge}/bin/ubridge";
+      capabilities = "cap_net_admin,cap_net_raw=ep";
+      owner = "root";
+      group = "ubridge";
+      permissions = "u+rx,g+rx,o+rx";
     };
   };
 }
