@@ -22,6 +22,7 @@ in
         gns3 = enabled;
         virtualbox = enabled;
         libvirtd = enabled;
+        wireshark = enabled;
         #sshfs = enabled;
       };
     };
