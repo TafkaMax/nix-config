@@ -61,7 +61,6 @@ in
       gnome-connections #rdp/remmina like tool
       gnome-photos #photo gallery like thingy
       gnome-tour # welcome thingy that shows new things in a gnome release
-      gnome-text-editor
     ]) ++ (with pkgs.gnome; [
       epiphany # web-browser, use firefox instead
       geary # email client, use thundebird instead
