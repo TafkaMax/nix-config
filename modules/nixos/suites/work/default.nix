@@ -17,6 +17,7 @@ in
         thunderbird = enabled;
         zoom-us = enabled;
         drawio = enabled;
+        yed = enabled;
       };
       tools = {
         gns3 = enabled;
