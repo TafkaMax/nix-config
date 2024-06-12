@@ -30,6 +30,7 @@ in
         http = enabled;
         docker = enabled;
         python = enabled;
+        tio = enabled;
       };
 
     };

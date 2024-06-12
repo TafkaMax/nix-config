@@ -139,10 +139,13 @@ in
       gnome-online-accounts.enable = false;
     };
 
+    services.libinput = {
+      enable = true;
+    };
+
     services.xserver = {
       enable = true;
 
-      libinput.enable = true;
       displayManager.gdm = {
         enable = true;
         wayland = cfg.wayland;
