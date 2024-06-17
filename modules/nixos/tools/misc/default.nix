@@ -29,6 +29,8 @@ in
       iperf3
       # iperf2 for multicast support
       iperf2
+      # tcpdump for debugging
+      tcpdump
       dnsutils # `dig` + `nslookup`
       ldns # replacement of `dig`, it provides the command `drill`
       socat # replacement of openbsd-netcat
