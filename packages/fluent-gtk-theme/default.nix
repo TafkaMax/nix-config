@@ -63,7 +63,7 @@ lib.checkListOfEnum "${pname}: theme variants"
   stdenvNoCC.mkDerivation
   (finalAttrs: {
     inherit pname;
-    version = "185c714";
+    version = "185c7145e5216f43760d4de1d094965803c3f063";
 
     src = fetchFromGitHub {
       owner = "vinceliuice";
