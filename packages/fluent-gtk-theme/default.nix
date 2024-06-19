@@ -12,7 +12,7 @@
 , # default: all
   sizeVariants ? [ ]
 , # default: standard
-  tweaks ? [ ]
+  tweaks ? [ "round" "blur" "noborder" ]
 ,
 }:
 
