@@ -29,5 +29,7 @@ in
         passwordFile = "/etc/nixos/modules/nixos/tools/gns3/gns3_password.txt";
       };
     };
+    # Add current user to ubridge group.
+    users.users.${user.name}.extraGroups = [ "ubridge" ];
   };
 }
