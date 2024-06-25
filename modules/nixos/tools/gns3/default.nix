@@ -23,6 +23,11 @@ in
       ubridge = {
         enable = true;
       };
+      auth = {
+        enable = true;
+        username = "gns3";
+        password = "/home/tansper/Documents/Gitlab/nix-config";
+      };
     };
   };
 }
