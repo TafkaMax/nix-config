@@ -26,7 +26,7 @@ in
       auth = {
         enable = true;
         username = "gns3";
-        password = "/home/tansper/Documents/Gitlab/nix-config";
+        password = "/etc/nixos/modules/nixos/tools/gns3/gns3_password.txt";
       };
     };
   };
