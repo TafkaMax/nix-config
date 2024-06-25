@@ -26,7 +26,7 @@ in
       auth = {
         enable = true;
         username = "gns3";
-        password = "/etc/nixos/modules/nixos/tools/gns3/gns3_password.txt";
+        passwordFile = "/etc/nixos/modules/nixos/tools/gns3/gns3_password.txt";
       };
     };
   };
