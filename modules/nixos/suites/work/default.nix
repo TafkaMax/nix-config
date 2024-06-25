@@ -25,6 +25,7 @@ in
         libvirtd = enabled;
         wireshark = enabled;
         apache-directory-studio = enabled;
+        misc-work = enabled;
         #sshfs = enabled;
       };
     };
