@@ -69,7 +69,7 @@ lib.checkListOfEnum "${pname}: theme variants"
       owner = "vinceliuice";
       repo = "fluent-gtk-theme";
       rev = finalAttrs.version;
-      hash = "";
+      hash = "sha256-kSdORVzXMOlwtWYR35Z0OiY3bVBMxn9RTEErimqmpc0=";
     };
 
     nativeBuildInputs = [
