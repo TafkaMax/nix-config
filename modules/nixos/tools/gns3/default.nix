@@ -12,7 +12,6 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = with pkgs; [ gns3-server ubridge ];
     nixos-snowfall.home.extraOptions = {
       home.packages = with pkgs; [
         gns3-gui
