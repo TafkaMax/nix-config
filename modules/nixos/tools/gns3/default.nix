@@ -18,15 +18,12 @@ in
         gns3-gui
       ];
     };
-    # Add ubridge
-    users.groups.ubridge = { };
-    users.users.${user.name}.extraGroups = [ "ubridge" ];
-    security.wrappers.ubridge = {
-      source = "${pkgs.ubridge}/bin/ubridge";
-      capabilities = "cap_net_admin,cap_net_raw=ep";
-      owner = "root";
-      group = "ubridge";
-      permissions = "u+rx,g+rx,o+rx";
+    # Add gns3-server as service.
+    services.gns3-server = {
+      enable = true;
+      ubridge = {
+        enable = true;
+      };
     };
   };
 }
