@@ -51,6 +51,10 @@ in
   };
 
   config = mkIf cfg.enable {
+
+    # Install sshpass for non-interactive usage e.g. Ansible.
+    environment.systemPackages = with pkgs; [ sshpass ];
+
     services.openssh = {
       enable = true;
 

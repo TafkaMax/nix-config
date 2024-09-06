@@ -61,7 +61,6 @@ in
       gnome-connections #rdp/remmina like tool
       gnome-photos #photo gallery like thingy
       gnome-tour # welcome thingy that shows new things in a gnome release
-      gnome-text-editor
     ]) ++ (with pkgs.gnome; [
       epiphany # web-browser, use firefox instead
       geary # email client, use thundebird instead
@@ -140,10 +139,13 @@ in
       gnome-online-accounts.enable = false;
     };
 
+    services.libinput = {
+      enable = true;
+    };
+
     services.xserver = {
       enable = true;
 
-      libinput.enable = true;
       displayManager.gdm = {
         enable = true;
         wayland = cfg.wayland;
@@ -151,8 +153,7 @@ in
       };
 
       # we dont need too many terminals
-      # Some applications use xterm for console connections. E.g. gns3
-      #excludePackages = [ pkgs.xterm ];
+      excludePackages = [ pkgs.xterm ];
 
       desktopManager = {
         gnome = {
