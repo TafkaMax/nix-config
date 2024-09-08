@@ -63,13 +63,13 @@ lib.checkListOfEnum "${pname}: theme variants"
   stdenvNoCC.mkDerivation
   (finalAttrs: {
     inherit pname;
-    version = "724f3ccfef1f71961a3b2e75cbacae7e987973bb";
+    version = "14254d9e0ea5b85cf5c9d3ce18f94c3766dc4e17";
 
     src = fetchFromGitHub {
       owner = "vinceliuice";
       repo = "fluent-gtk-theme";
       rev = finalAttrs.version;
-      hash = "sha256-9aElD7brIfTwoZ9E+pDgdUetWPXXAS/Ns7c7eLq3CDA=";
+      hash = "sha256-DfL2qaHfN6AEaZIbcMb29E4MrYr/rW9QND9mHuPTwaI=";
     };
 
     nativeBuildInputs = [

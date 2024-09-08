@@ -16,14 +16,14 @@ with lib.nixos-snowfall;
       gaming = enabled;
     };
     # Set monitors.
-    #desktop.gnome = {
-    #  monitors = ./monitors.xml;
-    #};
+    desktop.gnome = {
+      monitors = ./monitors.xml;
+    };
 
 
-    #user = {
-    #  initialPassword = config.age.secrets.tafka-e495-password.path;
-    #};
+    user = {
+      initialPassword = config.age.secrets.tafka-pc-password.path;
+    };
   };
 
   # Enable both wirless and wired connection.
