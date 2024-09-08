@@ -12,7 +12,9 @@ in
 
   config = mkIf cfg.enable {
     nixos-snowfall = {
-      apps = { };
+      apps = {
+        steam = enabled;
+      };
     };
   };
 }
