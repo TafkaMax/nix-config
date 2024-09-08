@@ -12,6 +12,6 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = with pkgs; [ zfs ];
+    boot.supportedFilesystems.zfs = true;
   };
 }
