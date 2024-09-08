@@ -15,6 +15,9 @@ in
       apps = {
         steam = enabled;
       };
+      services = {
+        maestral = enabled;
+      };
     };
   };
 }
