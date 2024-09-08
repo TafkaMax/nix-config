@@ -16,26 +16,29 @@ with lib.nixos-snowfall;
       gaming = enabled;
     };
     # Set monitors.
-    #desktop.gnome = {
-    #  monitors = ./monitors.xml;
-    #};
+    desktop.gnome = {
+      monitors = ./monitors.xml;
+    };
 
 
-    #user = {
-    #  initialPassword = config.age.secrets.tafka-pc-password.path;
-    #};
+    user = {
+      initialPassword = config.age.secrets.tafka-e495-password.path;
+    };
   };
 
   # Enable both wirless and wired connection.
   # Set hostname.
   networking = {
-    hostName = "tafka-pc";
+    hostName = "tafka-e495";
     interfaces = {
-      enp6s0 = {
+      enp2s0 = {
+        useDHCP = true;
+      };
+      wlp4s0 = {
         useDHCP = true;
       };
     };
   };
 
-  system.stateVersion = "24.05"; # Did you read the comment?
+  system.stateVersion = "23.11"; # Did you read the comment?
 }
