@@ -22,6 +22,7 @@ in
       luks.devices.crypt.device = "/dev/nvme0n1p2";
     };
     extraModulePackages = [ ];
+    zfs.extraPools = [ "tafka-storage" ];
   };
 
   fileSystems."/" =
