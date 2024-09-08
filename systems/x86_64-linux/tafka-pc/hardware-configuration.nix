@@ -22,7 +22,7 @@ in
       luks.devices.crypt.device = "/dev/nvme0n1p2";
     };
     extraModulePackages = [ ];
-    zfs.extraPools = [ "tafka-storage" ];
+    #zfs.extraPools = [ "tafka-storage" ];
   };
 
   fileSystems."/" =
@@ -37,6 +37,11 @@ in
       device = "/dev/disk/by-label/boot";
       fsType = "vfat";
     };
+
+  fileSystems."/tafka-storage" = {
+    device = "tafka-storage";
+    fsType = "zfs";
+  };
 
   swapDevices =
     [{ device = "/dev/disk/by-label/swap"; }];
