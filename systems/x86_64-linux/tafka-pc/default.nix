@@ -16,9 +16,9 @@ with lib.nixos-snowfall;
       gaming = enabled;
     };
     # Set monitors.
-    #desktop.gnome = {
-    #  monitors = ./monitors.xml;
-    #};
+    desktop.gnome = {
+      monitors = ./monitors.xml;
+    };
 
 
     user = {
