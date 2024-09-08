@@ -21,9 +21,9 @@ with lib.nixos-snowfall;
     #};
 
 
-    user = {
-      initialPassword = config.age.secrets.tafka-pc-password.path;
-    };
+    #user = {
+    #  initialPassword = config.age.secrets.tafka-pc-password.path;
+    #};
   };
 
   # Enable both wirless and wired connection.
