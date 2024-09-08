@@ -38,7 +38,7 @@ with lib.nixos-snowfall;
         useDHCP = true;
       };
     };
-    hostId = "105f5fe0fd2e46a79838d845c18d9c0b";
+    hostId = "105f5fe0";
   };
 
   system.stateVersion = "24.05"; # Did you read the comment?
