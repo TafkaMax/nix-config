@@ -12,6 +12,9 @@ with lib.nixos-snowfall;
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
 
   nixos-snowfall = {
+
+    hardware.zfs-storage.enable = true;
+
     archetypes = {
       gaming = enabled;
     };
