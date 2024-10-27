@@ -2,7 +2,9 @@
 
 with lib;
 with lib.nixos-snowfall;
-let cfg = config.nixos-snowfall.hardware.corectrl;
+let
+  cfg = config.nixos-snowfall.hardware.corectrl;
+  user = config.nixos-snowfall.user;
 in
 {
   options.nixos-snowfall.hardware.corectrl = with types; {
