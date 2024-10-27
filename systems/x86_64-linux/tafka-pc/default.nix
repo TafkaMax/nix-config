@@ -14,6 +14,7 @@ with lib.nixos-snowfall;
   nixos-snowfall = {
 
     hardware.zfs-storage.enable = true;
+    programs.corectrl.enable = true;
 
     archetypes = {
       gaming = enabled;
@@ -22,7 +23,6 @@ with lib.nixos-snowfall;
     desktop.gnome = {
       monitors = ./monitors.xml;
     };
-
 
     user = {
       initialPassword = config.age.secrets.tafka-pc-password.path;
