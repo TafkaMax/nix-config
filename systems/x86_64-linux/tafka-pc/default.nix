@@ -14,7 +14,7 @@ with lib.nixos-snowfall;
   nixos-snowfall = {
 
     hardware.zfs-storage.enable = true;
-    programs.corectrl.enable = true;
+    hardware.corectrl.enable = true;
 
     archetypes = {
       gaming = enabled;
