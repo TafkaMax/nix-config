@@ -12,5 +12,7 @@ in
 
   config = mkIf cfg.enable {
     programs.corectrl.enable = true;
+
+    users.users.${user.name}.extraGroups = [ "corectrl" ];
   };
 }
