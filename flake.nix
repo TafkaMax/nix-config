@@ -82,7 +82,7 @@
 
     # System Deployment
     deploy-rs.url = "github:serokell/deploy-rs";
-    deploy-rs.inputs.nixpkgs.follows = "nixpkgs-unstable";
+    deploy-rs.inputs.nixpkgs.follows = "nixpkgs";
 
     # virtulenv, but for all languages
     devshell = {
@@ -158,44 +158,51 @@
         };
       };
     in
-    lib.mkFlake {
-      # Configure channels.
-      channels-config = {
-        # Allow unfree pkgs.
-        allowUnfree = true;
-        permittedInsecurePackages = [
-          "electron-25.9.0"
+    lib.mkFlake
+      {
+        # Configure channels.
+        channels-config = {
+          # Allow unfree pkgs.
+          allowUnfree = true;
+          permittedInsecurePackages = [
+            "electron-25.9.0"
+          ];
+        };
+
+        # Import overlays from other inputs than just nixpkgs.
+        overlays = with inputs; [
+          flake.overlays.default
+          agenix.overlays.default
+          snowfall-docs.overlays.default
         ];
-      };
 
-      # Import overlays from other inputs than just nixpkgs.
-      overlays = with inputs; [
-        flake.overlays.default
-        agenix.overlays.default
-      ];
-
-      # Import modules from other inputs than just nixpkgs.
-      systems.modules.nixos = with inputs; [
-        # Add home-manager for managing /home
-        home-manager.nixosModules.home-manager
-        # Add agenix for managing secrets.
-        agenix.nixosModules.default
-        # Import non-flake config from secrets private-repository.
-        (import secrets)
-        # Add NUR (Nix User Repository), similar to AUR, as it is not as protected as nixpkgs.
-        nur.modules.nixos.default
-      ];
+        # Import modules from other inputs than just nixpkgs.
+        systems.modules.nixos = with inputs; [
+          # Add home-manager for managing /home
+          home-manager.nixosModules.home-manager
+          # Add agenix for managing secrets.
+          agenix.nixosModules.default
+          # Import non-flake config from secrets private-repository.
+          (import secrets)
+          # Add NUR (Nix User Repository), similar to AUR, as it is not as protected as nixpkgs.
+          nur.modules.nixos.default
+        ];
 
 
-      # mkDeploy is defined under ./lib/deploy/default.nix
-      deploy = lib.mkDeploy {
-        inherit (inputs) self;
-      };
+        # mkDeploy is defined under ./lib/deploy/default.nix
+        deploy = lib.mkDeploy {
+          inherit (inputs) self;
+        };
 
-      checks =
-        builtins.mapAttrs
-          (system: deploy-lib:
-            deploy-lib.deployChecks inputs.self.deploy)
+        checks = builtins.mapAttrs
+          (
+            system: deploy-lib: deploy-lib.deployChecks inputs.self.deploy
+          )
           inputs.deploy-rs.lib;
+
+        outputs-builder = channels: { formatter = channels.nixpkgs.nixfmt-rfc-style; };
+      }
+    // {
+      self = inputs.self;
     };
 }
