@@ -131,7 +131,7 @@ in
     };
 
     # Required for app indicators
-    services.udev.packages = with pkgs; [ gnome3.gnome-settings-daemon ];
+    services.udev.packages = with pkgs; [ gnome-settings-daemon ];
 
     # Disable inital setup and online accounts in gnome.
     services.gnome = {
