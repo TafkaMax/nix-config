@@ -18,7 +18,7 @@ in
   };
 
   config = {
-    # enable .local/bin 
+    # enable .local/bin
     environment.localBinInPath = true;
     nixos-snowfall.home.extraOptions = {
       home.stateVersion = config.system.stateVersion;
@@ -30,6 +30,9 @@ in
     home-manager = {
       useUserPackages = true;
       useGlobalPkgs = true;
+      extraSpecialArgs = {
+        inherit nur;
+      };
 
       users.${config.nixos-snowfall.user.name} =
         mkAliasDefinitions options.nixos-snowfall.home.extraOptions;
