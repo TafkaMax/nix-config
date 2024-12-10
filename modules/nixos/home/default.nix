@@ -1,4 +1,4 @@
-{ options, config, pkgs, lib, namespace, ... }:
+{ options, config, lib, namespace, ... }:
 
 with lib;
 with lib.${namespace};
