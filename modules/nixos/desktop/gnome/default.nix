@@ -53,8 +53,8 @@ in
     programs.dconf.enable = true;
 
     environment.systemPackages = with pkgs; [
-      gnome.gnome-tweaks
-      gnome.dconf-editor
+      gnome-tweaks
+      dconf-editor
     ] ++ defaultExtensions ++ cfg.extensions;
 
     environment.gnome.excludePackages = (with pkgs; [
