@@ -14,6 +14,7 @@ in
     nixos-snowfall = {
       apps = {
         steam = enabled;
+        nexusmods-app = enabled;
       };
       services = {
         maestral = enabled;
