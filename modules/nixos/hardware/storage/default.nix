@@ -12,6 +12,6 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = with pkgs; [ ntfs3g fuseiso ];
+    environment.systemPackages = with pkgs; [ ntfs3g fuseiso ncdu ];
   };
 }
