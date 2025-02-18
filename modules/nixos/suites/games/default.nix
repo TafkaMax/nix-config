@@ -15,6 +15,7 @@ in
       apps = {
         steam = enabled;
         nexusmods-app = enabled;
+        discord = enabled;
       };
       services = {
         maestral = enabled;
