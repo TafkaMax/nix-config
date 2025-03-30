@@ -11,7 +11,7 @@ in
 
   config = mkIf cfg.enable {
     services = {
-      fwupd {
+      fwupd = {
         enable = true;
       };
     };
