@@ -58,6 +58,7 @@ in
         locale = enabled;
         time = enabled;
         xkb = enabled;
+        fwupd = enabled;
       };
     };
   };
