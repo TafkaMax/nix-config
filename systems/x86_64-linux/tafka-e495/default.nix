@@ -20,6 +20,9 @@ with lib.nixos-snowfall;
       monitors = ./monitors.xml;
     };
 
+    security = {
+      openconnect = enabled;
+    };
 
     user = {
       initialPassword = config.age.secrets.tafka-e495-password.path;
