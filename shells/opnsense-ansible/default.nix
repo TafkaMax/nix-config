@@ -27,7 +27,7 @@ pkgs.mkShell {
     stdenv.cc.cc.lib
   ];
   shellHook = ''
-    poetry install
+    poetry install --no-root
     source $(poetry env info --path)/bin/activate
   '';
 }
