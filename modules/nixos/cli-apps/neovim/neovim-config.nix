@@ -12,6 +12,12 @@
           filetypes = [ "nix" ];
           rootPatterns = [ "flake.nix" ];
         };
+
+        terraform = {
+          command = "terraform-ls";
+          args = [ "serve" ];
+          filetypes = [ "terraform" "tf" ];
+        };
       };
     };
     defaultEditor = true;
@@ -163,7 +169,8 @@
       augroup autoformat_settings
         autocmd FileType html,css,sass,scss,less,json,js AutoFormatBuffer js-beautify
         autocmd FileType nix AutoFormatBuffer nixpkgs-fmt
-        autocmd Filetype yaml AutoFormatBuffer yamlfmt
+        autocmd Filetype yaml,yml AutoFormatBuffer yamlfmt
+        autocmd Filetype tf AutoFormatBuffer terraform-ls
       augroup END
     '';
     extraLuaConfig = ''
@@ -200,7 +207,12 @@
       coc-eslint
       coc-yank
       coc-git
+      coc-markdownlint
+      coc-sh
       typescript-vim
+      coc-toml
+      coc-java
+      coc-docker
       vim-jsx-typescript
       # Faster buffers for coc. https://github.com/ms-jpq/coq_nvim
       coq_nvim
