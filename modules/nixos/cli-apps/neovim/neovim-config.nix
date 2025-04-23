@@ -1,4 +1,4 @@
-{ inputs, outputs, osConfig, config, lib, pkgs, ... }: {
+{ pkgs, ... }: {
 
   #https://nixos.wiki/wiki/Vim
 
@@ -184,10 +184,11 @@
       nixpkgs-fmt
       nodePackages.js-beautify
       yamlfmt
+      terraform-ls
     ];
     plugins = with pkgs.vimPlugins; [
       # https://github.com/nvim-treesitter/nvim-treesitter
-      (nvim-treesitter.withPlugins (_: pkgs.tree-sitter.allGrammars))
+      (nvim-treesitter.withPlugins (_: nvim-treesitter.allGrammars))
       # Make your Vim/Neovim as smart as VS Code - https://github.com/neoclide/coc.nvim
       coc-html
       coc-tsserver
