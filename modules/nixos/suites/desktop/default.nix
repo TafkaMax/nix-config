@@ -23,6 +23,7 @@ in
         vlc = enabled;
         remmina = enabled;
         libreoffice = enabled;
+        qdigidoc = enabled;
       };
 
       tools = {
