@@ -1,7 +1,7 @@
 { lib
 , writeText
 , writeShellApplication
-, substituteAll
+, replaceVars
 , gum
 , inputs
 , hosts ? { }
@@ -11,7 +11,7 @@
 let
   inherit (lib) mapAttrsToList concatStringsSep;
 
-  substitute = args: builtins.readFile (substituteAll args);
+  substitute = args: builtins.readFile (replaceVars ./nixos-hosts.sh { help = args.help; hosts = args.hosts; });
 
   formatted-hosts = mapAttrsToList
     (name: host: "${name},${host.pkgs.system}")
