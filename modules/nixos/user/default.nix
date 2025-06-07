@@ -105,7 +105,7 @@ in
               size = 10000;
             };
 
-            initExtra = ''
+            initContent = ''
               # Fix an issue with tmux.
               export KEYTIMEOUT=1
 
