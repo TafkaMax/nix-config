@@ -64,7 +64,7 @@
     };
 
     # nix language server, used by vscode & neovim
-    nil.url = "github:oxalica/nil/2023-08-09";
+    nil.url = "github:oxalica/nil/2024-08-06";
 
     # nixos-hardware support https://github.com/NixOS/nixos-hardware
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
