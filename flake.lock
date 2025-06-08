@@ -137,11 +137,11 @@
         "snowfall-lib": "snowfall-lib"
       },
       "locked": {
-        "lastModified": 1716675632,
-        "narHash": "sha256-AOgmoVZvMPUMSlHMrRjWaPykNS5YWxnUNp7STgfjGdA=",
+        "lastModified": 1749330936,
+        "narHash": "sha256-uy1G+/KeI+9nVsNupTFSe0Fvt18PYOiQKroP+JOoucA=",
         "owner": "snowfallorg",
         "repo": "flake",
-        "rev": "d3b1167f7265d28549930b95b98327c277ef8afd",
+        "rev": "4b2adcd54b0d194cf2a859f5dfe8d16d0d264bf6",
         "type": "github"
       },
       "original": {
@@ -749,11 +749,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1749310961,
-        "narHash": "sha256-d2kYAlGcW+MXv+HYf8D116TVw9z+EF1PKfyE0O9UD88=",
+        "lastModified": 1749358234,
+        "narHash": "sha256-5ZjOUL0SOqWfKwB9zYAXq79RZLc4Nkok2CARyeDFobo=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "500bfa3a22d3ee6514c1562d4fd1a91026b2b258",
+        "rev": "ac9f2c93c943ec0eef98043151636fc569f1e608",
         "type": "github"
       },
       "original": {
@@ -1142,11 +1142,11 @@
     "yubikey-guide": {
       "flake": false,
       "locked": {
-        "lastModified": 1747007771,
-        "narHash": "sha256-iqeUkEK2yrMi6dTpStEYZ3H7PoI5RoK3i90BRKZNlq8=",
+        "lastModified": 1749330210,
+        "narHash": "sha256-H9KE1lVCsYisch2UkXYCI2pvz1WSsp/cUDe5Vfb762o=",
         "owner": "drduh",
         "repo": "YubiKey-Guide",
-        "rev": "ece9752967e8b01bb3e70919a8ccdbc252eb9387",
+        "rev": "ca81deff356fd2e80f882bd2cd9ff4bac2d92b7e",
         "type": "github"
       },
       "original": {
