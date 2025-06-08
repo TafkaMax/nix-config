@@ -30,7 +30,7 @@ in
           material-design-icons
           font-awesome
           dejavu_fonts
-          (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
+          nerd-fonts.jetbrains-mono
         ] ++ cfg.fonts;
 
       # Set default fonts.
