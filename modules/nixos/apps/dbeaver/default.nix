@@ -1,12 +1,12 @@
-{ options, config, lib, pkgs, ... }:
+{ options, config, lib, namespace, pkgs, ... }:
 
 with lib;
-with lib.nixos-snowfall;
+with lib.${namespace};
 let
-  cfg = config.nixos-snowfall.apps.dbeaver;
+  cfg = config.${namespace}.apps.dbeaver;
 in
 {
-  options.nixos-snowfall.apps.dbeaver = with types; {
+  options.${namespace}.apps.dbeaver = with types; {
     enable = mkBoolOpt false "Whether or not to enable Dbeaver.";
   };
 

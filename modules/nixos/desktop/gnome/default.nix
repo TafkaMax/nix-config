@@ -1,10 +1,10 @@
-{ options, config, lib, pkgs, inputs, ... }:
+{ options, config, lib, pkgs, namespace, inputs, ... }:
 
 with lib;
-with lib.nixos-snowfall;
+with lib.${namespace};
 let
   mkTuple = inputs.home-manager.lib.hm.gvariant.mkTuple;
-  cfg = config.nixos-snowfall.desktop.gnome;
+  cfg = config.${namespace}.desktop.gnome;
   gdmHome = config.users.users.gdm.home;
 
   defaultExtensions = with pkgs.gnomeExtensions; [
@@ -27,12 +27,12 @@ let
   nested-default-attrs = mapAttrs (key: default-attrs);
 in
 {
-  options.nixos-snowfall.desktop.gnome = with types; {
+  options.${namespace}.desktop.gnome = with types; {
     enable =
       mkBoolOpt false "Whether or not to use Gnome as the desktop environment.";
     wallpaper = {
-      light = mkOpt (oneOf [ str package ]) pkgs.nixos-snowfall.wallpapers.panoramic-view-light "The light wallpaper to use.";
-      dark = mkOpt (oneOf [ str package ]) pkgs.nixos-snowfall.wallpapers.panoramic-view-dark "The dark wallpaper to use.";
+      light = mkOpt (oneOf [ str package ]) pkgs.${namespace}.wallpapers.panoramic-view-light "The light wallpaper to use.";
+      dark = mkOpt (oneOf [ str package ]) pkgs.${namespace}.wallpapers.panoramic-view-dark "The dark wallpaper to use.";
     };
     color-scheme = mkOpt (enum [ "light" "dark" ]) "dark" "The color scheme to use.";
     wayland = mkBoolOpt true "Whether or not to use Wayland.";
@@ -43,10 +43,129 @@ in
   };
 
   config = mkIf cfg.enable {
-    nixos-snowfall.system.xkb.enable = true;
-    nixos-snowfall.desktop.addons = {
-      gtk = enabled;
-      wallpapers = enabled;
+    ${namespace} = {
+      system.xkb.enable = true;
+      desktop.addons = {
+        gtk = enabled;
+        wallpapers = enabled;
+      };
+      home = {
+        file = mkIf (builtins.length config.${namespace}.user.mountpoints > 0) {
+          ".config/gtk-3.0/bookmarks" = {
+            text = lib.concatMapStrings (mapping: mapping + "\n") config.${namespace}.user.mountpoints;
+          };
+        };
+
+        extraOptions = {
+          dconf.settings =
+            let
+              user = config.users.users.${config.${namespace}.user.name};
+              get-wallpaper = wallpaper:
+                if lib.isDerivation wallpaper then
+                  builtins.toString wallpaper
+                else
+                  wallpaper;
+            in
+            nested-default-attrs {
+              "org/gnome/shell" = {
+                disable-user-extensions = false;
+                disabled-extensions = "disabled";
+                enabled-extensions = (builtins.map (extension: extension.extensionUuid) (cfg.extensions ++ defaultExtensions))
+                  ++ [
+                  #builtin extensions
+                  "user-theme@gnome-shell-extensions.gcampax.github.com"
+                  "places-menu@gnome-shell-extensions.gcampax.github.com"
+                  "drive-menu@gnome-shell-extensions.gcampax.github.com"
+                  "apps-menu@gnome-shell-extensions.gcampax.github.com"
+                  "workspace-indicator@gnome-shell-extensions.gcampax.github.com"
+                  "windowsNavigator@gnome-shell-extensions.gcampax.github.com"
+                ];
+                favorite-apps =
+                  [ "org.gnome.Nautilus.desktop" ]
+                  ++ optional config.${namespace}.apps.thunderbird.enable "thunderbird.desktop"
+                  ++ optional config.${namespace}.apps.firefox.enable "firefox.desktop"
+                  ++ optional config.${namespace}.apps.kitty.enable "kitty.desktop"
+                  ++ optional config.${namespace}.apps.remmina.enable "org.remmina.Remmina.desktop"
+                  ++ optional config.${namespace}.apps.obsidian.enable "obsidian.desktop"
+                  ++ optional config.${namespace}.apps.spotify.enable "spotify.desktop"
+                  ++ optional config.${namespace}.apps.element.enable "element-desktop.desktop"
+                  ++ optional config.${namespace}.security.keepassxc.enable "org.keepassxc.KeePassXC.desktop"
+                  ++ optional config.${namespace}.apps.steam.enable "steam.desktop";
+              };
+
+              "org/gnome/desktop/background" = {
+                picture-uri = get-wallpaper cfg.wallpaper.light;
+                picture-uri-dark = get-wallpaper cfg.wallpaper.dark;
+              };
+              "org/gnome/desktop/screensaver" = {
+                picture-uri = get-wallpaper cfg.wallpaper.light;
+                picture-uri-dark = get-wallpaper cfg.wallpaper.dark;
+              };
+              "org/gnome/desktop/interface" = {
+                color-scheme = if cfg.color-scheme == "light" then "prefer-light" else "prefer-dark";
+                enable-hot-corners = false;
+                toolkit-accessibility = false;
+                clock-show-weekday = true;
+                gtk-theme = "Fluent-round-Dark";
+                show-battery-percentage = true;
+                font-name = "Noto Sans 11";
+                monospace-font-name = "JetBrainsMono Nerd Font 10";
+                document-font-name = "Noto Sans 11";
+                font-hinting = "slight";
+                font-antialiasing = "grayscale";
+              };
+              "org/gnome/desktop/wm/preferences" = {
+                titlebar-font = "Noto Sans 11";
+              };
+
+              "org/gnome/desktop/peripherals/touchpad" = {
+                tap-to-click = true;
+                two-finger-scrolling-enabled = true;
+              };
+              "org/gnome/shell/extensions/user-theme" = {
+                name = "Fluent-round-Dark";
+              };
+              "org/gnome/mutter" = {
+                dynamic-workspaces = true;
+                edge-tiling = true;
+              };
+              "org/gnome/shell/extensions/just-perfection" = {
+                #panel-size = 48;
+                #activities-button = false;
+              };
+              "org/gnome/shell/extensions/pop-shell" = {
+                tile-by-default = true;
+                show-title = true;
+                smart-gaps = true;
+                stacking-with-mouse = true;
+                snap-to-grid = false;
+                show-skip-taskbar = true;
+              };
+              "org/gnome/desktop/input-sources" = {
+                sources = [ (mkTuple [ "xkb" "us" ]) (mkTuple [ "xkb" "ee" ]) ];
+                xkb-options = [ "terminate:ctrl_alt_bksp" ];
+                show-all-sources = true;
+              };
+              "org/gnome/settings-daemon/plugins/media-keys" = {
+                screensaver = [ "<Shift>Escape" ];
+                custom-keybindings = [
+                  "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/"
+                  "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/"
+                ];
+              };
+              "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
+                name = "Launch terminal";
+                binding = "<Super>t";
+                command = "kitty";
+              };
+              "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1" = {
+                name = "Flameshot screenshot";
+                binding = "<Super>Print";
+                command = "fixflameshot";
+              };
+            };
+        };
+      };
     };
 
     # dconf is a low-level configuration system, which is good for gnome/gtk settings.
@@ -95,7 +214,7 @@ in
       lib.optional (cfg.monitors != null) "L+ ${gdmHome}/.config/monitors.xml - - - - ${cfg.monitors}"
     );
 
-    systemd.services.nixos-snowfall-user-icon = {
+    systemd.services."${namespace}-user-icon" = {
       before = [ "display-manager.service" ];
       wantedBy = [ "display-manager.service" ];
 
@@ -106,8 +225,8 @@ in
       };
 
       script = ''
-        config_file=/var/lib/AccountsService/users/${config.nixos-snowfall.user.name}
-        icon_file=/run/current-system/sw/share/nixos-snowfall-icons/user/${config.nixos-snowfall.user.name}/${config.nixos-snowfall.user.icon.fileName}
+        config_file=/var/lib/AccountsService/users/${config.${namespace}.user.name}
+        icon_file=/run/current-system/sw/share/${namespace}-icons/user/${config.${namespace}.user.name}/${config.${namespace}.user.icon.fileName}
 
         if ! [ -d "$(dirname "$config_file")"]; then
           mkdir -p "$(dirname "$config_file")"
@@ -178,122 +297,5 @@ in
 
     };
 
-    nixos-snowfall.home = {
-      file = mkIf (builtins.length config.nixos-snowfall.user.mountpoints > 0) {
-        ".config/gtk-3.0/bookmarks" = {
-          text = lib.concatMapStrings (mapping: mapping + "\n") config.nixos-snowfall.user.mountpoints;
-        };
-      };
-
-      extraOptions = {
-        dconf.settings =
-          let
-            user = config.users.users.${config.nixos-snowfall.user.name};
-            get-wallpaper = wallpaper:
-              if lib.isDerivation wallpaper then
-                builtins.toString wallpaper
-              else
-                wallpaper;
-          in
-          nested-default-attrs {
-            "org/gnome/shell" = {
-              disable-user-extensions = false;
-              disabled-extensions = "disabled";
-              enabled-extensions = (builtins.map (extension: extension.extensionUuid) (cfg.extensions ++ defaultExtensions))
-                ++ [
-                #builtin extensions
-                "user-theme@gnome-shell-extensions.gcampax.github.com"
-                "places-menu@gnome-shell-extensions.gcampax.github.com"
-                "drive-menu@gnome-shell-extensions.gcampax.github.com"
-                "apps-menu@gnome-shell-extensions.gcampax.github.com"
-                "workspace-indicator@gnome-shell-extensions.gcampax.github.com"
-                "windowsNavigator@gnome-shell-extensions.gcampax.github.com"
-              ];
-              favorite-apps =
-                [ "org.gnome.Nautilus.desktop" ]
-                ++ optional config.nixos-snowfall.apps.thunderbird.enable "thunderbird.desktop"
-                ++ optional config.nixos-snowfall.apps.firefox.enable "firefox.desktop"
-                ++ optional config.nixos-snowfall.apps.kitty.enable "kitty.desktop"
-                ++ optional config.nixos-snowfall.apps.remmina.enable "org.remmina.Remmina.desktop"
-                ++ optional config.nixos-snowfall.apps.obsidian.enable "obsidian.desktop"
-                ++ optional config.nixos-snowfall.apps.spotify.enable "spotify.desktop"
-                ++ optional config.nixos-snowfall.apps.element.enable "element-desktop.desktop"
-                ++ optional config.nixos-snowfall.security.keepassxc.enable "org.keepassxc.KeePassXC.desktop"
-                ++ optional config.nixos-snowfall.apps.steam.enable "steam.desktop";
-            };
-
-            "org/gnome/desktop/background" = {
-              picture-uri = get-wallpaper cfg.wallpaper.light;
-              picture-uri-dark = get-wallpaper cfg.wallpaper.dark;
-            };
-            "org/gnome/desktop/screensaver" = {
-              picture-uri = get-wallpaper cfg.wallpaper.light;
-              picture-uri-dark = get-wallpaper cfg.wallpaper.dark;
-            };
-            "org/gnome/desktop/interface" = {
-              color-scheme = if cfg.color-scheme == "light" then "prefer-light" else "prefer-dark";
-              enable-hot-corners = false;
-              toolkit-accessibility = false;
-              clock-show-weekday = true;
-              gtk-theme = "Fluent-round-Dark";
-              show-battery-percentage = true;
-              font-name = "Noto Sans 11";
-              monospace-font-name = "JetBrainsMono Nerd Font 10";
-              document-font-name = "Noto Sans 11";
-              font-hinting = "slight";
-              font-antialiasing = "grayscale";
-            };
-            "org/gnome/desktop/wm/preferences" = {
-              titlebar-font = "Noto Sans 11";
-            };
-
-            "org/gnome/desktop/peripherals/touchpad" = {
-              tap-to-click = true;
-              two-finger-scrolling-enabled = true;
-            };
-            "org/gnome/shell/extensions/user-theme" = {
-              name = "Fluent-round-Dark";
-            };
-            "org/gnome/mutter" = {
-              dynamic-workspaces = true;
-              edge-tiling = true;
-            };
-            "org/gnome/shell/extensions/just-perfection" = {
-              #panel-size = 48;
-              #activities-button = false;
-            };
-            "org/gnome/shell/extensions/pop-shell" = {
-              tile-by-default = true;
-              show-title = true;
-              smart-gaps = true;
-              stacking-with-mouse = true;
-              snap-to-grid = false;
-              show-skip-taskbar = true;
-            };
-            "org/gnome/desktop/input-sources" = {
-              sources = [ (mkTuple [ "xkb" "us" ]) (mkTuple [ "xkb" "ee" ]) ];
-              xkb-options = [ "terminate:ctrl_alt_bksp" ];
-              show-all-sources = true;
-            };
-            "org/gnome/settings-daemon/plugins/media-keys" = {
-              screensaver = [ "<Shift>Escape" ];
-              custom-keybindings = [
-                "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/"
-                "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/"
-              ];
-            };
-            "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
-              name = "Launch terminal";
-              binding = "<Super>t";
-              command = "kitty";
-            };
-            "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1" = {
-              name = "Flameshot screenshot";
-              binding = "<Super>Print";
-              command = "fixflameshot";
-            };
-          };
-      };
-    };
   };
 }
