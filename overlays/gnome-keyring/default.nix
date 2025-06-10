@@ -12,8 +12,8 @@
 }:
 (final: prev: {
   gnome-keyring = prev.gnome-keyring.overrideAttrs (oldAttrs: {
-    configureFlags = oldAttrs.configureFlags or [ ] ++ [
-      "--disable-ssh-agent"
+    mesonFlags = oldAttrs.mesonFlags or [ ] ++ [
+      "-Dssh-agent=false"
     ];
   });
 })

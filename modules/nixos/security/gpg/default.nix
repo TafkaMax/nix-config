@@ -1,9 +1,9 @@
-{ options, config, pkgs, lib, inputs, ... }:
+{ options, config, pkgs, lib, namespace, inputs, ... }:
 
 with lib;
-with lib.nixos-snowfall;
+with lib.${namespace};
 let
-  cfg = config.nixos-snowfall.security.gpg;
+  cfg = config.${namespace}.security.gpg;
 
   gpgConf = "${inputs.gpg-base-conf}/gpg.conf";
 
@@ -51,14 +51,15 @@ let
   '';
 in
 {
-  options.nixos-snowfall.security.gpg = with types; {
+  options.${namespace}.security.gpg = with types; {
     enable = mkBoolOpt false "Whether or not to enable GPG.";
     agentTimeout = mkOpt int 5 "The amount of time to wait before continuing with shell init.";
   };
 
   config = mkIf cfg.enable {
-    services.pcscd.enable = false;
+    services.pcscd.enable = true;
     services.udev.packages = with pkgs; [ yubikey-personalization ];
+    services.yubikey-agent.enable = true;
 
     # @NOTE(jakehamilton): This should already have been added by programs.gpg, but
     # keeping it here for now just in case.
@@ -102,9 +103,11 @@ in
         enableExtraSocket = true;
         pinentryPackage = pkgs.pinentry-gnome3;
       };
+
+      yubikey-touch-detector.enable = true;
     };
 
-    nixos-snowfall = {
+    ${namespace} = {
       home.file = {
         ".gnupg/.keep".text = "";
 
