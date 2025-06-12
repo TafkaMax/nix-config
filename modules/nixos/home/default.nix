@@ -17,11 +17,24 @@ in
   config = {
     # enable .local/bin
     environment.localBinInPath = true;
-    nixos-snowfall.home.extraOptions = {
-      home.stateVersion = config.system.stateVersion;
-      home.file = mkAliasDefinitions options.${namespace}.home.file;
-      xdg.enable = true;
-      xdg.configFile = mkAliasDefinitions options.${namespace}.home.configFile;
+
+    ${namespace} = {
+      home.extraOptions = {
+        home.stateVersion = config.system.stateVersion;
+        home.file = mkAliasDefinitions options.${namespace}.home.file;
+        xdg.enable = true;
+        xdg.configFile = mkAliasDefinitions options.${namespace}.home.configFile;
+
+        xdg.mimeApps = {
+          enable = true;
+          associations.added = {
+            "application/pdf" = [ "org.gnome.Evince.desktop" ];
+          };
+          defaultApplications = {
+            "application/pdf" = [ "org.gnome.Evince.desktop" ];
+          };
+        };
+      };
     };
 
     #snowfallorg.users.${config.${namespace}.user.name}.home.config = config.${namespace}.home.extraOptions;
