@@ -14,7 +14,7 @@ in
     nixos-snowfall = {
       apps = {
         steam = enabled;
-        nexusmods-app = enabled;
+        #nexusmods-app = enabled;
         discord = enabled;
       };
       services = {
