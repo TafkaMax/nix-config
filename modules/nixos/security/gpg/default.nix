@@ -57,25 +57,25 @@ in
   };
 
   config = mkIf cfg.enable {
-    services.pcscd.enable = true;
+    services.pcscd.enable = false;
     services.udev.packages = with pkgs; [ yubikey-personalization ];
-    services.yubikey-agent.enable = true;
+    #services.yubikey-agent.enable = true;
 
     # @NOTE(jakehamilton): This should already have been added by programs.gpg, but
     # keeping it here for now just in case.
-    environment.shellInit = ''
-      export GPG_TTY="$(tty)"
-      export SSH_AUTH_SOCK=$(${pkgs.gnupg}/bin/gpgconf --list-dirs agent-ssh-socket)
+    #environment.shellInit = ''
+    #  export GPG_TTY="$(tty)"
+    #  export SSH_AUTH_SOCK=$(${pkgs.gnupg}/bin/gpgconf --list-dirs agent-ssh-socket)
 
-      ${pkgs.coreutils}/bin/timeout ${builtins.toString cfg.agentTimeout} ${pkgs.gnupg}/bin/gpgconf --launch gpg-agent
-      gpg_agent_timeout_status=$?
+    #  ${pkgs.coreutils}/bin/timeout ${builtins.toString cfg.agentTimeout} ${pkgs.gnupg}/bin/gpgconf --launch gpg-agent
+    #  gpg_agent_timeout_status=$?
 
-      if [ "$gpg_agent_timeout_status" = 124 ]; then
-        # Command timed out...
-        echo "GPG Agent timed out..."
-        echo 'Run "gpgconf --launch gpg-agent" to try and launch it again.'
-      fi
-    '';
+    #  if [ "$gpg_agent_timeout_status" = 124 ]; then
+    #    # Command timed out...
+    #    echo "GPG Agent timed out..."
+    #    echo 'Run "gpgconf --launch gpg-agent" to try and launch it again.'
+    #  fi
+    #'';
 
     environment.systemPackages = with pkgs; [
       cryptsetup
