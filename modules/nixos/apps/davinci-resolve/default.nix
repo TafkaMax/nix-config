@@ -11,6 +11,6 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = with pkgs; [ davinci-resolve ];
+    environment.systemPackages = with pkgs; [ davinci-resolve ffmpeg ];
   };
 }
