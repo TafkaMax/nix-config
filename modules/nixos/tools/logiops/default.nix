@@ -35,6 +35,16 @@ in
             {
               name: "MX Master 3S";
               dpi: 800;
+              hiresscroll: {
+                hires: true;
+                invert: false;
+                target: false;
+              };
+              smartshift: {
+                on: true;
+                threshold: 30;
+                default_threshold: 30;
+              };
             }
             );
           '';
