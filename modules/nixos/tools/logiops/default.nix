@@ -25,6 +25,8 @@ in
     ];
 
     # https://github.com/PixlOne/logiops/blob/main/TESTED.md
+    # https://github.com/PixlOne/logiops/issues/116#issuecomment-1583041962
+    # https://github.com/PixlOne/logiops/issues/248
     systemd.services.logiops = {
       description = "An unofficial userspace driver for HID++ Logitech devices";
       wantedBy = [ "default.target" ];
@@ -39,6 +41,16 @@ in
                 hires: true;
                 invert: false;
                 target: false;
+            	  up: {
+                  mode: "Axis";
+                  axis: "REL_WHEEL";
+                  axis_multiplier: 3.0;
+                },
+              	down: {
+                  mode: "Axis";
+                  axis: "REL_WHEEL";
+                  axis_multiplier: -3.0;
+              	}
               };
               smartshift: {
                 on: true;
