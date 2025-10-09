@@ -8,12 +8,46 @@ in
 {
   options.${namespace}.tools.logiops = with types; {
     enable = mkBoolOpt false "Whether or not to enable logiops.";
+    renice = lib.mkOption {
+      description = "Set the nice value of the process";
+      default = true;
+    };
+    reniceValue = lib.mkOption {
+      description = "Set the nice value of the process";
+      default = -19;
+    };
+
   };
 
   config = mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
       logiops
     ];
+
+    # https://github.com/PixlOne/logiops/blob/main/TESTED.md
+    systemd.services.logiops = {
+      description = "An unofficial userspace driver for HID++ Logitech devices";
+      wantedBy = [ "default.target" ];
+      serviceConfig =
+        let
+          logiopsConfig = pkgs.writeText "logiops.cfg" ''
+            devices: (
+            {
+              name: "MX Master 3S";
+              dpi: 800;
+            }
+            );
+          '';
+        in
+        {
+          Type = "simple";
+          ExecStart =
+            let
+              renice = lib.optionalString cfg.renice "${pkgs.coreutils-full}/bin/nice -n ${builtins.toString cfg.reniceValue}";
+            in
+            "${renice} ${pkgs.logiops}/bin/logid -c ${logiopsConfig}";
+        };
+    };
 
   };
 }
