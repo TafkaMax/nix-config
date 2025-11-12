@@ -44,12 +44,12 @@ in
             	  up: {
                   mode: "Axis";
                   axis: "REL_WHEEL";
-                  axis_multiplier: 0.5;
+                  axis_multiplier: 0.2;
                 },
               	down: {
                   mode: "Axis";
                   axis: "REL_WHEEL";
-                  axis_multiplier: -0.5;
+                  axis_multiplier: -0.2;
               	}
               };
               smartshift: {
