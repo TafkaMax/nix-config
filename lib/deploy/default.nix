@@ -8,7 +8,7 @@ rec {
     let
       hosts = self.nixosConfigurations or { };
       names = builtins.attrNames hosts;
-      nodes = lib.foldl
+      nodes = lib.foldr
         (result: name:
           let
             host = hosts.${name};
@@ -20,7 +20,7 @@ rec {
               hostname = overrides.${name}.hostname or "${name}";
               profiles = (overrides.${name}.profiles or { }) // {
                 system = (overrides.${name}.profiles.system or { }) // {
-                  path = deploy-rs.lib.${system}.activate.nixos host;
+                  path = deploy-rs.lib.${stdenv.hostPlatform.system}.activate.nixos host;
                 } // lib.optionalAttrs (user != null) {
                   user = "root";
                   sshUser = user;

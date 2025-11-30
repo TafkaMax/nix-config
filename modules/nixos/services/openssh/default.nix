@@ -83,10 +83,10 @@ in
     #  cfg.authorizedKeys;
 
     #nixos-snowfall.home.extraOptions = {
-    #  programs.zsh.shellAliases = foldl
+    #  programs.zsh.shellAliases = foldr
     #    (aliases: system:
     #      aliases // {
-    #        "ssh-${system}" = "ssh ${system} -t tmux a";
+    #        "ssh-${stdenv.hostPlatform.system}" = "ssh ${system} -t tmux a";
     #      })
     #    { }
     #    (builtins.attrNames other-hosts);

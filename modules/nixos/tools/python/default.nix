@@ -33,7 +33,7 @@ in
 #      };
 #    in
 #    {
-#      devShells.${system}.default = pkgs.mkShell {
+#      devShells.${stdenv.hostPlatform.system}.default = pkgs.mkShell {
 #        packages = with pkgs; [
 #          ansible_2_14
 #          awscli2
