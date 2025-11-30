@@ -40,22 +40,22 @@ in
               hiresscroll: {
                 hires: true;
                 invert: false;
-                target: false;
+                target: true;
             	  up: {
                   mode: "Axis";
                   axis: "REL_WHEEL";
-                  axis_multiplier: 3.0;
+                  axis_multiplier: 0.2;
                 },
               	down: {
                   mode: "Axis";
                   axis: "REL_WHEEL";
-                  axis_multiplier: -3.0;
+                  axis_multiplier: -0.2;
               	}
               };
               smartshift: {
                 on: true;
-                threshold: 30;
-                default_threshold: 30;
+                threshold: 150;
+                default_threshold: 150;
               };
             }
             );
