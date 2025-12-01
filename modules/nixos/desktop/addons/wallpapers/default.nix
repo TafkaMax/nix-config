@@ -13,7 +13,7 @@ in
   };
 
   config = {
-    nixos-snowfall.home.file = lib.foldr
+    nixos-snowfall.home.file = lib.foldl
       (acc: name:
         let wallpaper = wallpapers.${name};
         in

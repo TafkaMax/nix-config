@@ -8,7 +8,7 @@ rec {
     let
       hosts = self.nixosConfigurations or { };
       names = builtins.attrNames hosts;
-      nodes = lib.foldr
+      nodes = lib.foldl
         (result: name:
           let
             host = hosts.${name};

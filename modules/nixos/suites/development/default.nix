@@ -37,7 +37,7 @@ in
 
     nixos-snowfall.home.extraOptions = {
       home.packages = with pkgs; [
-        inputs.nil.packages."${pkgs.stdsenv.hostPlatform.system}".default # nix language server
+        inputs.nil.packages."${pkgs.stdenv.hostPlatform.system}".default # nix language server
       ];
     };
   };

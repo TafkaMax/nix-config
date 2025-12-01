@@ -19,7 +19,7 @@ let
     in
     pkg;
   names = builtins.map (lib.snowfall.path.get-file-name-without-extension) images;
-  wallpapers = lib.foldr
+  wallpapers = lib.foldl
     (acc: image:
       let
         # fileName = builtins.baseNameOf image;
