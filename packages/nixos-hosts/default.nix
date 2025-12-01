@@ -14,7 +14,7 @@ let
   substitute = args: builtins.readFile (replaceVars ./nixos-hosts.sh { help = args.help; hosts = args.hosts; });
 
   formatted-hosts = mapAttrsToList
-    (name: host: "${name},${host.pkgs.system}")
+    (name: host: "${name},${host.pkgs.stdenv.hostPlatform.system}")
     hosts;
 
   hosts-csv = writeText "hosts.csv" ''
