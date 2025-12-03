@@ -265,37 +265,37 @@ in
     services.xserver = {
       enable = true;
 
-      displayManager.gdm = {
-        enable = true;
-        wayland = cfg.wayland;
-        autoSuspend = cfg.suspend;
-      };
-
       # we dont need too many terminals
       excludePackages = [ pkgs.xterm ];
-
-      desktopManager = {
-        gnome = {
-          enable = true;
-          extraGSettingsOverrides = ''
-            [com.ubuntu.login-screen]
-            background-repeat='no-repeat'
-            background-size='cover'
-            background-color='#777777'
-          '';
-          #background-picture-uri =
-          #  let
-          #    get-wallpaper = wallpaper:
-          #      if lib.isDerivation wallpaper then
-          #        builtins.toString wallpaper
-          #      else
-          #        wallpaper;
-          #  in
-          #  get-wallpaper cfg.wallpaper.light;
-        };
-      };
-
     };
+
+    services.displayManager.gdm = {
+      enable = true;
+      wayland = cfg.wayland;
+      autoSuspend = cfg.suspend;
+    };
+
+    services.desktopManager = {
+      gnome = {
+        enable = true;
+        extraGSettingsOverrides = ''
+          [com.ubuntu.login-screen]
+          background-repeat='no-repeat'
+          background-size='cover'
+          background-color='#777777'
+        '';
+        #background-picture-uri =
+        #  let
+        #    get-wallpaper = wallpaper:
+        #      if lib.isDerivation wallpaper then
+        #        builtins.toString wallpaper
+        #      else
+        #        wallpaper;
+        #  in
+        #  get-wallpaper cfg.wallpaper.light;
+      };
+    };
+
 
   };
 }

@@ -81,14 +81,13 @@ in
       cryptsetup
       paperkey
       gnupg
-      pinentry
       pinentry-curses
       pinentry-gnome3
       pinentry-qt
       paperkey
       guideDesktopItem
       reload-yubikey
-      yubikey-personalization-gui
+      yubioath-flutter
       age-plugin-yubikey
       libyubikey
       libfido2
