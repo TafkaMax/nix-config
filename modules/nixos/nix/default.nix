@@ -62,6 +62,7 @@ in
           auto-optimise-store = true;
           trusted-users = users;
           allowed-users = users;
+          download-buffer-size = 524288001;
 
           substituters =
             # [ cfg.default-substituter.url ]
