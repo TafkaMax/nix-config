@@ -25,12 +25,12 @@ in
           noto-fonts
           noto-fonts-cjk-sans
           noto-fonts-cjk-serif
-          noto-fonts-emoji
+          noto-fonts-color-emoji
           powerline-fonts
           material-design-icons
           font-awesome
           dejavu_fonts
-          (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
+          nerd-fonts.jetbrains-mono
         ] ++ cfg.fonts;
 
       # Set default fonts.

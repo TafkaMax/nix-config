@@ -12,6 +12,10 @@ in
     common-pc-ssd
   ];
 
+  hardware.graphics.extraPackages = with pkgs; [
+    rocmPackages.clr.icd
+  ];
+
   boot = {
     kernelModules = [ "kvm-amd" ];
 
@@ -22,6 +26,7 @@ in
       luks.devices.crypt.device = "/dev/nvme0n1p2";
     };
     extraModulePackages = [ ];
+    zfs.extraPools = [ "tafka-storage" ];
   };
 
   fileSystems."/" =

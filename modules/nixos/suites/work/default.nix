@@ -18,6 +18,8 @@ in
         zoom-us = enabled;
         drawio = enabled;
         yed = enabled;
+        gamja = enabled;
+        spotify = enabled;
       };
       tools = {
         gns3 = enabled;

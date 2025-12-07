@@ -30,13 +30,12 @@ in
       '';
       programs.git = {
         enable = true;
-        inherit (cfg) userName userEmail;
         lfs = enabled;
-        #signing = {
-        #  key = cfg.signingKey;
-        #  signByDefault = mkIf gpg.enable true;
-        #};
-        extraConfig = {
+        settings = {
+          user = {
+            name = cfg.userName;
+            email = cfg.userEmail;
+          };
           init = { defaultBranch = "main"; };
           pull = { rebase = true; };
           push = { autoSetupRemote = true; };
@@ -67,6 +66,10 @@ in
             foreach = "submodule foreach";
           };
         };
+        #signing = {
+        #  key = cfg.signingKey;
+        #  signByDefault = mkIf gpg.enable true;
+        #};
       };
     };
   };

@@ -20,7 +20,7 @@
     # which represents the GitHub repository URL + branch/commit-id/tag.
 
     # Official NixOS package source, using nixos's stable branch by default
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
     # macOS Support (master)
@@ -44,7 +44,7 @@
 
     # home-manager, used for managing user configuration
     home-manager = {
-      url = "github:nix-community/home-manager/release-24.05";
+      url = "github:nix-community/home-manager/release-25.11";
       # The `follows` keyword in inputs is used for inheritance.
       # Here, `inputs.nixpkgs` of home-manager is kept consistent with the `inputs.nixpkgs` of the current flake,
       # to avoid problems caused by different versions of nixpkgs dependencies.
@@ -64,7 +64,7 @@
     };
 
     # nix language server, used by vscode & neovim
-    nil.url = "github:oxalica/nil/2023-08-09";
+    nil.url = "github:oxalica/nil/2025-06-13";
 
     # nixos-hardware support https://github.com/NixOS/nixos-hardware
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
@@ -73,7 +73,8 @@
     nur.url = "github:nix-community/NUR";
 
     # Snowfall Lib
-    snowfall-lib.url = "github:snowfallorg/lib";
+    #snowfall-lib.url = "github:snowfallorg/lib";
+    snowfall-lib.url = "github:TafkaMax/lib";
     snowfall-lib.inputs.nixpkgs.follows = "nixpkgs";
 
     # Snowfall Flake
@@ -82,7 +83,7 @@
 
     # System Deployment
     deploy-rs.url = "github:serokell/deploy-rs";
-    deploy-rs.inputs.nixpkgs.follows = "nixpkgs-unstable";
+    deploy-rs.inputs.nixpkgs.follows = "nixpkgs";
 
     # virtulenv, but for all languages
     devshell = {
@@ -158,44 +159,51 @@
         };
       };
     in
-    lib.mkFlake {
-      # Configure channels.
-      channels-config = {
-        # Allow unfree pkgs.
-        allowUnfree = true;
-        permittedInsecurePackages = [
-          "electron-25.9.0"
+    lib.mkFlake
+      {
+        # Configure channels.
+        channels-config = {
+          # Allow unfree pkgs.
+          allowUnfree = true;
+          permittedInsecurePackages = [
+            "electron-25.9.0"
+          ];
+        };
+
+        # Import overlays from other inputs than just nixpkgs.
+        overlays = with inputs; [
+          flake.overlays.default
+          agenix.overlays.default
+          snowfall-docs.overlays.default
         ];
-      };
 
-      # Import overlays from other inputs than just nixpkgs.
-      overlays = with inputs; [
-        flake.overlays.default
-        agenix.overlays.default
-      ];
-
-      # Import modules from other inputs than just nixpkgs.
-      systems.modules.nixos = with inputs; [
-        # Add home-manager for managing /home
-        home-manager.nixosModules.home-manager
-        # Add agenix for managing secrets.
-        agenix.nixosModules.default
-        # Import non-flake config from secrets private-repository.
-        (import secrets)
-        # Add NUR (Nix User Repository), similar to AUR, as it is not as protected as nixpkgs.
-        nur.nixosModules.nur
-      ];
+        # Import modules from other inputs than just nixpkgs.
+        systems.modules.nixos = with inputs; [
+          # Add home-manager for managing /home
+          home-manager.nixosModules.home-manager
+          # Add agenix for managing secrets.
+          agenix.nixosModules.default
+          # Import non-flake config from secrets private-repository.
+          (import secrets)
+          # Add NUR (Nix User Repository), similar to AUR, as it is not as protected as nixpkgs.
+          nur.modules.nixos.default
+        ];
 
 
-      # mkDeploy is defined under ./lib/deploy/default.nix
-      deploy = lib.mkDeploy {
-        inherit (inputs) self;
-      };
+        # mkDeploy is defined under ./lib/deploy/default.nix
+        deploy = lib.mkDeploy {
+          inherit (inputs) self;
+        };
 
-      checks =
-        builtins.mapAttrs
-          (system: deploy-lib:
-            deploy-lib.deployChecks inputs.self.deploy)
+        checks = builtins.mapAttrs
+          (
+            system: deploy-lib: deploy-lib.deployChecks inputs.self.deploy
+          )
           inputs.deploy-rs.lib;
+
+        outputs-builder = channels: { formatter = channels.nixpkgs.nixfmt-rfc-style; };
+      }
+    // {
+      self = inputs.self;
     };
 }

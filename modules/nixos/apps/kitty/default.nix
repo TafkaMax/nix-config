@@ -37,7 +37,7 @@ in
         extraOptions = {
           programs.kitty = {
             enable = true;
-            theme = "Relaxed Afterglow";
+            themeFile = "Relaxed_Afterglow";
             font = {
               name = "JetBrainsMono Nerd Font";
             };

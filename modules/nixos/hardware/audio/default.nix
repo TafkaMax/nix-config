@@ -1,12 +1,12 @@
-{ options, config, pkgs, lib, ... }:
+{ options, config, pkgs, namespace, lib, ... }:
 
 with lib;
-with lib.nixos-snowfall;
+with lib.${namespace};
 let
-  cfg = config.nixos-snowfall.hardware.audio;
+  cfg = config.${namespace}.hardware.audio;
 in
 {
-  options.nixos-snowfall.hardware.audio = with types; {
+  options.${namespace}.hardware.audio = with types; {
     enable = mkBoolOpt false "Whether or not to enable audio support.";
     alsa-monitor = mkOpt attrs { } "Alsa configuration.";
     nodes = mkOpt (listOf attrs) [ ]
@@ -21,9 +21,6 @@ in
     # rtkit is optional but recommended
     security.rtkit.enable = true;
 
-    # Remove sound.enable or turn it off if you had it set previously, it seems to cause conflicts with pipewire
-    sound.enable = false;
-
     services.pipewire = {
       enable = true;
       alsa.enable = true;
@@ -33,6 +30,6 @@ in
     };
 
     # Disable pulseaudio, it conflicts with pipewire too.
-    hardware.pulseaudio.enable = mkForce false;
+    services.pulseaudio.enable = mkForce false;
   };
 }

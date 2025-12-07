@@ -14,5 +14,6 @@ in
   config = mkIf cfg.enable {
     virtualisation.libvirtd.enable = true;
     users.users.${user.name}.extraGroups = [ "qemu-libvirtd" "libvirtd" ];
+    environment.systemPackages = with pkgs; [ qemu-utils ];
   };
 }

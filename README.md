@@ -35,3 +35,8 @@ To then install the new pkgs that have been configured in the `flake.lock` file 
       1. Will import specific things for your setup.
    2. `hardware-configuration.nix`
       1. Hardware configuration for your specific setup.
+
+### Use Shells / Environments
+
+1. Create shell in shells/<your-shell-name>
+2. Activate shell using `nix develop /home/tafka/Documents/Github/TafkaMax/nix-config#opnsense-ansible`

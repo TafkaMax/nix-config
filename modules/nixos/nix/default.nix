@@ -38,7 +38,7 @@ in
         hosts = inputs.self.nixosConfigurations;
       })
       deploy-rs
-      nixfmt
+      nixfmt-classic
       nix-index
       nix-prefetch-git
       nix-output-monitor
@@ -62,6 +62,7 @@ in
           auto-optimise-store = true;
           trusted-users = users;
           allowed-users = users;
+          download-buffer-size = 524288001;
 
           substituters =
             # [ cfg.default-substituter.url ]

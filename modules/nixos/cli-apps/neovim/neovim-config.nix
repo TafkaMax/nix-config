@@ -1,4 +1,4 @@
-{ inputs, outputs, osConfig, config, lib, pkgs, ... }: {
+{ pkgs, ... }: {
 
   #https://nixos.wiki/wiki/Vim
 
@@ -11,6 +11,12 @@
           command = "nil";
           filetypes = [ "nix" ];
           rootPatterns = [ "flake.nix" ];
+        };
+
+        terraform = {
+          command = "terraform-ls";
+          args = [ "serve" ];
+          filetypes = [ "terraform" "tf" ];
         };
       };
     };
@@ -163,7 +169,8 @@
       augroup autoformat_settings
         autocmd FileType html,css,sass,scss,less,json,js AutoFormatBuffer js-beautify
         autocmd FileType nix AutoFormatBuffer nixpkgs-fmt
-        autocmd Filetype yaml AutoFormatBuffer yamlfmt
+        autocmd Filetype yaml,yml AutoFormatBuffer yamlfmt
+        autocmd Filetype tf AutoFormatBuffer terraform-ls
       augroup END
     '';
     extraLuaConfig = ''
@@ -184,10 +191,11 @@
       nixpkgs-fmt
       nodePackages.js-beautify
       yamlfmt
+      terraform-ls
     ];
     plugins = with pkgs.vimPlugins; [
       # https://github.com/nvim-treesitter/nvim-treesitter
-      (nvim-treesitter.withPlugins (_: pkgs.tree-sitter.allGrammars))
+      (nvim-treesitter.withPlugins (_: nvim-treesitter.allGrammars))
       # Make your Vim/Neovim as smart as VS Code - https://github.com/neoclide/coc.nvim
       coc-html
       coc-tsserver
@@ -199,7 +207,12 @@
       coc-eslint
       coc-yank
       coc-git
+      coc-markdownlint
+      coc-sh
       typescript-vim
+      coc-toml
+      coc-java
+      coc-docker
       vim-jsx-typescript
       # Faster buffers for coc. https://github.com/ms-jpq/coq_nvim
       coq_nvim
