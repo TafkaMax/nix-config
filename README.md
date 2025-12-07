@@ -40,3 +40,9 @@ To then install the new pkgs that have been configured in the `flake.lock` file 
 
 1. Create shell in shells/<your-shell-name>
 2. Activate shell using `nix develop /home/tafka/Documents/Github/TafkaMax/nix-config#opnsense-ansible`
+
+## Recovering UEFI after BIOS update
+
+After a bios update you might need to reinstall the bootloader.
+
+https://nixos.wiki/wiki/Bootloader#From_an_installation_media
