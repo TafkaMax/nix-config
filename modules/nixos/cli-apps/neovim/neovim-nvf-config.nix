@@ -20,14 +20,6 @@
         filetree = {
           nvimTree = {
             enable = true;
-            setupOpts = {
-              actions = {
-
-              };
-              git = {
-                enable = true;
-              };
-            };
           };
         };
 
@@ -90,8 +82,14 @@
           cheatsheet.enable = true;
         };
 
+        # Notification Manager
         notify = {
-          nvim-notify.enable = true;
+          nvim-notify.enable = true; #https://github.com/rcarriga/nvim-notify
+        };
+
+        # project.nvim is an all in one neovim plugin written in lua that provides superior project management.
+        projects = {
+          project-nvim.enable = true; #https://github.com/ahmedkhalf/project.nvim
         };
 
         # This section does not include a comprehensive list of available language modules.
@@ -124,15 +122,18 @@
 
         };
 
+        #https://github.com/windwp/nvim-autopairs
         autopairs.nvim-autopairs.enable = true;
+
         # nvf provides various autocomplete options. The tried and tested nvim-cmp
         # is enabled in default package, because it does not trigger a build. We
         # enable blink-cmp in maximal because it needs to build its rust fuzzy
         # matcher library.
         autocomplete = {
-          nvim-cmp.enable = true;
+          blink-cmp.enable = true; #https://github.com/saghen/blink.cmp
         };
 
+        # Search Utility
         telescope.enable = true;
 
         notes = {
@@ -140,15 +141,14 @@
         };
 
         visuals = {
-          nvim-scrollbar.enable = true;
-          nvim-web-devicons.enable = true;
+          nvim-scrollbar.enable = true; #https://github.com/petertriho/nvim-scrollbar
+          nvim-web-devicons.enable = true; #Icons #https://github.com/nvim-tree/nvim-web-devicons
           nvim-cursorline.enable = true;
-          cinnamon-nvim.enable = true;
-          fidget-nvim.enable = true;
+          cinnamon-nvim.enable = true; #scrolling #https://github.com/declancm/cinnamon.nvim
+          fidget-nvim.enable = true; #https://github.com/j-hui/fidget.nvim
 
-          highlight-undo.enable = true;
-          indent-blankline.enable = true;
-          cellular-automaton.enable = false;
+          highlight-undo.enable = true; #https://github.com/tzachar/highlight-undo.nvim
+          indent-blankline.enable = true; #https://github.com/lukas-reineke/indent-blankline.nvim
         };
 
         comments = {
@@ -177,23 +177,30 @@
         };
 
         utility = {
-          diffview-nvim.enable = true;
-          icon-picker.enable = true;
-          surround.enable = true;
-          leetcode-nvim.enable = true;
-          multicursors.enable = true;
-          smart-splits.enable = true;
-          undotree.enable = true;
-          nvim-biscuits.enable = true;
+          diffview-nvim.enable = true; #Git DiffView
+          # Surround Selection in brackets or whatnow.
+          surround.enable = true; #https://github.com/kylechui/nvim-surround
+          # Allows creating multiple blocks at same time. Useful for coding duplicates
+          multicursors.enable = true; #https://github.com/jake-stewart/multicursor.nvim
+          # Allows moving around splits/screens.
+          smart-splits.enable = true; #https://github.com/mrjones2014/smart-splits.nvim
+          # Diff previewer window shows the difference between the current node and the node under the cursor.
+          undotree.enable = true; #https://github.com/jiaoshijie/undotree
+          # Every dev needs something sweet sometimes. Code Biscuits are in-editor annotations usually at the end of a closing tag/bracket/parenthesis/etc. They help you get the context of the end of that AST node so you don't have to navigate to find it.
+          # NOT IN USE, I DONT LIKE IT FOR NOW.
+          nvim-biscuits.enable = false; #https://github.com/code-biscuits/nvim-biscuits
 
           motion = {
-            hop.enable = true;
-            leap.enable = true;
-            precognition.enable = true;
+            hop.enable = true; #https://github.com/smoka7/hop.nvim
+            leap.enable = true; #https://codeberg.org/andyg/leap.nvim
+            # I don't like this at all.
+            precognition.enable = false; #https://github.com/tris203/precognition.nvim
+
           };
           images = {
-            image-nvim.enable = false;
-            img-clip.enable = true;
+            image-nvim.enable = false; #https://github.com/3rd/image.nvim
+            # directly paste pics
+            img-clip.enable = true; #https://github.com/hakonharnes/img-clip.nvim
           };
         };
         ui = {
