@@ -4,19 +4,23 @@
 
   programs.neovim = {
     enable = true;
-    coc.enable = true;
-    coc.settings = {
-      "languageserver" = {
-        nix = {
-          command = "nil";
-          filetypes = [ "nix" ];
-          rootPatterns = [ "flake.nix" ];
-        };
+    coc = {
+      enable = true;
+      settings = {
+        "suggest.noselect" = true;
+        "suggest.enablePreview" = true;
+        "languageserver" = {
+          nix = {
+            command = "nil";
+            filetypes = [ "nix" ];
+            rootPatterns = [ "flake.nix" ];
+          };
 
-        terraform = {
-          command = "terraform-ls";
-          args = [ "serve" ];
-          filetypes = [ "terraform" "tf" ];
+          terraform = {
+            command = "terraform-ls";
+            args = [ "serve" ];
+            filetypes = [ "terraform" "tf" ];
+          };
         };
       };
     };
@@ -172,6 +176,10 @@
         autocmd Filetype yaml,yml AutoFormatBuffer yamlfmt
         autocmd Filetype tf AutoFormatBuffer terraform-ls
       augroup END
+
+      " Disable TAB coc#pum in Makefiles.
+      autocmd FileType make inoremap <silent> <TAB> <Tab>
+      autocmd FileType make inoremap <silent> <S-TAB> <S-Tab>
     '';
     extraLuaConfig = ''
       require('gitsigns').setup()
@@ -259,6 +267,7 @@
         max_line_width = 78;
         indent_style = "space";
         indent_size = 2;
+        tab_width = 4;
       };
       "Makefile" = {
         indent_style = "tab";
