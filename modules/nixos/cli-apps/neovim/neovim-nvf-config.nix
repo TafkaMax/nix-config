@@ -2,18 +2,21 @@
 
   #DOCS: https://notashelf.github.io/nvf/options
 
+  #BASE INSPIRATION FROM EXAMPLE CONFIG: https://github.com/NotAShelf/nvf/blob/main/configuration.nix
+
   programs.nvf = {
     enable = true;
-    defaultEditor = true;
     settings = {
       vim = {
-        viAlias = false;
-        vimAlias = true;
-        withNodeJs = true;
+        viAlias = false; #Alias for vi
+        vimAlias = true; #Alias for vim
+        withNodeJs = true; #Whether to enable NodeJs support in the Neovim wrapper .
+
         globals = {
-          editorconfig = true;
-          mapleader = " ";
+          editorconfig = true; #Enable editorconfig.
+          mapleader = " "; #Default LEADER is SPACEBAR
         };
+
         filetree = {
           nvimTree = {
             enable = true;
@@ -27,14 +30,23 @@
             };
           };
         };
+
+        git = {
+          enable = true;
+          gitsigns.enable = true;
+          gitsigns.codeActions.enable = false; # throws an annoying debug message
+        };
+
         treesitter = {
           enable = true;
           grammars = pkgs.vimPlugins.nvim-treesitter.allGrammars;
+          context.enable = true;
         };
+
         lsp = {
           enable = true;
 
-          formatOnSave = true;
+          formatOnSave = false;
           lspkind.enable = false;
           lightbulb.enable = true;
           lspsaga.enable = false;
@@ -43,20 +55,98 @@
           otter-nvim.enable = true;
           nvim-docs-view.enable = true;
         };
+
         theme = {
           enable = true;
           name = "everforest"; #https://notashelf.github.io/nvf/options.html#opt-vim.theme.name
           style = "soft";
         };
+
         statusline = {
           lualine = {
             theme = "everforest"; #https://notashelf.github.io/nvf/options.html#opt-vim.statusline.lualine.theme
           };
         };
+
         spellcheck = {
           # TODO We need to install wordlist files, before enabling.
           enable = false;
+          languages = [ "en" ];
           programmingWordlist.enable = false;
+        };
+
+        diagnostics.config = {
+          underline.enable = true;
+          virtual_lines.enable = false;
+        };
+
+        binds = {
+          whichKey.enable = true;
+          cheatsheet.enable = true;
+        };
+
+        notify = {
+          nvim-notify.enable = true;
+        };
+
+        # This section does not include a comprehensive list of available language modules.
+        # To list all available language module options, please visit the nvf manual.
+        languages = {
+          enableFormat = true;
+          enableTreesitter = true;
+          enableExtraDiagnostics = true;
+
+          # Languages that will be supported in default and maximal configurations.
+          nix.enable = true;
+          markdown.enable = true;
+
+          # Languages that are enabled in the maximal configuration.
+          bash.enable = true;
+          clang.enable = true;
+          css.enable = true;
+          html.enable = true;
+          sql.enable = true;
+          java.enable = true;
+          ts.enable = true;
+          go.enable = true;
+          lua.enable = true;
+          python.enable = true;
+          typst.enable = true;
+
+          # Language modules that are not as common.
+          ruby.enable = true;
+          tailwind.enable = true;
+
+        };
+
+        autopairs.nvim-autopairs.enable = true;
+        # nvf provides various autocomplete options. The tried and tested nvim-cmp
+        # is enabled in default package, because it does not trigger a build. We
+        # enable blink-cmp in maximal because it needs to build its rust fuzzy
+        # matcher library.
+        autocomplete = {
+          nvim-cmp.enable = true;
+        };
+
+        telescope.enable = true;
+
+
+        notes = {
+          todo-comments.enable = true;
+        };
+
+        visuals = {
+          nvim-scrollbar.enable = true;
+          nvim-web-devicons.enable = true;
+          nvim-cursorline.enable = true;
+          cinnamon-nvim.enable = true;
+          fidget-nvim.enable = true;
+
+          highlight-undo.enable = true;
+          indent-blankline.enable = true;
+
+          # Fun
+          cellular-automaton.enable = false;
         };
         #vim.keymaps = [
         #   {
@@ -72,7 +162,65 @@
         #     action = "nvim-tree.api.node.open.horizontal";
         #   }
         # ];
+
+        comments = {
+          comment-nvim.enable = true; #https://github.com/numToStr/Comment.nvim?tab=readme-ov-file#-usage
+        };
+
         assistant = {
+          #TODO
+        };
+
+        dashboard = {
+          dashboard-nvim.enable = false;
+          alpha.enable = true; #https://github.com/goolord/alpha-nvim
+        };
+
+        minimap = {
+          minimap-vim.enable = false;
+          codewindow.enable = true; # lighter, faster, and uses lua for configuration: https://github.com/gorbit99/codewindow.nvim?tab=readme-ov-file#configuration
+        };
+
+        terminal = {
+          toggleterm = {
+            enable = true;
+            lazygit.enable = true;
+          };
+        };
+
+        utility = {
+          diffview-nvim.enable = true;
+          icon-picker.enable = true;
+          surround.enable = true;
+          leetcode-nvim.enable = true;
+          multicursors.enable = true;
+          smart-splits.enable = true;
+          undotree.enable = true;
+          nvim-biscuits.enable = true;
+
+          motion = {
+            hop.enable = true;
+            leap.enable = true;
+            precognition.enable = true;
+          };
+          images = {
+            image-nvim.enable = false;
+            img-clip.enable = true;
+          };
+        };
+        ui = {
+          borders.enable = true;
+          noice.enable = true;
+          colorizer.enable = true;
+          illuminate.enable = true;
+          breadcrumbs = {
+            enable = true;
+            navbuddy.enable = true;
+          };
+          smartcolumn = {
+            enable = true;
+          };
+          fastaction.enable = true;
         };
       };
     };
