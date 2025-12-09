@@ -36,8 +36,7 @@ in
     };
     color-scheme = mkOpt (enum [ "light" "dark" ]) "dark" "The color scheme to use.";
     wayland = mkBoolOpt true "Whether or not to use Wayland.";
-    suspend =
-      mkBoolOpt true "Whether or not to suspend the machine after inactivity.";
+    suspend = mkBoolOpt true "Whether or not to suspend the machine after inactivity.";
     monitors = mkOpt (nullOr path) null "The monitors.xml file to create.";
     extensions = mkOpt (listOf package) [ ] "Extra Gnome extensions to install.";
   };
@@ -54,6 +53,7 @@ in
           ".config/gtk-3.0/bookmarks" = {
             text = lib.concatMapStrings (mapping: mapping + "\n") config.${namespace}.user.mountpoints;
           };
+          # https://github.com/nix-community/home-manager/issues/1213
         };
 
         extraOptions = {

@@ -1,5 +1,5 @@
-{ }: {
-  programms.editorconfig = {
+{ ... }: {
+  editorconfig = {
     enable = true;
     settings = {
       "*" = {
