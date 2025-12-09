@@ -35,6 +35,7 @@
           enable = true;
           gitsigns.enable = true;
           gitsigns.codeActions.enable = false; # throws an annoying debug message
+          neogit.enable = true; #https://github.com/NeogitOrg/neogit
         };
 
         treesitter = {
@@ -75,9 +76,13 @@
           programmingWordlist.enable = false;
         };
 
-        diagnostics.config = {
-          underline.enable = true;
-          virtual_lines.enable = false;
+        # https://notashelf.github.io/nvf/options.html#opt-vim.diagnostics.enable
+        diagnostics = {
+          enable = false;
+          config = {
+            underline.enable = false;
+            virtual_lines.enable = false;
+          };
         };
 
         binds = {
@@ -130,7 +135,6 @@
 
         telescope.enable = true;
 
-
         notes = {
           todo-comments.enable = true;
         };
@@ -144,24 +148,8 @@
 
           highlight-undo.enable = true;
           indent-blankline.enable = true;
-
-          # Fun
           cellular-automaton.enable = false;
         };
-        #vim.keymaps = [
-        #   {
-        #     key = "s";
-        #     mode = "n";
-        #     silent = false;
-        #     action = "nvim-tree.api.node.open.vertical";
-        #   }
-        #   {
-        #     key = "i";
-        #     mode = "n";
-        #     silent = false;
-        #     action = "nvim-tree.api.node.open.horizontal";
-        #   }
-        # ];
 
         comments = {
           comment-nvim.enable = true; #https://github.com/numToStr/Comment.nvim?tab=readme-ov-file#-usage
@@ -214,14 +202,29 @@
           colorizer.enable = true;
           illuminate.enable = true;
           breadcrumbs = {
+            # https://github.com/LunarVim/breadcrumbs.nvim
+            # Breadcrumbs is a plugin that works with nvim-navic to provide context about your code in the winbar.
             enable = true;
+            # https://github.com/hasansujon786/nvim-navbuddy?tab=readme-ov-file#-customise
+            # A simple popup display that provides breadcrumbs like navigation feature but in keyboard centric manner inspired by ranger file manager.
             navbuddy.enable = true;
           };
           smartcolumn = {
-            enable = true;
+            # https://github.com/m4xshen/smartcolumn.nvim
+            enable = true; #A Neovim plugin hiding your colorcolumn when unneeded.
           };
           fastaction.enable = true;
         };
+        # https://notashelf.github.io/nvf/options.html#opt-vim.keymaps
+        keymaps = [
+           {
+             key = "<leader>nb";
+             mode = ["n" "x"];
+             silent = true;
+             action = "<cmd>Navbuddy<CR>";
+             desc = "Open NavBuddy";
+           }
+         ];
       };
     };
   };

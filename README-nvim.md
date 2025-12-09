@@ -1,5 +1,27 @@
 # Neovim commands (NVF)
 
+NB! KEYMAPPINGS
+
+`:TeleScope keymaps`
+
+## LEADER
+
+LEADER is SPACEBAR
+
+## SIDEBAR
+
+`LEADER + T`
+
+## MINIMAP (RIGHT SIDE SHOWS OVERVIEW OF FILE)
+
+```
+<leader>mo - open the minimap
+<leader>mc - close the minimap
+<leader>mf - focus/unfocus the minimap
+<leader>mm - toggle the minimap
+```
+
+
 ## Comments
 
 https://github.com/numToStr/Comment.nvim?tab=readme-ov-file#-usage
@@ -33,3 +55,13 @@ https://github.com/folke/todo-comments.nvim?tab=readme-ov-file#-usage
 ## Diff
 
 https://github.com/sindrets/diffview.nvim
+
+# NavBuddy
+
+A simple popup display that provides breadcrumbs like navigation feature but in keyboard centric manner inspired by ranger file manager.
+
+`:NavBuddy`
+
+## TERMINAL
+
+Open new terminal: `CTRL + T`
