@@ -29,7 +29,8 @@ in
 
       extraOptions = {
         # Use Neovim for Git diffs.
-        imports = [ ./neovim-config.nix ];
+        #imports = [ ./neovim-config.nix ];
+        imports = [ ./neovim-nvf-config.nix ];
         programs.zsh.shellAliases.vimdiff = "nvim -d";
         programs.bash.shellAliases.vimdiff = "nvim -d";
         programs.fish.shellAliases.vimdiff = "nvim -d";

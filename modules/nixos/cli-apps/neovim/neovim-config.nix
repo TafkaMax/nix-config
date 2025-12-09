@@ -47,7 +47,12 @@
       if has("autocmd")
           " If the filetype is Makefile then we need to use tabs
           " So do not expand tabs into space.
-          autocmd FileType make   set noexpandtab
+          autocmd FileType make set noexpandtab
+          autocmd FileType make setlocal tabstop=8
+          autocmd FileType make setlocal shiftwidth=8
+          autocmd FileType make setlocal softtabstop=8
+          autocmd FileType make inoremap <silent> <TAB> <Tab>
+          autocmd FileType make inoremap <silent> <S-TAB> <S-Tab>
       endif
 
       " Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable delays and poor user experience.
@@ -177,9 +182,6 @@
         autocmd Filetype tf AutoFormatBuffer terraform-ls
       augroup END
 
-      " Disable TAB coc#pum in Makefiles.
-      autocmd FileType make inoremap <silent> <TAB> <Tab>
-      autocmd FileType make inoremap <silent> <S-TAB> <S-Tab>
     '';
     extraLuaConfig = ''
       require('gitsigns').setup()
@@ -224,8 +226,6 @@
       vim-jsx-typescript
       # Faster buffers for coc. https://github.com/ms-jpq/coq_nvim
       coq_nvim
-      # Editorconfig - https://github.com/editorconfig/editorconfig-vim
-      editorconfig-vim
       # Super fast git decorations implemented purely in Lua. - https://github.com/lewis6991/gitsigns.nvim
       gitsigns-nvim
       # This plugin adds indentation guides to all lines (including empty lines). - https://github.com/lukas-reineke/indent-blankline.nvim
@@ -266,11 +266,16 @@
         insert_final_newline = true;
         max_line_width = 78;
         indent_style = "space";
-        indent_size = 2;
-        tab_width = 4;
+        indent_size = 4;
       };
       "Makefile" = {
         indent_style = "tab";
+      };
+      "[*.{yml,yaml}]" = {
+        indent_size = 2;
+      };
+      "[*.json]" = {
+        indent_size = 2;
       };
     };
   };
