@@ -12,6 +12,10 @@ in
     common-pc-ssd
   ];
 
+  hardware.graphics.extraPackages = with pkgs; [
+    rocmPackages.clr.icd
+  ];
+
   boot = {
     kernelModules = [ "kvm-amd" ];
 

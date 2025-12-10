@@ -86,7 +86,7 @@ in
     #  programs.zsh.shellAliases = foldl
     #    (aliases: system:
     #      aliases // {
-    #        "ssh-${system}" = "ssh ${system} -t tmux a";
+    #        "ssh-${stdenv.hostPlatform.system}" = "ssh ${system} -t tmux a";
     #      })
     #    { }
     #    (builtins.attrNames other-hosts);

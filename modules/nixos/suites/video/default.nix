@@ -14,6 +14,7 @@ in
     nixos-snowfall = {
       apps = {
         obs = enabled;
+        inkscape = enabled;
       };
     };
   };

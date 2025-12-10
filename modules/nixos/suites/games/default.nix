@@ -14,6 +14,9 @@ in
     nixos-snowfall = {
       apps = {
         steam = enabled;
+        #nexusmods-app = enabled;
+        discord = enabled;
+        davinci-resolve = enabled;
       };
       services = {
         maestral = enabled;

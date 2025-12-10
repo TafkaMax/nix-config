@@ -37,6 +37,8 @@ in
       nmap # A utility for network discovery and security auditing
       ipcalc # it is a calculator for the IPv4/v6 addresses
       inetutils
+      mtr # diagnostics tool
+      mtr-gui
 
       # misc
       file

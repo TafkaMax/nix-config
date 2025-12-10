@@ -13,14 +13,14 @@ rec {
           let
             host = hosts.${name};
             user = host.config.nixos-snowfall.user.name or null;
-            inherit (host.pkgs) system;
+            inherit (host.pkgs) stdenv;
           in
           result // {
             ${name} = (overrides.${name} or { }) // {
               hostname = overrides.${name}.hostname or "${name}";
               profiles = (overrides.${name}.profiles or { }) // {
                 system = (overrides.${name}.profiles.system or { }) // {
-                  path = deploy-rs.lib.${system}.activate.nixos host;
+                  path = deploy-rs.lib.${stdenv.hostPlatform.system}.activate.nixos host;
                 } // lib.optionalAttrs (user != null) {
                   user = "root";
                   sshUser = user;

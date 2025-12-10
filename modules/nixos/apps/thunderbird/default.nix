@@ -12,7 +12,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = with pkgs; [ thunderbird ];
+    environment.systemPackages = with pkgs; [ thunderbird openldap ]; #install openldap for client for directory services
 
     # manage thunderbird using home-manager
     nixos-snowfall.home = {

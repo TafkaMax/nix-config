@@ -1,12 +1,12 @@
-inputs@{ options, config, lib, pkgs, ... }:
+{ config, lib, pkgs, namespace, inputs, ... }:
 
 with lib;
-with lib.nixos-snowfall;
+with lib.${namespace};
 let
-  cfg = config.nixos-snowfall.cli-apps.neovim;
+  cfg = config.${namespace}.cli-apps.neovim;
 in
 {
-  options.nixos-snowfall.cli-apps.neovim = with types; {
+  options.${namespace}.cli-apps.neovim = with types; {
     enable = mkBoolOpt false "Whether or not to enable neovim.";
   };
 
@@ -29,7 +29,8 @@ in
 
       extraOptions = {
         # Use Neovim for Git diffs.
-        imports = [ ./neovim-config.nix ];
+        #imports = [ ./neovim-config.nix ];
+        imports = [ inputs.nvf.homeManagerModules.default ./neovim-nvf-config.nix ./editorconfig.nix ];
         programs.zsh.shellAliases.vimdiff = "nvim -d";
         programs.bash.shellAliases.vimdiff = "nvim -d";
         programs.fish.shellAliases.vimdiff = "nvim -d";

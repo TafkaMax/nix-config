@@ -14,7 +14,7 @@ deploy:
 	sudo nixos-rebuild switch --flake .
 
 debug:
-	sudo nixos-rebuild switch --flake . --show-trace --verbose
+	sudo nixos-rebuild switch --flake . --show-trace --verbose --option abort-on-warn true
 
 update:
 	nix flake update

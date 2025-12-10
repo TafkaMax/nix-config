@@ -23,11 +23,13 @@ in
         vlc = enabled;
         remmina = enabled;
         libreoffice = enabled;
+        qdigidoc = enabled;
       };
 
       tools = {
         flameshot = enabled;
         wl-clipboard = enabled;
+        logiops = enabled;
       };
 
       security = {
