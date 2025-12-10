@@ -223,10 +223,6 @@
           comment-nvim.enable = true; #https://github.com/numToStr/Comment.nvim?tab=readme-ov-file#-usage
         };
 
-        assistant = {
-          #TODO
-        };
-
         dashboard = {
           dashboard-nvim.enable = false;
           alpha.enable = true; #https://github.com/goolord/alpha-nvim
