@@ -1,4 +1,4 @@
-{ inputs, outputs, nixpkgs, osConfig, config, lib, pkgs, ... }: {
+{ inputs, outputs, osConfig, config, lib, pkgs, ... }: {
 
   #https://nixos.wiki/wiki/Vim
 
@@ -32,6 +32,13 @@
       map <C-h> <C-W>h
       map <C-l> <C-W>l
 
+
+
+      if has("autocmd")
+          " If the filetype is Makefile then we need to use tabs
+          " So do not expand tabs into space.
+          autocmd FileType make   set noexpandtab
+      endif
 
       " Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable delays and poor user experience.
       set updatetime=300

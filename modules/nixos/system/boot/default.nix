@@ -20,6 +20,9 @@ in
           enable = true;
           efiSupport = true;
           configurationLimit = 10;
+          # add this so efi is installed at path /efi/boot/bootx64.efi instead of /efi/NixOS-boot/grubx64.efi. So when doing BIOS updates it is found.
+          # Not supported together with efi.canTouchEfiVariables
+          # efiInstallAsRemovable = true;
         };
       };
     };

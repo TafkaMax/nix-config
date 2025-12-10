@@ -17,6 +17,7 @@ in
       zip
       xz
       unzip
+      cabextract
 
       # utils
       ripgrep # recursively searches directories for a regex pattern
@@ -26,11 +27,16 @@ in
 
       # networking tools
       iperf3
+      # iperf2 for multicast support
+      iperf2
+      # tcpdump for debugging
+      tcpdump
       dnsutils # `dig` + `nslookup`
       ldns # replacement of `dig`, it provides the command `drill`
       socat # replacement of openbsd-netcat
       nmap # A utility for network discovery and security auditing
       ipcalc # it is a calculator for the IPv4/v6 addresses
+      inetutils
 
       # misc
       file

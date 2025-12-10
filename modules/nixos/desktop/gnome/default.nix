@@ -53,16 +53,15 @@ in
     programs.dconf.enable = true;
 
     environment.systemPackages = with pkgs; [
-      gnome.gnome-tweaks
-      gnome.dconf-editor
+      gnome-tweaks
+      dconf-editor
     ] ++ defaultExtensions ++ cfg.extensions;
 
     environment.gnome.excludePackages = (with pkgs; [
       gnome-connections #rdp/remmina like tool
       gnome-photos #photo gallery like thingy
       gnome-tour # welcome thingy that shows new things in a gnome release
-      gnome-text-editor
-    ]) ++ (with pkgs.gnome; [
+    ]) ++ (with pkgs; [
       epiphany # web-browser, use firefox instead
       geary # email client, use thundebird instead
       adwaita-icon-theme # default icons
@@ -132,7 +131,7 @@ in
     };
 
     # Required for app indicators
-    services.udev.packages = with pkgs; [ gnome3.gnome-settings-daemon ];
+    services.udev.packages = with pkgs; [ gnome-settings-daemon ];
 
     # Disable inital setup and online accounts in gnome.
     services.gnome = {
@@ -140,10 +139,13 @@ in
       gnome-online-accounts.enable = false;
     };
 
+    services.libinput = {
+      enable = true;
+    };
+
     services.xserver = {
       enable = true;
 
-      libinput.enable = true;
       displayManager.gdm = {
         enable = true;
         wayland = cfg.wayland;
@@ -288,7 +290,7 @@ in
             "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1" = {
               name = "Flameshot screenshot";
               binding = "<Super>Print";
-              command = "flameshot gui";
+              command = "fixflameshot";
             };
           };
       };

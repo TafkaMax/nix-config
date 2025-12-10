@@ -11,7 +11,7 @@ let
     enable-ssh-support
     default-cache-ttl 60
     max-cache-ttl 120
-    pinentry-program ${pkgs.pinentry-gnome}/bin/pinentry-gnome
+    pinentry-program ${pkgs.pinentry-gnome3}/bin/pinentry
   '';
 
   guide = "${inputs.yubikey-guide}/README.md";
@@ -80,7 +80,9 @@ in
       cryptsetup
       paperkey
       gnupg
+      pinentry
       pinentry-curses
+      pinentry-gnome3
       pinentry-qt
       paperkey
       guideDesktopItem
@@ -98,7 +100,7 @@ in
         enable = true;
         enableSSHSupport = true;
         enableExtraSocket = true;
-        pinentryFlavor = "gnome3";
+        pinentryPackage = pkgs.pinentry-gnome3;
       };
     };
 

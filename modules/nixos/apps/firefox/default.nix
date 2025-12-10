@@ -1,4 +1,4 @@
-{ options, config, lib, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 with lib;
 with lib.nixos-snowfall;
@@ -51,12 +51,12 @@ in
             id = 0;
             isDefault = true;
             name = config.nixos-snowfall.user.name;
-            extensions = with config.nur.repos.rycee.firefox-addons; [
-              ublock-origin
-              keepassxc-browser
-              user-agent-string-switcher
-              gnome-shell-integration
-            ];
+            #extensions = with pkgs.nur.repos.rycee.firefox-addons; [
+            #  ublock-origin
+            #  keepassxc-browser
+            #  user-agent-string-switcher
+            #  gnome-shell-integration
+            #];
           };
         };
       };

@@ -21,9 +21,6 @@ in
     # rtkit is optional but recommended
     security.rtkit.enable = true;
 
-    # Remove sound.enable or turn it off if you had it set previously, it seems to cause conflicts with pipewire
-    sound.enable = false;
-
     services.pipewire = {
       enable = true;
       alsa.enable = true;

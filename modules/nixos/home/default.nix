@@ -1,15 +1,12 @@
-{ options, config, pkgs, lib, inputs, ... }:
+{ options, config, pkgs, lib, namespace, ... }:
 
 with lib;
-with lib.nixos-snowfall;
-let cfg = config.nixos-snowfall.home;
+with lib.${namespace};
+let
+  cfg = config.${namespace}.home;
 in
 {
-  imports = with inputs; [
-    home-manager.nixosModules.home-manager
-  ];
-
-  options.nixos-snowfall.home = with types; {
+  options.${namespace}.home = with types; {
     file = mkOpt attrs { }
       "A set of files to be managed by home-manager's <option>home.file</option>.";
     configFile = mkOpt attrs { }
@@ -18,12 +15,16 @@ in
   };
 
   config = {
+    # enable .local/bin
+    environment.localBinInPath = true;
     nixos-snowfall.home.extraOptions = {
       home.stateVersion = config.system.stateVersion;
-      home.file = mkAliasDefinitions options.nixos-snowfall.home.file;
+      home.file = mkAliasDefinitions options.${namespace}.home.file;
       xdg.enable = true;
-      xdg.configFile = mkAliasDefinitions options.nixos-snowfall.home.configFile;
+      xdg.configFile = mkAliasDefinitions options.${namespace}.home.configFile;
     };
+
+    #snowfallorg.users.${config.${namespace}.user.name}.home.config = config.${namespace}.home.extraOptions;
 
     home-manager = {
       useUserPackages = true;

@@ -11,13 +11,16 @@
 ############################################################################
 
 deploy:
-	doas nixos-rebuild switch --flake .
+	sudo nixos-rebuild switch --flake .
 
 debug:
-	doas nixos-rebuild switch --flake . --show-trace --verbose
+	sudo nixos-rebuild switch --flake . --show-trace --verbose
 
 update:
 	nix flake update
+
+#deploy-bootloader:
+#doas nixos-rebuild --install-bootloader boot
 
 history:
 	nix profile history --profile /nix/var/nix/profiles/system

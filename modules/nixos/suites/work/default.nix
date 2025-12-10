@@ -15,8 +15,17 @@ in
       apps = {
         element = enabled;
         thunderbird = enabled;
+        zoom-us = enabled;
+        drawio = enabled;
+        yed = enabled;
       };
       tools = {
+        gns3 = enabled;
+        virtualbox = enabled;
+        libvirtd = enabled;
+        wireshark = enabled;
+        apache-directory-studio = enabled;
+        misc-work = enabled;
         #sshfs = enabled;
       };
     };

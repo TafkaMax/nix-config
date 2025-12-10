@@ -12,7 +12,7 @@ in
     theme = {
       name = mkOpt str "Fluent-round-Dark"
         "The name of the GTK theme to apply.";
-      pkg = mkOpt package pkgs.fluent-gtk-theme "The package to use for the theme.";
+      pkg = mkOpt package pkgs.nixos-snowfall.fluent-gtk-theme "The package to use for the theme.";
       # TODO add the override
       # .override { tweaks = [ "round" "blur" ]; }
     };
