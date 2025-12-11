@@ -1,5 +1,7 @@
-{ pkgs, ... }:
+{ pkgs, lib, namespace, ... }:
 
+with lib;
+with lib.${namespace};
 {
 
   #DOCS: https://notashelf.github.io/nvf/options
@@ -189,6 +191,13 @@
           # NB!
           nvim-cmp = {
             enable = true;
+            # Use default option for now.
+            #format = lib.generators.mkLuaInline ''
+            #  function(entry, vim_item)
+            #    vim_item.menu = (${toLuaObject config.vim.autocomplete.nvim-cmp.sources})[entry.source.name]
+            #    return vim_item
+            #  end
+            #'';
           };
           # NB! Doesn't work with CodeCompletion-nvim yet!
           # https://github.com/NotAShelf/nvf/discussions/1076
