@@ -1,4 +1,6 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+
+{
 
   #DOCS: https://notashelf.github.io/nvf/options
 
@@ -183,8 +185,15 @@
         # https://cmp.saghen.dev/recipes#disable-per-filetype-buffer
         # Remove autocomplete for specific filetype
         autocomplete = {
+          # https://github.com/hrsh7th/nvim-cmp
+          # NB!
+          nvim-cmp = {
+            enable = true;
+          };
+          # NB! Doesn't work with CodeCompletion-nvim yet!
+          # https://github.com/NotAShelf/nvf/discussions/1076
           blink-cmp = {
-            enable = true; #https://github.com/saghen/blink.cmp
+            enable = false; #https://github.com/saghen/blink.cmp
             setupOpts = {
               completion = {
                 documentation = {
