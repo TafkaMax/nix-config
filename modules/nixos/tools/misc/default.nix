@@ -51,6 +51,9 @@ in
       # embedded development
       # console
       minicom
+
+      # Disk utils
+      smartmontools
     ];
   };
 }
