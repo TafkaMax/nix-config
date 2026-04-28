@@ -13,6 +13,10 @@
 deploy:
 	sudo nixos-rebuild switch --flake .
 
+# Use this whenever you have impure flakes.
+deploy-impure:
+	sudo nixos-rebuild --impure switch --flake .
+
 debug:
 	sudo nixos-rebuild switch --flake . --show-trace --verbose --option abort-on-warn true
 

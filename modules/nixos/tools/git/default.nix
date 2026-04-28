@@ -17,7 +17,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = with pkgs; [ git ];
+    environment.systemPackages = with pkgs; [ git git-review ];
 
 
     nixos-snowfall.home.extraOptions = {

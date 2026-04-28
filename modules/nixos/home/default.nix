@@ -13,7 +13,7 @@ in
       "A set of files to be managed by home-manager's <option>xdg.configFile</option>.";
     extraOptions = mkOpt attrs { } "Options to pass directly to home-manager.";
   };
-
+  # Import NVF under the user.
   config = {
     # enable .local/bin
     environment.localBinInPath = true;
