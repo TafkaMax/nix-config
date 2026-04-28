@@ -58,6 +58,7 @@ swapon -s
 
 ```bash
 # Prerequisities
+# {TODO this might not be needed on newer nixos installs}
 nix-shell -p git nixFlakes
 # Make the etc folder if it is not yet present.
 mkdir /mnt/etc
@@ -68,6 +69,8 @@ nix --extra-experimental-features "nix-command flakes"  flake update /mnt/etc/ni
 # Install
 nixos-install --root /mnt --flake /mnt/etc/nixos#HOSTNAME
 ```
+
+**NB!** When accessing restricted git repositories for initial config you need to do it from the root user permissions. Therefor you need to configure root to access the git repos. You can use `eval "$(ssh-agent)"` to spawn the agent on the root user and then `ssh-keygen` and copy the public key to your git hosting solution.
 
 ## Tasks after installing
 
