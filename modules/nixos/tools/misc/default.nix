@@ -47,6 +47,9 @@ in
       gnupg
       killall
       clac
+      lshw
+      usbutils
+      iw
 
       # embedded development
       # console
