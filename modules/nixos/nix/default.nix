@@ -52,7 +52,6 @@ in
       nix-index
       nix-prefetch-git
       nix-output-monitor
-      #flake-checker
     ];
 
     nix =

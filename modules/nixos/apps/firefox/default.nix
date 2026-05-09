@@ -7,9 +7,9 @@
 }:
 
 with lib;
-with lib.nixos-snowfall;
+with lib.${namespace};
 let
-  cfg = config.nixos-snowfall.apps.firefox;
+  cfg = config.${namespace}.apps.firefox;
   defaultSettings = {
     "browser.aboutwelcome.enabled" = false;
     "browser.meta_refresh_when_inactive.disabled" = true;
@@ -22,7 +22,7 @@ let
   };
 in
 {
-  options.nixos-snowfall.apps.firefox = with types; {
+  options.${namespace}.apps.firefox = with types; {
     enable = mkBoolOpt false "Whether or not to enable Firefox.";
     extraConfig = mkOpt str "" "Extra configuration for the user profile JS file.";
     userChrome = mkOpt str "" "Extra configuration for the user chrome CSS file.";
@@ -30,35 +30,36 @@ in
   };
 
   config = mkIf cfg.enable {
-    nixos-snowfall.desktop.addons.firefox-mod-blur = enabled;
 
-    services.gnome.gnome-browser-connector.enable = config.nixos-snowfall.desktop.gnome.enable;
+    services.gnome.gnome-browser-connector.enable = config.${namespace}.desktop.gnome.enable;
 
     # manage firefox using home-manager
-    nixos-snowfall.home = {
+    ${namespace} = {
+      desktop.addons.firefox-mod-blur = enabled;
+      home = {
+        extraOptions = {
+          programs.firefox = {
+            enable = true;
+            package = pkgs.firefox.override ({
+              cfg = {
+                enableBrowserpass = false;
+                enableGnomeExtensions = config.${namespace}.desktop.gnome.enable;
+              };
 
-      extraOptions = {
-        programs.firefox = {
-          enable = true;
-          package = pkgs.firefox.override ({
-            cfg = {
-              enableBrowserpass = false;
-              enableGnomeExtensions = config.nixos-snowfall.desktop.gnome.enable;
+            });
+
+            profiles.${config.${namespace}.user.name} = {
+              inherit (cfg) extraConfig userChrome settings;
+              id = 0;
+              isDefault = true;
+              name = config.${namespace}.user.name;
+              #extensions = with pkgs.nur.repos.rycee.firefox-addons; [
+              #  ublock-origin
+              #  keepassxc-browser
+              #  user-agent-string-switcher
+              #  gnome-shell-integration
+              #];
             };
-
-          });
-
-          profiles.${config.nixos-snowfall.user.name} = {
-            inherit (cfg) extraConfig userChrome settings;
-            id = 0;
-            isDefault = true;
-            name = config.nixos-snowfall.user.name;
-            #extensions = with pkgs.nur.repos.rycee.firefox-addons; [
-            #  ublock-origin
-            #  keepassxc-browser
-            #  user-agent-string-switcher
-            #  gnome-shell-integration
-            #];
           };
         };
       };
