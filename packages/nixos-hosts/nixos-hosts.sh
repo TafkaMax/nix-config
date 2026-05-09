@@ -106,6 +106,7 @@ positional_args=()
 
 opt_help=false
 opt_pick=false
+opt_list=false
 
 # Usage: missing_value <option>
 missing_opt_value() {
@@ -121,6 +122,10 @@ while [[ $# > 0 ]]; do
 			;;
 		-p|--pick)
 			opt_pick=true
+			shift
+			;;
+		-l|--list)
+			opt_list=true
 			shift
 			;;
 		--show-trace)
@@ -181,7 +186,7 @@ require_flake_nix() {
 get_flake_attributes() {
 		local outputs=""
 
-		# @NOTE(jakehamilton): Some flakes may not contain the values we're looking for. In
+		# NOTE: Some flakes may not contain the values we're looking for. In
 		# which case, we swallow errors here to keep the output clean.
 		set +e
 		outputs=$(nix eval --impure --raw --expr "\
@@ -266,10 +271,24 @@ nixos_hosts_all() {
 		log_error "To use this program, override it with your nixosConfigurations:"
 		log_error ""
 		log_error "  nixos-hosts.override {"
-		log_error "    inherit (self) nixosConfigurations;"
+		log_error "    hosts = self.nixosConfigurations;"
 		log_error "  }"
 		log_error ""
 		log_fatal "No hosts configured."
+	fi
+
+	if [ "${opt_list}" == "true" ]; then
+		local csv=$(cat "${hosts}")
+
+		local csv_data=$(echo -n "$csv" | tail +2)
+
+		while read -r line; do
+			local name=$(split "${line}" "," | head -n 1)
+
+			echo "${name}"
+		done <<< "${csv_data}"
+
+		exit 0
 	fi
 
 	host=$(gum table --selected.foreground="4" --widths=32,20 < "${hosts}")

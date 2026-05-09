@@ -11,9 +11,6 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [
-      pkgs.nixos-snowfall.list-iommu
-    ];
 
     nixos-snowfall = {
       nix = enabled;
