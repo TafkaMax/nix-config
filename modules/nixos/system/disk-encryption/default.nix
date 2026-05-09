@@ -1,12 +1,17 @@
-{ options, config, pkgs, lib, ... }:
+{
+  config,
+  lib,
+  namespace,
+  ...
+}:
 with lib;
-with lib.nixos-snowfall;
+with lib.${namespace};
 let
-  cfg = config.nixos-snowfall.system.disk-encryption;
+  cfg = config.${namespace}.system.disk-encryption;
 in
 {
-  options.nixos-snowfall.system.disk-encryption = with types; {
-    enable = mkBoolOpt false "Whether or not to enable networking support";
+  options.${namespace}.system.disk-encryption = with types; {
+    enable = mkBoolOpt false "Whether or not to enable disk-encryption support";
     hosts = mkOpt attrs { } "An attribute set to merge with <option>disk-encryption.hosts</option>";
 
   };

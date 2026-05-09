@@ -1,11 +1,17 @@
-{ options, config, lib, ... }:
+{
+  config,
+  lib,
+  namespace,
+  ...
+}:
 
 with lib;
-with lib.nixos-snowfall;
-let cfg = config.nixos-snowfall.system.xkb;
+with lib.${namespace};
+let
+  cfg = config.${namespace}.system.xkb;
 in
 {
-  options.nixos-snowfall.system.xkb = with types; {
+  options.${namespace}.system.xkb = with types; {
     enable = mkBoolOpt false "Whether or not to configure xkb.";
   };
 
