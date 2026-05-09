@@ -1,12 +1,18 @@
-{ options, config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  namespace,
+  ...
+}:
 
 with lib;
-with lib.nixos-snowfall;
+with lib.${namespace};
 let
-  cfg = config.nixos-snowfall.apps.inkscape;
+  cfg = config.${namespace}.apps.inkscape;
 in
 {
-  options.nixos-snowfall.apps.inkscape = with types; {
+  options.${namespace}.apps.inkscape = with types; {
     enable = mkBoolOpt false "Whether or not to enable Inkscape.";
   };
 

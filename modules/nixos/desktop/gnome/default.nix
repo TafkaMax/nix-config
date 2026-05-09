@@ -1,4 +1,11 @@
-{ options, config, lib, pkgs, namespace, inputs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  namespace,
+  inputs,
+  ...
+}:
 
 with lib;
 with lib.${namespace};
@@ -28,13 +35,21 @@ let
 in
 {
   options.${namespace}.desktop.gnome = with types; {
-    enable =
-      mkBoolOpt false "Whether or not to use Gnome as the desktop environment.";
+    enable = mkBoolOpt false "Whether or not to use Gnome as the desktop environment.";
     wallpaper = {
-      light = mkOpt (oneOf [ str package ]) pkgs.${namespace}.wallpapers.panoramic-view-light "The light wallpaper to use.";
-      dark = mkOpt (oneOf [ str package ]) pkgs.${namespace}.wallpapers.panoramic-view-dark "The dark wallpaper to use.";
+      light = mkOpt (oneOf [
+        str
+        package
+      ]) pkgs.${namespace}.wallpapers.panoramic-view-light "The light wallpaper to use.";
+      dark = mkOpt (oneOf [
+        str
+        package
+      ]) pkgs.${namespace}.wallpapers.panoramic-view-dark "The dark wallpaper to use.";
     };
-    color-scheme = mkOpt (enum [ "light" "dark" ]) "dark" "The color scheme to use.";
+    color-scheme = mkOpt (enum [
+      "light"
+      "dark"
+    ]) "dark" "The color scheme to use.";
     wayland = mkBoolOpt true "Whether or not to use Wayland.";
     suspend = mkBoolOpt true "Whether or not to suspend the machine after inactivity.";
     monitors = mkOpt (nullOr path) null "The monitors.xml file to create.";
@@ -60,37 +75,36 @@ in
           dconf.settings =
             let
               user = config.users.users.${config.${namespace}.user.name};
-              get-wallpaper = wallpaper:
-                if lib.isDerivation wallpaper then
-                  builtins.toString wallpaper
-                else
-                  wallpaper;
+              get-wallpaper =
+                wallpaper: if lib.isDerivation wallpaper then builtins.toString wallpaper else wallpaper;
             in
             nested-default-attrs {
               "org/gnome/shell" = {
                 disable-user-extensions = false;
                 disabled-extensions = "disabled";
-                enabled-extensions = (builtins.map (extension: extension.extensionUuid) (cfg.extensions ++ defaultExtensions))
+                enabled-extensions =
+                  (builtins.map (extension: extension.extensionUuid) (cfg.extensions ++ defaultExtensions))
                   ++ [
-                  #builtin extensions
-                  "user-theme@gnome-shell-extensions.gcampax.github.com"
-                  "places-menu@gnome-shell-extensions.gcampax.github.com"
-                  "drive-menu@gnome-shell-extensions.gcampax.github.com"
-                  "apps-menu@gnome-shell-extensions.gcampax.github.com"
-                  "workspace-indicator@gnome-shell-extensions.gcampax.github.com"
-                  "windowsNavigator@gnome-shell-extensions.gcampax.github.com"
-                ];
-                favorite-apps =
-                  [ "org.gnome.Nautilus.desktop" ]
-                  ++ optional config.${namespace}.apps.thunderbird.enable "thunderbird.desktop"
-                  ++ optional config.${namespace}.apps.firefox.enable "firefox.desktop"
-                  ++ optional config.${namespace}.apps.kitty.enable "kitty.desktop"
-                  ++ optional config.${namespace}.apps.remmina.enable "org.remmina.Remmina.desktop"
-                  ++ optional config.${namespace}.apps.obsidian.enable "obsidian.desktop"
-                  ++ optional config.${namespace}.apps.spotify.enable "spotify.desktop"
-                  ++ optional config.${namespace}.apps.element.enable "element-desktop.desktop"
-                  ++ optional config.${namespace}.security.keepassxc.enable "org.keepassxc.KeePassXC.desktop"
-                  ++ optional config.${namespace}.apps.steam.enable "steam.desktop";
+                    #builtin extensions
+                    "user-theme@gnome-shell-extensions.gcampax.github.com"
+                    "places-menu@gnome-shell-extensions.gcampax.github.com"
+                    "drive-menu@gnome-shell-extensions.gcampax.github.com"
+                    "apps-menu@gnome-shell-extensions.gcampax.github.com"
+                    "workspace-indicator@gnome-shell-extensions.gcampax.github.com"
+                    "windowsNavigator@gnome-shell-extensions.gcampax.github.com"
+                  ];
+                favorite-apps = [
+                  "org.gnome.Nautilus.desktop"
+                ]
+                ++ optional config.${namespace}.apps.thunderbird.enable "thunderbird.desktop"
+                ++ optional config.${namespace}.apps.firefox.enable "firefox.desktop"
+                ++ optional config.${namespace}.apps.kitty.enable "kitty.desktop"
+                ++ optional config.${namespace}.apps.remmina.enable "org.remmina.Remmina.desktop"
+                ++ optional config.${namespace}.apps.obsidian.enable "obsidian.desktop"
+                ++ optional config.${namespace}.apps.spotify.enable "spotify.desktop"
+                ++ optional config.${namespace}.apps.element.enable "element-desktop.desktop"
+                ++ optional config.${namespace}.security.keepassxc.enable "org.keepassxc.KeePassXC.desktop"
+                ++ optional config.${namespace}.apps.steam.enable "steam.desktop";
               };
 
               "org/gnome/desktop/background" = {
@@ -142,7 +156,16 @@ in
                 show-skip-taskbar = true;
               };
               "org/gnome/desktop/input-sources" = {
-                sources = [ (mkTuple [ "xkb" "us" ]) (mkTuple [ "xkb" "ee" ]) ];
+                sources = [
+                  (mkTuple [
+                    "xkb"
+                    "us"
+                  ])
+                  (mkTuple [
+                    "xkb"
+                    "ee"
+                  ])
+                ];
                 xkb-options = [ "terminate:ctrl_alt_bksp" ];
                 show-all-sources = true;
               };
@@ -171,44 +194,51 @@ in
     # dconf is a low-level configuration system, which is good for gnome/gtk settings.
     programs.dconf.enable = true;
 
-    environment.systemPackages = with pkgs; [
-      gnome-tweaks
-      dconf-editor
-    ] ++ defaultExtensions ++ cfg.extensions;
+    environment.systemPackages =
+      with pkgs;
+      [
+        gnome-tweaks
+        dconf-editor
+      ]
+      ++ defaultExtensions
+      ++ cfg.extensions;
 
-    environment.gnome.excludePackages = (with pkgs; [
-      gnome-connections #rdp/remmina like tool
-      gnome-photos #photo gallery like thingy
-      gnome-tour # welcome thingy that shows new things in a gnome release
-    ]) ++ (with pkgs; [
-      epiphany # web-browser, use firefox instead
-      geary # email client, use thundebird instead
-      adwaita-icon-theme # default icons
-      gnome-screenshot # screenshot utility, use flameshot instead
-      totem # video player, use vlc instead
-      simple-scan # document scanner utility
-      file-roller
-      gnome-font-viewer
-      gnome-system-monitor
-      gnome-maps
-      gnome-music
-      gnome-contacts
-      gnome-themes-extra
-      gnome-weather
-      gnome-logs
-      gnome-backgrounds
-      gnome-calendar
-      gnome-characters
-      gnome-clocks
-      cheese # front camera app to record yourself or whatever
-      yelp # help viewer
-      gnome-disk-utility # A udisks graphical front-end
-      baobab #Graphical application to analyse disk usage in any GNOME environment
-    ]);
+    environment.gnome.excludePackages =
+      (with pkgs; [
+        gnome-connections # rdp/remmina like tool
+        gnome-photos # photo gallery like thingy
+        gnome-tour # welcome thingy that shows new things in a gnome release
+      ])
+      ++ (with pkgs; [
+        epiphany # web-browser, use firefox instead
+        geary # email client, use thundebird instead
+        adwaita-icon-theme # default icons
+        gnome-screenshot # screenshot utility, use flameshot instead
+        totem # video player, use vlc instead
+        simple-scan # document scanner utility
+        file-roller
+        gnome-font-viewer
+        gnome-system-monitor
+        gnome-maps
+        gnome-music
+        gnome-contacts
+        gnome-themes-extra
+        gnome-weather
+        gnome-logs
+        gnome-backgrounds
+        gnome-calendar
+        gnome-characters
+        gnome-clocks
+        cheese # front camera app to record yourself or whatever
+        yelp # help viewer
+        gnome-disk-utility # A udisks graphical front-end
+        baobab # Graphical application to analyse disk usage in any GNOME environment
+      ]);
 
     systemd.tmpfiles.rules = [
       "d ${gdmHome}/.config 0711 gdm gdm"
-    ] ++ (
+    ]
+    ++ (
       # "./monitors.xml" comes from ~/.config/monitors.xml when GNOME
       # display information is updated.
       lib.optional (cfg.monitors != null) "L+ ${gdmHome}/.config/monitors.xml - - - - ${cfg.monitors}"
@@ -226,7 +256,9 @@ in
 
       script = ''
         config_file=/var/lib/AccountsService/users/${config.${namespace}.user.name}
-        icon_file=/run/current-system/sw/share/${namespace}-icons/user/${config.${namespace}.user.name}/${config.${namespace}.user.icon.fileName}
+        icon_file=/run/current-system/sw/share/${namespace}-icons/user/${config.${namespace}.user.name}/${
+          config.${namespace}.user.icon.fileName
+        }
 
         if ! [ -d "$(dirname "$config_file")"]; then
           mkdir -p "$(dirname "$config_file")"
@@ -295,7 +327,6 @@ in
         #  get-wallpaper cfg.wallpaper.light;
       };
     };
-
 
   };
 }

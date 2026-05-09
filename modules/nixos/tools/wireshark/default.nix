@@ -1,14 +1,25 @@
-{ options, config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  namespace,
+  ...
+}:
 
 with lib;
-with lib.nixos-snowfall;
-let cfg = config.nixos-snowfall.tools.wireshark;
+with lib.${namespace};
+let
+  cfg = config.${namespace}.tools.wireshark;
 in
 {
-  options.nixos-snowfall.tools.wireshark = with types; {
+  options.${namespace}.tools.wireshark = with types; {
     enable = mkBoolOpt false "Whether or not to enable common wireshark utilities.";
   };
 
-  config =
-    mkIf cfg.enable { environment.systemPackages = with pkgs; [ wireshark tshark ]; };
+  config = mkIf cfg.enable {
+    environment.systemPackages = with pkgs; [
+      wireshark
+      tshark
+    ];
+  };
 }

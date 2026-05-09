@@ -1,19 +1,23 @@
 # currently not used
-{ options, config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  namespace,
+  ...
+}:
 
 with lib;
-with lib.nixos-snowfall;
+with lib.${namespace};
 let
-  cfg = config.nixos-snowfall.archetypes.server;
+  cfg = config.${namespace}.archetypes.server;
 in
 {
-  options.nixos-snowfall.archetypes.server = with types; {
-    enable =
-      mkBoolOpt false "Whether or not to enable the server archetype.";
+  options.${namespace}.archetypes.server = with types; {
+    enable = mkBoolOpt false "Whether or not to enable the server archetype.";
   };
 
   config = mkIf cfg.enable {
-    nixos-snowfall = {
+    ${namespace} = {
       suites = {
         common-slim = enabled;
       };

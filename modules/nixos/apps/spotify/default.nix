@@ -1,21 +1,26 @@
-{ options, config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  namespace,
+  ...
+}:
 
 with lib;
-with lib.nixos-snowfall;
+with lib.${namespace};
 let
-  cfg = config.nixos-snowfall.apps.spotify;
+  cfg = config.${namespace}.apps.spotify;
 in
 {
-  options.nixos-snowfall.apps.spotify = with types; {
+  options.${namespace}.apps.spotify = with types; {
     enable = mkBoolOpt false "Whether or not to enable Spotify.";
   };
 
-  config =
-    mkIf cfg.enable {
-      nixos-snowfall.home.extraOptions = {
-        home.packages = with pkgs; [
-          spotify
-        ];
-      };
+  config = mkIf cfg.enable {
+    ${namespace}.home.extraOptions = {
+      home.packages = with pkgs; [
+        spotify
+      ];
     };
+  };
 }

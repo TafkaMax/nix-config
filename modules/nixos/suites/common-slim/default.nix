@@ -1,21 +1,23 @@
-{ options, config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  namespace,
+  ...
+}:
 
 with lib;
-with lib.nixos-snowfall;
+with lib.${namespace};
 let
-  cfg = config.nixos-snowfall.suites.common-slim;
+  cfg = config.${namespace}.suites.common-slim;
 in
 {
-  options.nixos-snowfall.suites.common-slim = with types; {
+  options.${namespace}.suites.common-slim = with types; {
     enable = mkBoolOpt false "Whether or not to enable common-slim configuration.";
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [
-      pkgs.nixos-snowfall.list-iommu
-    ];
 
-    nixos-snowfall = {
+    ${namespace} = {
       nix = enabled;
 
       #cache.public = enabled;

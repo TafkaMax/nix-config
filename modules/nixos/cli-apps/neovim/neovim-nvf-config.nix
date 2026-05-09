@@ -1,4 +1,9 @@
-{ pkgs, lib, namespace, ... }:
+{
+  pkgs,
+  lib,
+  namespace,
+  ...
+}:
 
 with lib;
 with lib.${namespace};
@@ -12,13 +17,13 @@ with lib.${namespace};
     enable = true;
     settings = {
       vim = {
-        viAlias = false; #Alias for vi
-        vimAlias = true; #Alias for vim
-        withNodeJs = true; #Whether to enable NodeJs support in the Neovim wrapper .
+        viAlias = false; # Alias for vi
+        vimAlias = true; # Alias for vim
+        withNodeJs = true; # Whether to enable NodeJs support in the Neovim wrapper .
 
         globals = {
-          editorconfig = true; #Enable editorconfig.
-          mapleader = " "; #Default LEADER is SPACEBAR
+          editorconfig = true; # Enable editorconfig.
+          mapleader = " "; # Default LEADER is SPACEBAR
         };
 
         filetree = {
@@ -32,7 +37,7 @@ with lib.${namespace};
           gitsigns.enable = true;
           gitsigns.codeActions.enable = false; # throws an annoying debug message
           # Use LazyGit for now.
-          neogit.enable = false; #https://github.com/NeogitOrg/neogit
+          neogit.enable = false; # https://github.com/NeogitOrg/neogit
         };
 
         treesitter = {
@@ -52,17 +57,20 @@ with lib.${namespace};
           lspSignature.enable = false; # conflicts with blink in maximal
           otter-nvim.enable = true;
           nvim-docs-view.enable = true;
+          presets = {
+            tailwindcss-language-server.enable = true;
+          };
         };
 
         theme = {
           enable = true;
-          name = "everforest"; #https://notashelf.github.io/nvf/options.html#opt-vim.theme.name
+          name = "everforest"; # https://notashelf.github.io/nvf/options.html#opt-vim.theme.name
           style = "soft";
         };
 
         statusline = {
           lualine = {
-            theme = "everforest"; #https://notashelf.github.io/nvf/options.html#opt-vim.statusline.lualine.theme
+            theme = "everforest"; # https://notashelf.github.io/nvf/options.html#opt-vim.statusline.lualine.theme
           };
         };
 
@@ -89,12 +97,12 @@ with lib.${namespace};
 
         # Notification Manager
         notify = {
-          nvim-notify.enable = true; #https://github.com/rcarriga/nvim-notify
+          nvim-notify.enable = true; # https://github.com/rcarriga/nvim-notify
         };
 
         # project.nvim is an all in one neovim plugin written in lua that provides superior project management.
         projects = {
-          project-nvim.enable = true; #https://github.com/ahmedkhalf/project.nvim
+          project-nvim.enable = true; # https://github.com/ahmedkhalf/project.nvim
         };
 
         # This section does not include a comprehensive list of available language modules.
@@ -146,7 +154,7 @@ with lib.${namespace};
             lsp.enable = true;
             treesitter.enable = true;
           };
-          ts.enable = true;
+          typescript.enable = true;
           go.enable = true;
           lua.enable = true;
           python = {
@@ -159,7 +167,6 @@ with lib.${namespace};
 
           # Language modules that are not as common.
           ruby.enable = true;
-          tailwind.enable = true;
           terraform = {
             enable = true;
             lsp.enable = true;
@@ -198,7 +205,7 @@ with lib.${namespace};
           # NB! Doesn't work with CodeCompletion-nvim yet!
           # https://github.com/NotAShelf/nvf/discussions/1076
           blink-cmp = {
-            enable = false; #https://github.com/saghen/blink.cmp
+            enable = false; # https://github.com/saghen/blink.cmp
             setupOpts = {
               completion = {
                 documentation = {
@@ -223,23 +230,23 @@ with lib.${namespace};
         };
 
         visuals = {
-          nvim-scrollbar.enable = true; #https://github.com/petertriho/nvim-scrollbar
-          nvim-web-devicons.enable = true; #Icons #https://github.com/nvim-tree/nvim-web-devicons
+          nvim-scrollbar.enable = true; # https://github.com/petertriho/nvim-scrollbar
+          nvim-web-devicons.enable = true; # Icons #https://github.com/nvim-tree/nvim-web-devicons
           nvim-cursorline.enable = true;
-          cinnamon-nvim.enable = true; #scrolling #https://github.com/declancm/cinnamon.nvim
-          fidget-nvim.enable = true; #https://github.com/j-hui/fidget.nvim
+          cinnamon-nvim.enable = true; # scrolling #https://github.com/declancm/cinnamon.nvim
+          fidget-nvim.enable = true; # https://github.com/j-hui/fidget.nvim
 
-          highlight-undo.enable = true; #https://github.com/tzachar/highlight-undo.nvim
-          indent-blankline.enable = true; #https://github.com/lukas-reineke/indent-blankline.nvim
+          highlight-undo.enable = true; # https://github.com/tzachar/highlight-undo.nvim
+          indent-blankline.enable = true; # https://github.com/lukas-reineke/indent-blankline.nvim
         };
 
         comments = {
-          comment-nvim.enable = true; #https://github.com/numToStr/Comment.nvim?tab=readme-ov-file#-usage
+          comment-nvim.enable = true; # https://github.com/numToStr/Comment.nvim?tab=readme-ov-file#-usage
         };
 
         dashboard = {
           dashboard-nvim.enable = false;
-          alpha.enable = true; #https://github.com/goolord/alpha-nvim
+          alpha.enable = true; # https://github.com/goolord/alpha-nvim
         };
 
         minimap = {
@@ -255,30 +262,30 @@ with lib.${namespace};
         };
 
         utility = {
-          diffview-nvim.enable = true; #Git DiffView
+          diffview-nvim.enable = true; # Git DiffView
           # Surround Selection in brackets or whatnow.
-          surround.enable = true; #https://github.com/kylechui/nvim-surround
+          surround.enable = true; # https://github.com/kylechui/nvim-surround
           # Allows creating multiple blocks at same time. Useful for coding duplicates
-          multicursors.enable = true; #https://github.com/jake-stewart/multicursor.nvim
+          multicursors.enable = true; # https://github.com/jake-stewart/multicursor.nvim
           # Allows moving around splits/screens.
-          smart-splits.enable = true; #https://github.com/mrjones2014/smart-splits.nvim
+          smart-splits.enable = true; # https://github.com/mrjones2014/smart-splits.nvim
           # Diff previewer window shows the difference between the current node and the node under the cursor.
-          undotree.enable = true; #https://github.com/jiaoshijie/undotree
+          undotree.enable = true; # https://github.com/jiaoshijie/undotree
           # Every dev needs something sweet sometimes. Code Biscuits are in-editor annotations usually at the end of a closing tag/bracket/parenthesis/etc. They help you get the context of the end of that AST node so you don't have to navigate to find it.
           # NOT IN USE, I DONT LIKE IT FOR NOW.
-          nvim-biscuits.enable = false; #https://github.com/code-biscuits/nvim-biscuits
+          nvim-biscuits.enable = false; # https://github.com/code-biscuits/nvim-biscuits
 
           motion = {
-            hop.enable = true; #https://github.com/smoka7/hop.nvim
-            leap.enable = true; #https://codeberg.org/andyg/leap.nvim
+            hop.enable = true; # https://github.com/smoka7/hop.nvim
+            leap.enable = true; # https://codeberg.org/andyg/leap.nvim
             # I don't like this at all.
-            precognition.enable = false; #https://github.com/tris203/precognition.nvim
+            precognition.enable = false; # https://github.com/tris203/precognition.nvim
 
           };
           images = {
-            image-nvim.enable = false; #https://github.com/3rd/image.nvim
+            image-nvim.enable = false; # https://github.com/3rd/image.nvim
             # directly paste pics
-            img-clip.enable = true; #https://github.com/hakonharnes/img-clip.nvim
+            img-clip.enable = true; # https://github.com/hakonharnes/img-clip.nvim
           };
         };
         ui = {
@@ -296,19 +303,22 @@ with lib.${namespace};
           };
           smartcolumn = {
             # https://github.com/m4xshen/smartcolumn.nvim
-            enable = true; #A Neovim plugin hiding your colorcolumn when unneeded.
+            enable = true; # A Neovim plugin hiding your colorcolumn when unneeded.
           };
           fastaction.enable = true;
         };
         # https://notashelf.github.io/nvf/options.html#opt-vim.keymaps
         keymaps = [
-           {
-             key = "<leader>nb";
-             mode = ["n" "x"];
-             silent = true;
-             action = "<cmd>Navbuddy<CR>";
-             desc = "Open NavBuddy";
-           }
+          {
+            key = "<leader>nb";
+            mode = [
+              "n"
+              "x"
+            ];
+            silent = true;
+            action = "<cmd>Navbuddy<CR>";
+            desc = "Open NavBuddy";
+          }
         ];
 
         # Neovim supports in-line syntax highlighting for multi-line strings.

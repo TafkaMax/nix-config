@@ -1,17 +1,22 @@
-{ options, config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  namespace,
+  ...
+}:
 
 with lib;
-with lib.nixos-snowfall;
+with lib.${namespace};
 let
-  cfg = config.nixos-snowfall.suites.social;
+  cfg = config.${namespace}.suites.social;
 in
 {
-  options.nixos-snowfall.suites.social = with types; {
+  options.${namespace}.suites.social = with types; {
     enable = mkBoolOpt false "Whether or not to enable social configuration.";
   };
 
   config = mkIf cfg.enable {
-    nixos-snowfall = {
+    ${namespace} = {
       apps = {
         element = enabled;
         telegram-desktop = enabled;

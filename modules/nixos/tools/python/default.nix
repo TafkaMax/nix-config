@@ -1,24 +1,30 @@
-{ options, config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  namespace,
+  ...
+}:
 
 with lib;
-with lib.nixos-snowfall;
-let cfg = config.nixos-snowfall.tools.python;
+with lib.${namespace};
+let
+  cfg = config.${namespace}.tools.python;
 in
 {
-  options.nixos-snowfall.tools.python = with types; {
+  options.${namespace}.tools.python = with types; {
     enable = mkBoolOpt false "Whether or not to enable Python.";
   };
 
-  config =
-    mkIf cfg.enable {
-      environment.systemPackages = with pkgs; [
-        (python311.withPackages (ps:
-          with ps; [
-          ])
-        )
-        poetry
-      ];
-    };
+  config = mkIf cfg.enable {
+    environment.systemPackages = with pkgs; [
+      (python311.withPackages (
+        ps: with ps; [
+        ]
+      ))
+      poetry
+    ];
+  };
 }
 #  outputs = { self, nixpkgs, poetry2nix, ... } @ inputs:
 #    let

@@ -1,15 +1,20 @@
-{ options, config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  namespace,
+  ...
+}:
 
 with lib;
-with lib.nixos-snowfall;
+with lib.${namespace};
 let
-  cfg = config.nixos-snowfall.apps.gimp;
+  cfg = config.${namespace}.apps.gimp;
 in
 {
-  options.nixos-snowfall.apps.gimp = with types; {
+  options.${namespace}.apps.gimp = with types; {
     enable = mkBoolOpt false "Whether or not to enable Gimp.";
   };
 
-  config =
-    mkIf cfg.enable { environment.systemPackages = with pkgs; [ gimp ]; };
+  config = mkIf cfg.enable { environment.systemPackages = with pkgs; [ gimp ]; };
 }

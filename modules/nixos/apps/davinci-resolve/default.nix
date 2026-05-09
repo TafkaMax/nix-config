@@ -1,4 +1,10 @@
-{ options, config, lib, namespace, pkgs, ... }:
+{
+  config,
+  lib,
+  namespace,
+  pkgs,
+  ...
+}:
 
 with lib;
 with lib.${namespace};
@@ -11,6 +17,10 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = with pkgs; [ davinci-resolve ffmpeg handbrake ];
+    environment.systemPackages = with pkgs; [
+      davinci-resolve
+      ffmpeg
+      handbrake
+    ];
   };
 }

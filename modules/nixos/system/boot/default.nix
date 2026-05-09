@@ -1,11 +1,17 @@
-{ options, config, pkgs, lib, ... }:
+{
+  config,
+  lib,
+  namespace,
+  ...
+}:
 
 with lib;
-with lib.nixos-snowfall;
-let cfg = config.nixos-snowfall.system.boot;
+with lib.${namespace};
+let
+  cfg = config.${namespace}.system.boot;
 in
 {
-  options.nixos-snowfall.system.boot = with types; {
+  options.${namespace}.system.boot = with types; {
     enable = mkBoolOpt false "Whether or not to enable booting.";
   };
 

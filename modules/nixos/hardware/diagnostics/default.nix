@@ -1,13 +1,25 @@
-{ options, config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  namespace,
+  ...
+}:
 
 with lib;
-with lib.nixos-snowfall;
-let cfg = config.nixos-snowfall.hardware.diagnostics;
+with lib.${namespace};
+let
+  cfg = config.${namespace}.hardware.diagnostics;
 in
 {
-  options.nixos-snowfall.hardware.diagnostics = with types; {
+  options.${namespace}.hardware.diagnostics = with types; {
     enable = mkBoolOpt false "Whether or not to enable diagnostics support";
   };
 
-  config = mkIf cfg.enable { environment.systemPackages = with pkgs; [ dmidecode gparted ]; };
+  config = mkIf cfg.enable {
+    environment.systemPackages = with pkgs; [
+      dmidecode
+      gparted
+    ];
+  };
 }

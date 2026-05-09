@@ -1,4 +1,10 @@
-{ options, config, lib, namespace, ... }:
+{
+  options,
+  config,
+  lib,
+  namespace,
+  ...
+}:
 
 with lib;
 with lib.${namespace};
@@ -7,10 +13,10 @@ let
 in
 {
   options.${namespace}.home = with types; {
-    file = mkOpt attrs { }
-      "A set of files to be managed by home-manager's <option>home.file</option>.";
-    configFile = mkOpt attrs { }
-      "A set of files to be managed by home-manager's <option>xdg.configFile</option>.";
+    file = mkOpt attrs { } "A set of files to be managed by home-manager's <option>home.file</option>.";
+    configFile =
+      mkOpt attrs { }
+        "A set of files to be managed by home-manager's <option>xdg.configFile</option>.";
     extraOptions = mkOpt attrs { } "Options to pass directly to home-manager.";
   };
   # Import NVF under the user.

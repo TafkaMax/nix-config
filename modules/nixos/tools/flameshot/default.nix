@@ -1,9 +1,15 @@
-{ options, config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  namespace,
+  ...
+}:
 
 with lib;
-with lib.nixos-snowfall;
+with lib.${namespace};
 let
-  cfg = config.nixos-snowfall.tools.flameshot;
+  cfg = config.${namespace}.tools.flameshot;
 
   flameshotfix = ''
     #!/run/current-system/sw/bin/bash
@@ -12,13 +18,13 @@ let
   '';
 in
 {
-  options.nixos-snowfall.tools.flameshot = with types; {
+  options.${namespace}.tools.flameshot = with types; {
     enable = mkBoolOpt false "Whether or not to enable common flameshot utilities.";
   };
 
   config = mkIf cfg.enable {
     environment.systemPackages = with pkgs; [ flameshot ];
-    nixos-snowfall = {
+    ${namespace} = {
       home.file = {
         ".local/bin/fixflameshot" = {
           text = flameshotfix;

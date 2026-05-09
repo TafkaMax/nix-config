@@ -1,11 +1,18 @@
-{ options, config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  namespace,
+  ...
+}:
 
 with lib;
-with lib.nixos-snowfall;
-let cfg = config.nixos-snowfall.services.printing;
+with lib.${namespace};
+let
+  cfg = config.${namespace}.services.printing;
 in
 {
-  options.nixos-snowfall.services.printing = with types; {
+  options.${namespace}.services.printing = with types; {
     enable = mkBoolOpt false "Whether or not to configure printing support.";
   };
 

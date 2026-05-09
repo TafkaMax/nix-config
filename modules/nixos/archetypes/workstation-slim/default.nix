@@ -1,12 +1,17 @@
-{ config, lib, namespace, ... }:
+{
+  config,
+  lib,
+  namespace,
+  ...
+}:
 with lib;
 with lib.${namespace};
-let cfg = config.${namespace}.archetypes.workstation-slim;
+let
+  cfg = config.${namespace}.archetypes.workstation-slim;
 in
 {
   options.${namespace}.archetypes.workstation-slim = with types; {
-    enable =
-      mkBoolOpt false "Whether or not to enable the workstation-slim archetype.";
+    enable = mkBoolOpt false "Whether or not to enable the workstation-slim archetype.";
   };
 
   config = mkIf cfg.enable {

@@ -1,29 +1,32 @@
-{ options, config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  namespace,
+  ...
+}:
 
 with lib;
-with lib.nixos-snowfall;
+with lib.${namespace};
 let
-  cfg = config.nixos-snowfall.desktop.addons.gtk;
+  cfg = config.${namespace}.desktop.addons.gtk;
   gdmCfg = config.services.xserver.displayManager.gdm;
 in
 {
-  options.nixos-snowfall.desktop.addons.gtk = with types; {
+  options.${namespace}.desktop.addons.gtk = with types; {
     enable = mkBoolOpt false "Whether to customize GTK and apply themes.";
     theme = {
-      name = mkOpt str "Fluent-round-Dark"
-        "The name of the GTK theme to apply.";
-      pkg = mkOpt package pkgs.nixos-snowfall.fluent-gtk-theme "The package to use for the theme.";
+      name = mkOpt str "Fluent-round-Dark" "The name of the GTK theme to apply.";
+      pkg = mkOpt package pkgs.${namespace}.fluent-gtk-theme "The package to use for the theme.";
       # TODO add the override
       # .override { tweaks = [ "round" "blur" ]; }
     };
     cursor = {
-      name = mkOpt str "Capitaine Cursors (Nord)"
-        "The name of the cursor theme to apply.";
+      name = mkOpt str "Capitaine Cursors (Nord)" "The name of the cursor theme to apply.";
       pkg = mkOpt package pkgs.capitaine-cursors-themed "The package to use for the cursor theme.";
     };
     icon = {
-      name = mkOpt str "Fluent-dark"
-        "The name of the icon theme to apply.";
+      name = mkOpt str "Fluent-dark" "The name of the icon theme to apply.";
       pkg = mkOpt package pkgs.fluent-icon-theme "The package to use for the icon theme.";
     };
   };
@@ -38,7 +41,7 @@ in
       XCURSOR_THEME = cfg.cursor.name;
     };
 
-    nixos-snowfall.home.extraOptions = {
+    ${namespace}.home.extraOptions = {
       gtk = {
         enable = true;
 

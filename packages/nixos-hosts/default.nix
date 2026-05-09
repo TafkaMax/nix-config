@@ -1,41 +1,55 @@
-{ lib
-, writeText
-, writeShellApplication
-, replaceVars
-, gum
-, inputs
-, hosts ? { }
-, ...
+{
+  lib,
+  writeText,
+  writeShellApplication,
+  replaceVars,
+  gum,
+  inputs,
+  hosts ? { },
+  namespace,
+  ...
 }:
-
 let
   inherit (lib) mapAttrsToList concatStringsSep;
+  inherit (lib.${namespace}) override-meta;
 
-  substitute = args: builtins.readFile (replaceVars ./nixos-hosts.sh { help = args.help; hosts = args.hosts; });
+  substitute =
+    args:
+    builtins.readFile (
+      replaceVars ./nixos-hosts.sh {
+        help = args.help;
+        hosts = args.hosts;
+      }
+    );
 
-  formatted-hosts = mapAttrsToList
-    (name: host: "${name},${host.pkgs.stdenv.hostPlatform.system}")
-    hosts;
+  formatted-hosts = mapAttrsToList (
+    name: host: "${name},${host.pkgs.stdenv.hostPlatform.system}"
+  ) hosts;
 
   hosts-csv = writeText "hosts.csv" ''
     Name,System
     ${concatStringsSep "\n" formatted-hosts}
   '';
-in
-writeShellApplication
-{
-  name = "nixos-hosts";
 
-  text = substitute {
-    src = ./nixos-hosts.sh;
+  nixos-hosts = writeShellApplication {
+    name = "nixos-hosts";
 
-    help = ./help;
-    hosts = if hosts == { } then "" else hosts-csv;
+    text = substitute {
+      src = ./nixos-hosts.sh;
+
+      help = ./help;
+      hosts = if hosts == { } then "" else hosts-csv;
+    };
+
+    checkPhase = "";
+
+    runtimeInputs = [ gum ];
   };
 
-  checkPhase = "";
-
-  runtimeInputs = [
-    gum
-  ];
-}
+  new-meta = with lib; {
+    description = "A helper to list all of the NixOS hosts available from your flake.";
+    license = licenses.asl20;
+    maintainers = with maintainers; [ jakehamilton ];
+  };
+in
+override-meta new-meta nixos-hosts

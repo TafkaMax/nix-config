@@ -1,16 +1,23 @@
-{ options, config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  namespace,
+  ...
+}:
 
 with lib;
-with lib.nixos-snowfall;
-let cfg = config.nixos-snowfall.tools.misc;
+with lib.${namespace};
+let
+  cfg = config.${namespace}.tools.misc;
 in
 {
-  options.nixos-snowfall.tools.misc = with types; {
+  options.${namespace}.tools.misc = with types; {
     enable = mkBoolOpt false "Whether or not to enable common utilities.";
   };
 
   config = mkIf cfg.enable {
-    nixos-snowfall.home.configFile."wgetrc".text = "";
+    ${namespace}.home.configFile."wgetrc".text = "";
 
     environment.systemPackages = with pkgs; [
       # archives

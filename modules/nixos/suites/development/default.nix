@@ -1,9 +1,16 @@
-{ options, config, lib, pkgs, inputs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  inputs,
+  namespace,
+  ...
+}:
 
 with lib;
-with lib.nixos-snowfall;
+with lib.${namespace};
 let
-  cfg = config.nixos-snowfall.suites.development;
+  cfg = config.${namespace}.suites.development;
   apps = {
     dbeaver = enabled;
     obsidian = enabled;
@@ -15,14 +22,13 @@ let
   };
 in
 {
-  options.nixos-snowfall.suites.development = with types; {
-    enable = mkBoolOpt false
-      "Whether or not to enable common development configuration.";
+  options.${namespace}.suites.development = with types; {
+    enable = mkBoolOpt false "Whether or not to enable common development configuration.";
   };
 
   config = mkIf cfg.enable {
 
-    nixos-snowfall = {
+    ${namespace} = {
       inherit apps cli-apps;
 
       tools = {
@@ -33,12 +39,11 @@ in
         tio = enabled;
       };
 
-    };
-
-    nixos-snowfall.home.extraOptions = {
-      home.packages = with pkgs; [
-        inputs.nil.packages."${pkgs.stdenv.hostPlatform.system}".default # nix language server
-      ];
+      home.extraOptions = {
+        home.packages = with pkgs; [
+          inputs.nil.packages."${pkgs.stdenv.hostPlatform.system}".default # nix language server
+        ];
+      };
     };
   };
 }

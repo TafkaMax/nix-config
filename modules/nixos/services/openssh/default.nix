@@ -1,11 +1,18 @@
-{ options, config, pkgs, lib, systems, format, inputs, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  format,
+  namespace,
+  ...
+}:
 
 with lib;
-with lib.nixos-snowfall;
+with lib.${namespace};
 let
-  cfg = config.nixos-snowfall.services.openssh;
+  cfg = config.${namespace}.services.openssh;
 
-  user = config.users.users.${config.nixos-snowfall.user.name};
+  user = config.users.users.${config.${namespace}.user.name};
   user-id = builtins.toString user.uid;
 
   # Disable default-key
@@ -14,7 +21,7 @@ let
   # TODO look into enabling these variables again.
   #other-hosts = lib.filterAttrs
   #  (key: host:
-  #    key != name && (host.config.nixos-snowfall.user.name or null) != null)
+  #    key != name && (host.config.${namespace}.user.name or null) != null)
   #  ((inputs.self.nixosConfigurations or { }) // (inputs.self.darwinConfigurations or { }));
 
   #other-hosts-config = lib.concatMapStringsSep
@@ -22,7 +29,7 @@ let
   #  (name:
   #    let
   #      remote = other-hosts.${name};
-  #      remote-user-name = remote.config.nixos-snowfall.user.name;
+  #      remote-user-name = remote.config.${namespace}.user.name;
   #      remote-user-id = builtins.toString remote.config.users.users.${remote-user-name}.uid;
 
   #      forward-gpg = optionalString (config.programs.gnupg.agent.enable && remote.config.programs.gnupg.agent.enable)
@@ -43,11 +50,12 @@ let
   #  (builtins.attrNames other-hosts);
 in
 {
-  options.nixos-snowfall.services.openssh = with types; {
+  options.${namespace}.services.openssh = with types; {
     enable = mkBoolOpt false "Whether or not to configure OpenSSH support.";
-    authorizedKeys =
-      mkOpt (listOf str) [ ] "The public keys to apply.";
-    manage-other-hosts = mkOpt bool true "Whether or not to add other host configurations to SSH config.";
+    authorizedKeys = mkOpt (listOf str) [ ] "The public keys to apply.";
+    manage-other-hosts =
+      mkOpt bool true
+        "Whether or not to add other host configurations to SSH config.";
   };
 
   config = mkIf cfg.enable {
@@ -79,10 +87,10 @@ in
     #  ${optionalString cfg.manage-other-hosts other-hosts-config}
     #'';
 
-    #nixos-snowfall.user.extraOptions.openssh.authorizedKeys.keys =
+    #${namespace}.user.extraOptions.openssh.authorizedKeys.keys =
     #  cfg.authorizedKeys;
 
-    #nixos-snowfall.home.extraOptions = {
+    #${namespace}.home.extraOptions = {
     #  programs.zsh.shellAliases = foldl
     #    (aliases: system:
     #      aliases // {

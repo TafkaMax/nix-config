@@ -1,12 +1,18 @@
-{ options, config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  namespace,
+  ...
+}:
 
 with lib;
-with lib.nixos-snowfall;
+with lib.${namespace};
 let
-  cfg = config.nixos-snowfall.apps.vscode;
+  cfg = config.${namespace}.apps.vscode;
 in
 {
-  options.nixos-snowfall.apps.vscode = with types; {
+  options.${namespace}.apps.vscode = with types; {
     enable = mkBoolOpt false "Whether or not to enable vscode.";
   };
 

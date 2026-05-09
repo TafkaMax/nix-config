@@ -1,8 +1,14 @@
-{ options, config, pkgs, lib, namespace, ... }:
+{
+  config,
+  lib,
+  namespace,
+  ...
+}:
 
 with lib;
 with lib.${namespace};
-let cfg = config.${namespace}.system.fwupd;
+let
+  cfg = config.${namespace}.system.fwupd;
 in
 {
   options.${namespace}.system.fwupd = with types; {

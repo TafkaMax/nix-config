@@ -1,13 +1,18 @@
-{ options, config, pkgs, lib, ... }:
+{
+  config,
+  lib,
+  namespace,
+  ...
+}:
 
 with lib;
-with lib.nixos-snowfall;
-let cfg = config.nixos-snowfall.system.time;
+with lib.${namespace};
+let
+  cfg = config.${namespace}.system.time;
 in
 {
-  options.nixos-snowfall.system.time = with types; {
-    enable =
-      mkBoolOpt false "Whether or not to configure timezone information.";
+  options.${namespace}.system.time = with types; {
+    enable = mkBoolOpt false "Whether or not to configure timezone information.";
   };
 
   config = mkIf cfg.enable { time.timeZone = "Europe/Tallinn"; };

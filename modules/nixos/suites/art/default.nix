@@ -1,17 +1,22 @@
-{ options, config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  namespace,
+  ...
+}:
 
 with lib;
-with lib.nixos-snowfall;
+with lib.${namespace};
 let
-  cfg = config.nixos-snowfall.suites.art;
+  cfg = config.${namespace}.suites.art;
 in
 {
-  options.nixos-snowfall.suites.art = with types; {
+  options.${namespace}.suites.art = with types; {
     enable = mkBoolOpt false "Whether or not to enable art configuration.";
   };
 
   config = mkIf cfg.enable {
-    nixos-snowfall = {
+    ${namespace} = {
       apps = {
         gimp = enabled;
       };

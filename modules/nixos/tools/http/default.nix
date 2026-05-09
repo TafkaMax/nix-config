@@ -1,14 +1,25 @@
-{ options, config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  namespace,
+  ...
+}:
 
 with lib;
-with lib.nixos-snowfall;
-let cfg = config.nixos-snowfall.tools.http;
+with lib.${namespace};
+let
+  cfg = config.${namespace}.tools.http;
 in
 {
-  options.nixos-snowfall.tools.http = with types; {
+  options.${namespace}.tools.http = with types; {
     enable = mkBoolOpt false "Whether or not to enable common http utilities.";
   };
 
-  config =
-    mkIf cfg.enable { environment.systemPackages = with pkgs; [ wget curl ]; };
+  config = mkIf cfg.enable {
+    environment.systemPackages = with pkgs; [
+      wget
+      curl
+    ];
+  };
 }

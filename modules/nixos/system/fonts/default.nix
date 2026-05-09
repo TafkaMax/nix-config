@@ -1,11 +1,18 @@
-{ options, config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  namespace,
+  ...
+}:
 
 with lib;
-with lib.nixos-snowfall;
-let cfg = config.nixos-snowfall.system.fonts;
+with lib.${namespace};
+let
+  cfg = config.${namespace}.system.fonts;
 in
 {
-  options.nixos-snowfall.system.fonts = with types; {
+  options.${namespace}.system.fonts = with types; {
     enable = mkBoolOpt false "Whether or not to manage fonts.";
     fonts = mkOpt (listOf package) [ ] "Custom font packages to install.";
   };
@@ -20,7 +27,8 @@ in
 
     fonts = {
       fontDir.enable = true;
-      packages = with pkgs;
+      packages =
+        with pkgs;
         [
           noto-fonts
           noto-fonts-cjk-sans
@@ -31,13 +39,23 @@ in
           font-awesome
           dejavu_fonts
           nerd-fonts.jetbrains-mono
-        ] ++ cfg.fonts;
+        ]
+        ++ cfg.fonts;
 
       # Set default fonts.
       fontconfig.defaultFonts = {
-        serif = [ "Noto Serif" "Noto Color Emoji" ];
-        sansSerif = [ "Noto Sans" "Noto Color Emoji" ];
-        monospace = [ "JetBrainsMono Nerd Font" "Noto Color Emoji" ];
+        serif = [
+          "Noto Serif"
+          "Noto Color Emoji"
+        ];
+        sansSerif = [
+          "Noto Sans"
+          "Noto Color Emoji"
+        ];
+        monospace = [
+          "JetBrainsMono Nerd Font"
+          "Noto Color Emoji"
+        ];
         emoji = [ "Noto Color Emoji" ];
       };
     };

@@ -1,17 +1,22 @@
-{ options, config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  namespace,
+  ...
+}:
 
 with lib;
-with lib.nixos-snowfall;
+with lib.${namespace};
 let
-  cfg = config.nixos-snowfall.archetypes.gaming;
+  cfg = config.${namespace}.archetypes.gaming;
 in
 {
-  options.nixos-snowfall.archetypes.gaming = with types; {
+  options.${namespace}.archetypes.gaming = with types; {
     enable = mkBoolOpt false "Whether or not to enable the gaming archetype.";
   };
 
   config = mkIf cfg.enable {
-    nixos-snowfall.suites = {
+    ${namespace}.suites = {
       common = enabled;
       desktop = enabled;
       social = enabled;

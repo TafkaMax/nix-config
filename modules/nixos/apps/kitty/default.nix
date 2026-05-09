@@ -1,4 +1,10 @@
-{ options, config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  namespace,
+  ...
+}:
 
 ###########################################################
 #
@@ -15,41 +21,40 @@
 ###########################################################
 
 with lib;
-with lib.nixos-snowfall;
+with lib.${namespace};
 let
-  cfg = config.nixos-snowfall.apps.kitty;
+  cfg = config.${namespace}.apps.kitty;
 in
 {
-  options.nixos-snowfall.apps.kitty = with types; {
+  options.${namespace}.apps.kitty = with types; {
     enable = mkBoolOpt false "Whether or not to enable Kitty.";
   };
 
-  config =
-    mkIf cfg.enable {
-      environment.systemPackages = with pkgs; [ kitty ];
+  config = mkIf cfg.enable {
+    environment.systemPackages = with pkgs; [ kitty ];
 
-      # remove gnome console if kitty installed.
-      environment.gnome.excludePackages = with pkgs; [
-        gnome-console
-      ];
+    # remove gnome console if kitty installed.
+    environment.gnome.excludePackages = with pkgs; [
+      gnome-console
+    ];
 
-      nixos-snowfall.home = {
-        extraOptions = {
-          programs.kitty = {
-            enable = true;
-            themeFile = "Relaxed_Afterglow";
-            font = {
-              name = "JetBrainsMono Nerd Font";
-            };
+    ${namespace}.home = {
+      extraOptions = {
+        programs.kitty = {
+          enable = true;
+          themeFile = "Relaxed_Afterglow";
+          font = {
+            name = "JetBrainsMono Nerd Font";
+          };
 
-            settings = {
-              background_opacity = "0.95";
-              scrollback_lines = 10000;
-              enable_audio_bell = false;
-              term = "xterm-256color";
-            };
+          settings = {
+            background_opacity = "0.95";
+            scrollback_lines = 10000;
+            enable_audio_bell = false;
+            term = "xterm-256color";
           };
         };
       };
     };
+  };
 }

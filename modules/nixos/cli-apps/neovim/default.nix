@@ -1,4 +1,11 @@
-{ config, lib, pkgs, namespace, inputs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  namespace,
+  inputs,
+  ...
+}:
 
 with lib;
 with lib.${namespace};
@@ -29,7 +36,11 @@ in
 
       extraOptions = {
         # Use Neovim for Git diffs.
-        imports = [ inputs.nvf.homeManagerModules.default ./neovim-nvf-config.nix ./editorconfig.nix ];
+        imports = [
+          inputs.nvf.homeManagerModules.default
+          ./neovim-nvf-config.nix
+          ./editorconfig.nix
+        ];
         programs.zsh.shellAliases.vimdiff = "nvim -d";
         programs.bash.shellAliases.vimdiff = "nvim -d";
         programs.fish.shellAliases.vimdiff = "nvim -d";

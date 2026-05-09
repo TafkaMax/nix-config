@@ -1,13 +1,18 @@
-inputs@{ options, config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  namespace,
+  ...
+}:
 
 with lib;
-with lib.nixos-snowfall;
+with lib.${namespace};
 let
-  cfg = config.nixos-snowfall.cli-apps.docker;
-  user = config.nixos-snowfall.user;
+  cfg = config.${namespace}.cli-apps.docker;
+  user = config.${namespace}.user;
 in
 {
-  options.nixos-snowfall.cli-apps.docker = with types; {
+  options.${namespace}.cli-apps.docker = with types; {
     enable = mkBoolOpt false "Whether or not to enable docker.";
   };
 

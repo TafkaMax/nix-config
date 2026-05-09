@@ -1,15 +1,20 @@
-{ options, config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  namespace,
+  ...
+}:
 
 with lib;
-with lib.nixos-snowfall;
+with lib.${namespace};
 let
-  cfg = config.nixos-snowfall.apps.obsidian;
+  cfg = config.${namespace}.apps.obsidian;
 in
 {
-  options.nixos-snowfall.apps.obsidian = with types; {
+  options.${namespace}.apps.obsidian = with types; {
     enable = mkBoolOpt false "Whether or not to enable Obsidian.";
   };
 
-  config =
-    mkIf cfg.enable { environment.systemPackages = with pkgs; [ obsidian ]; };
+  config = mkIf cfg.enable { environment.systemPackages = with pkgs; [ obsidian ]; };
 }

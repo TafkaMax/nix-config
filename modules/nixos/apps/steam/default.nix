@@ -1,12 +1,18 @@
-{ options, config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  namespace,
+  ...
+}:
 
 with lib;
-with lib.nixos-snowfall;
+with lib.${namespace};
 let
-  cfg = config.nixos-snowfall.apps.steam;
+  cfg = config.${namespace}.apps.steam;
 in
 {
-  options.nixos-snowfall.apps.steam = with types; {
+  options.${namespace}.apps.steam = with types; {
     enable = mkBoolOpt false "Whether or not to enable support for Steam.";
   };
 
@@ -15,7 +21,6 @@ in
     programs.steam.gamescopeSession.enable = true;
 
     hardware.steam-hardware.enable = true;
-
 
     environment.systemPackages = with pkgs; [
       steam

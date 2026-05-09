@@ -1,14 +1,20 @@
-{ options, config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  namespace,
+  ...
+}:
 
 with lib;
-with lib.nixos-snowfall;
-let cfg = config.nixos-snowfall.tools.apache-directory-studio;
+with lib.${namespace};
+let
+  cfg = config.${namespace}.tools.apache-directory-studio;
 in
 {
-  options.nixos-snowfall.tools.apache-directory-studio = with types; {
+  options.${namespace}.tools.apache-directory-studio = with types; {
     enable = mkBoolOpt false "Whether or not to enable apache-directory-studio.";
   };
 
-  config =
-    mkIf cfg.enable { environment.systemPackages = with pkgs; [ apache-directory-studio ]; };
+  config = mkIf cfg.enable { environment.systemPackages = with pkgs; [ apache-directory-studio ]; };
 }

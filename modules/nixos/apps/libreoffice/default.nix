@@ -1,12 +1,18 @@
-{ options, config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  namespace,
+  ...
+}:
 
 with lib;
-with lib.nixos-snowfall;
+with lib.${namespace};
 let
-  cfg = config.nixos-snowfall.apps.libreoffice;
+  cfg = config.${namespace}.apps.libreoffice;
 in
 {
-  options.nixos-snowfall.apps.libreoffice = with types; {
+  options.${namespace}.apps.libreoffice = with types; {
     enable = mkBoolOpt false "Whether or not to enable Libreoffice.";
   };
 

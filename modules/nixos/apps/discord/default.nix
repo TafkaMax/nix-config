@@ -1,12 +1,18 @@
-{ options, config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  namespace,
+  ...
+}:
 
 with lib;
-with lib.nixos-snowfall;
+with lib.${namespace};
 let
-  cfg = config.nixos-snowfall.apps.discord;
+  cfg = config.${namespace}.apps.discord;
 in
 {
-  options.nixos-snowfall.apps.discord = with types; {
+  options.${namespace}.apps.discord = with types; {
     enable = mkBoolOpt false "Whether or not to enable Discord.";
   };
 

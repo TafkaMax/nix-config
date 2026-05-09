@@ -1,8 +1,15 @@
-{ options, config, pkgs, lib, namespace, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  namespace,
+  ...
+}:
 
 with lib;
 with lib.${namespace};
-let cfg = config.${namespace}.services.maestral;
+let
+  cfg = config.${namespace}.services.maestral;
 in
 {
   options.${namespace}.services.maestral = with types; {
@@ -10,7 +17,10 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = with pkgs; [ maestral maestral-gui ];
+    environment.systemPackages = with pkgs; [
+      maestral
+      maestral-gui
+    ];
     systemd.user.services.maestral = {
       description = "Simple Daemon to start Maestral Dropbox sync service.";
       serviceConfig.Type = "exec";

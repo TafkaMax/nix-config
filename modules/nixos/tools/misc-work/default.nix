@@ -1,11 +1,18 @@
-{ options, config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  namespace,
+  ...
+}:
 
 with lib;
-with lib.nixos-snowfall;
-let cfg = config.nixos-snowfall.tools.misc-work;
+with lib.${namespace};
+let
+  cfg = config.${namespace}.tools.misc-work;
 in
 {
-  options.nixos-snowfall.tools.misc-work = with types; {
+  options.${namespace}.tools.misc-work = with types; {
     enable = mkBoolOpt false "Whether or not to enable common utilities for work PC.";
   };
 

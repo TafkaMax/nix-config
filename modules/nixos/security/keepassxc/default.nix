@@ -1,12 +1,18 @@
-{ options, config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  namespace,
+  ...
+}:
 
 with lib;
-with lib.nixos-snowfall;
+with lib.${namespace};
 let
-  cfg = config.nixos-snowfall.security.keepassxc;
+  cfg = config.${namespace}.security.keepassxc;
 in
 {
-  options.nixos-snowfall.security.keepassxc = with types; {
+  options.${namespace}.security.keepassxc = with types; {
     enable = mkBoolOpt false "Whether to enable keepassxc.";
   };
 

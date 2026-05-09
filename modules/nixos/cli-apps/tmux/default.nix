@@ -1,9 +1,15 @@
-{ options, config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  namespace,
+  ...
+}:
 
 with lib;
-with lib.nixos-snowfall;
+with lib.${namespace};
 let
-  cfg = config.nixos-snowfall.cli-apps.tmux;
+  cfg = config.${namespace}.cli-apps.tmux;
   configFiles = lib.snowfall.fs.get-files ./config;
 
   # Extrakto with wl-clipboard patched in.
@@ -35,8 +41,8 @@ let
 
   plugins =
     #extrakto
-    [ ] ++
-    (with pkgs.tmuxPlugins; [
+    [ ]
+    ++ (with pkgs.tmuxPlugins; [
       continuum
       nord
       tilish
@@ -45,12 +51,12 @@ let
     ]);
 in
 {
-  options.nixos-snowfall.cli-apps.tmux = with types; {
+  options.${namespace}.cli-apps.tmux = with types; {
     enable = mkBoolOpt false "Whether or not to enable tmux.";
   };
 
   config = mkIf cfg.enable {
-    nixos-snowfall.home.extraOptions = {
+    ${namespace}.home.extraOptions = {
       programs.tmux = {
         enable = true;
         terminal = "screen-256color-bce";
@@ -58,8 +64,7 @@ in
         historyLimit = 2000;
         keyMode = "vi";
         newSession = true;
-        extraConfig = builtins.concatStringsSep "\n"
-          (builtins.map lib.strings.fileContents configFiles);
+        extraConfig = builtins.concatStringsSep "\n" (builtins.map lib.strings.fileContents configFiles);
 
         inherit plugins;
       };
