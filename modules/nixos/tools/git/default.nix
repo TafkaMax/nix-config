@@ -1,15 +1,22 @@
-{ options, config, pkgs, lib, inputs, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  inputs,
+  namespace,
+  ...
+}:
 
 #TODO enable gpg if comfortable
 with lib;
-with lib.nixos-snowfall;
+with lib.${namespace};
 let
-  cfg = config.nixos-snowfall.tools.git;
-  #gpg = config.nixos-snowfall.security.gpg;
-  user = config.nixos-snowfall.user;
+  cfg = config.${namespace}.tools.git;
+  #gpg = config.${namespace}.security.gpg;
+  user = config.${namespace}.user;
 in
 {
-  options.nixos-snowfall.tools.git = with types; {
+  options.${namespace}.tools.git = with types; {
     enable = mkBoolOpt false "Whether or not to install and configure git.";
     userName = mkOpt types.str user.fullName "The name to configure git with.";
     userEmail = mkOpt types.str user.email "The email to configure git with.";
@@ -17,17 +24,21 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = with pkgs; [ git git-review ];
+    environment.systemPackages = with pkgs; [
+      git
+      git-review
+    ];
 
-
-    nixos-snowfall.home.extraOptions = {
+    ${namespace}.home.extraOptions = {
       # `programs.git` will generate the config file: ~/.config/git/config
       # to make git use this config file, `~/.gitconfig` should not exist!
       #
       #    https://git-scm.com/docs/git-config#Documentation/git-config.txt---global
-      home.activation.removeExistingGitconfig = inputs.home-manager.lib.hm.dag.entryBefore [ "checkLinkTargets" ] ''
-        rm -f ~/.gitconfig
-      '';
+      home.activation.removeExistingGitconfig =
+        inputs.home-manager.lib.hm.dag.entryBefore [ "checkLinkTargets" ]
+          ''
+            rm -f ~/.gitconfig
+          '';
       programs.git = {
         enable = true;
         lfs = enabled;
@@ -36,10 +47,18 @@ in
             name = cfg.userName;
             email = cfg.userEmail;
           };
-          init = { defaultBranch = "main"; };
-          pull = { rebase = true; };
-          push = { autoSetupRemote = true; };
-          core = { whitespace = "trailing-space,space-before-tab"; };
+          init = {
+            defaultBranch = "main";
+          };
+          pull = {
+            rebase = true;
+          };
+          push = {
+            autoSetupRemote = true;
+          };
+          core = {
+            whitespace = "trailing-space,space-before-tab";
+          };
           safe = {
             directory = "${config.users.users.${user.name}.home}/work/config";
           };

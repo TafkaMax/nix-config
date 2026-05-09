@@ -1,14 +1,20 @@
-{ options, config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  namespace,
+  ...
+}:
 
 with lib;
-with lib.nixos-snowfall;
-let cfg = config.nixos-snowfall.tools.docker;
+with lib.${namespace};
+let
+  cfg = config.${namespace}.tools.docker;
 in
 {
-  options.nixos-snowfall.tools.docker = with types; {
+  options.${namespace}.tools.docker = with types; {
     enable = mkBoolOpt false "Whether or not to enable common docker utilities.";
   };
 
-  config =
-    mkIf cfg.enable { environment.systemPackages = with pkgs; [ docker-compose ]; };
+  config = mkIf cfg.enable { environment.systemPackages = with pkgs; [ docker-compose ]; };
 }

@@ -1,13 +1,18 @@
-{ options, config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  namespace,
+  ...
+}:
 
 with lib;
-with lib.nixos-snowfall;
+with lib.${namespace};
 let
-  cfg = config.nixos-snowfall.tools.virtualbox;
-  user = config.nixos-snowfall.user;
+  cfg = config.${namespace}.tools.virtualbox;
+  user = config.${namespace}.user;
 in
 {
-  options.nixos-snowfall.tools.virtualbox = with types; {
+  options.${namespace}.tools.virtualbox = with types; {
     enable = mkBoolOpt false "Whether or not to enable virtualbox.";
   };
 

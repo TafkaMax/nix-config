@@ -1,17 +1,23 @@
-inputs@{ options, config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  namespace,
+  ...
+}:
 
 with lib;
-with lib.nixos-snowfall;
+with lib.${namespace};
 let
-  cfg = config.nixos-snowfall.tools.agenix;
+  cfg = config.${namespace}.tools.agenix;
 in
 {
-  options.nixos-snowfall.tools.agenix = with types; {
+  options.${namespace}.tools.agenix = with types; {
     enable = mkBoolOpt false "Whether or not to enable agenix.";
   };
 
   config = mkIf cfg.enable {
-    nixos-snowfall.home.extraOptions = {
+    ${namespace}.home.extraOptions = {
       home.packages = with pkgs; [
         agenix
       ];
