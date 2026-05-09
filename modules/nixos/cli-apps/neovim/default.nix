@@ -22,14 +22,13 @@ in
       EDITOR = "nvim";
     };
 
-    nixos-snowfall.home = {
+    ${namespace}.home = {
       configFile = {
         "dashboard-nvim/.keep".text = "";
       };
 
       extraOptions = {
         # Use Neovim for Git diffs.
-        #imports = [ ./neovim-config.nix ];
         imports = [ inputs.nvf.homeManagerModules.default ./neovim-nvf-config.nix ./editorconfig.nix ];
         programs.zsh.shellAliases.vimdiff = "nvim -d";
         programs.bash.shellAliases.vimdiff = "nvim -d";

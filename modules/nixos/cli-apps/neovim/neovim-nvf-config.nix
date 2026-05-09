@@ -1,4 +1,8 @@
-{ pkgs, ... }: {
+{ pkgs, lib, namespace, ... }:
+
+with lib;
+with lib.${namespace};
+{
 
   #DOCS: https://notashelf.github.io/nvf/options
 
@@ -8,10 +12,6 @@
     enable = true;
     settings = {
       vim = {
-        # additionalRuntimePaths
-        additionalRuntimePaths = [
-          ./nvim-fix-makefile
-        ];
         viAlias = false; #Alias for vi
         vimAlias = true; #Alias for vim
         withNodeJs = true; #Whether to enable NodeJs support in the Neovim wrapper .
@@ -183,8 +183,22 @@
         # https://cmp.saghen.dev/recipes#disable-per-filetype-buffer
         # Remove autocomplete for specific filetype
         autocomplete = {
+          # https://github.com/hrsh7th/nvim-cmp
+          # NB!
+          nvim-cmp = {
+            enable = true;
+            # Use default option for now.
+            #format = lib.generators.mkLuaInline ''
+            #  function(entry, vim_item)
+            #    vim_item.menu = (${toLuaObject config.vim.autocomplete.nvim-cmp.sources})[entry.source.name]
+            #    return vim_item
+            #  end
+            #'';
+          };
+          # NB! Doesn't work with CodeCompletion-nvim yet!
+          # https://github.com/NotAShelf/nvf/discussions/1076
           blink-cmp = {
-            enable = true; #https://github.com/saghen/blink.cmp
+            enable = false; #https://github.com/saghen/blink.cmp
             setupOpts = {
               completion = {
                 documentation = {
@@ -221,10 +235,6 @@
 
         comments = {
           comment-nvim.enable = true; #https://github.com/numToStr/Comment.nvim?tab=readme-ov-file#-usage
-        };
-
-        assistant = {
-          #TODO
         };
 
         dashboard = {
@@ -301,20 +311,27 @@
            }
         ];
 
-      # Neovim supports in-line syntax highlighting for multi-line strings.
-      # Simply place the filetype in a /* comment */ before the line.
-      luaConfigRC.nvim-fix-makefile = /* lua */ ''
-        -- Call the Lua module from ./nvim/lua/nvim-fix-makefile
-        enabled = function() return not vim.tbl_contains({ "makefile", "make" }, vim.bo.filetype) end
+        # Neovim supports in-line syntax highlighting for multi-line strings.
+        # Simply place the filetype in a /* comment */ before the line.
+        luaConfigRC.nvim-fix-makefile = /* lua */ ''
+          -- Call the Lua module from ./nvim/lua/nvim-fix-makefile
+          enabled = function() return not vim.tbl_contains({ "makefile", "make" }, vim.bo.filetype) end
 
-        -- via an autocmd
-        vim.api.nvim_create_autocmd('BufEnter', {
-          pattern = 'Makefile',
-          callback = function()
-            vim.b.completion = false
-          end
-        })
-      '';
+          -- via an autocmd
+          vim.api.nvim_create_autocmd('BufEnter', {
+            pattern = 'Makefile',
+            callback = function()
+              vim.b.completion = false
+            end
+          })
+        '';
+
+        # https://github.com/NotAShelf/nvf/discussions/1204
+        # TODO fix this file not being found. luaConfigRC, is not deployed early enough?
+        # additionalRuntimePaths
+        #additionalRuntimePaths = [
+        #  ./nvim-fix-makefile
+        #];
       };
     };
   };

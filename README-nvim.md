@@ -87,7 +87,7 @@ https://github.com/folke/todo-comments.nvim?tab=readme-ov-file#-usage
 2. `:TodoQuickFix` - This uses the quickfix list to show all todos in your project.
 
 
-# NavBuddy
+## NavBuddy
 
 A simple popup display that provides breadcrumbs like navigation feature but in keyboard centric manner inspired by ranger file manager.
 
@@ -128,3 +128,11 @@ Docs: https://github.com/lewis6991/gitsigns.nvim
 Docs: https://github.com/smoka7/hop.nvim
 
 NB! Doesn't set keybindings.
+
+## AI assistant
+
+When using `inline`
+
+Keymaps:
+`ga` = ACCEPT proposal
+`gr` = REJECT proposal
