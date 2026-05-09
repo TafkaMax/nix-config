@@ -52,6 +52,9 @@ with lib.${namespace};
           lspSignature.enable = false; # conflicts with blink in maximal
           otter-nvim.enable = true;
           nvim-docs-view.enable = true;
+          presets = {
+            tailwindcss-language-server.enable = true;
+          };
         };
 
         theme = {
@@ -146,7 +149,7 @@ with lib.${namespace};
             lsp.enable = true;
             treesitter.enable = true;
           };
-          ts.enable = true;
+          typescript.enable = true;
           go.enable = true;
           lua.enable = true;
           python = {
@@ -159,7 +162,6 @@ with lib.${namespace};
 
           # Language modules that are not as common.
           ruby.enable = true;
-          tailwind.enable = true;
           terraform = {
             enable = true;
             lsp.enable = true;
