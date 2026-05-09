@@ -10,7 +10,10 @@
 
   # the nixConfig here only affects the flake itself, not the system configuration!
   nixConfig = {
-    experimental-features = [ "nix-command" "flakes" ];
+    experimental-features = [
+      "nix-command"
+      "flakes"
+    ];
   };
 
   # This is the standard format for flake.nix. `inputs` are the dependencies of the flake,
@@ -141,7 +144,8 @@
   # parameters in `outputs` are defined in `inputs` and can be referenced by their names.
   # However, `self` is an exception, this special parameter points to the `outputs` itself (self-reference)
   # The `@` syntax here is used to alias the attribute set of the inputs's parameter, making it convenient to use inside the function.
-  outputs = inputs:
+  outputs =
+    inputs:
     let
       # Create lib from information from current directory. e.g. if there is a lib directory present functions from there will we imported so you can use them. E.g. mkDeploy
       lib = inputs.snowfall-lib.mkLib {
@@ -158,47 +162,43 @@
         };
       };
     in
-    lib.mkFlake
-      {
-        # Configure channels.
-        channels-config = {
-          # Allow unfree pkgs.
-          allowUnfree = true;
-        };
+    lib.mkFlake {
+      # Configure channels.
+      channels-config = {
+        # Allow unfree pkgs.
+        allowUnfree = true;
+      };
 
-        # Import overlays from other inputs than just nixpkgs.
-        overlays = with inputs; [
-          flake.overlays.default
-          agenix.overlays.default
-          snowfall-docs.overlays.default
-        ];
+      # Import overlays from other inputs than just nixpkgs.
+      overlays = with inputs; [
+        flake.overlays.default
+        agenix.overlays.default
+        snowfall-docs.overlays.default
+      ];
 
-        # Import modules from other inputs than just nixpkgs.
-        systems.modules.nixos = with inputs; [
-          # Add home-manager for managing /home
-          home-manager.nixosModules.home-manager
-          # Add agenix for managing secrets.
-          agenix.nixosModules.default
-          # Import non-flake config from secrets private-repository.
-          (import secrets)
-          # Add NUR (Nix User Repository), similar to AUR, as it is not as protected as nixpkgs.
-          nur.modules.nixos.default
-        ];
+      # Import modules from other inputs than just nixpkgs.
+      systems.modules.nixos = with inputs; [
+        # Add home-manager for managing /home
+        home-manager.nixosModules.home-manager
+        # Add agenix for managing secrets.
+        agenix.nixosModules.default
+        # Import non-flake config from secrets private-repository.
+        (import secrets)
+        # Add NUR (Nix User Repository), similar to AUR, as it is not as protected as nixpkgs.
+        nur.modules.nixos.default
+      ];
 
+      # mkDeploy is defined under ./lib/deploy/default.nix
+      deploy = lib.mkDeploy {
+        inherit (inputs) self;
+      };
 
-        # mkDeploy is defined under ./lib/deploy/default.nix
-        deploy = lib.mkDeploy {
-          inherit (inputs) self;
-        };
+      checks = builtins.mapAttrs (
+        system: deploy-lib: deploy-lib.deployChecks inputs.self.deploy
+      ) inputs.deploy-rs.lib;
 
-        checks = builtins.mapAttrs
-          (
-            system: deploy-lib: deploy-lib.deployChecks inputs.self.deploy
-          )
-          inputs.deploy-rs.lib;
-
-        outputs-builder = channels: { formatter = channels.nixpkgs.nixfmt-rfc-style; };
-      }
+      outputs-builder = channels: { formatter = channels.nixpkgs.nixfmt-rfc-style; };
+    }
     // {
       self = inputs.self;
     };
