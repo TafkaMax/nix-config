@@ -1,23 +1,29 @@
-{ options, config, pkgs, lib, ... }:
+{
+  config,
+  lib,
+  namespace,
+  ...
+}:
 
 with lib;
-with lib.nixos-snowfall;
-let cfg = config.nixos-snowfall.hardware.networking;
+with lib.${namespace};
+let
+  cfg = config.${namespace}.hardware.networking;
 in
 {
-  options.nixos-snowfall.hardware.networking = with types; {
+  options.${namespace}.hardware.networking = with types; {
     enable = mkBoolOpt false "Whether or not to enable networking support";
-    hosts = mkOpt attrs { }
-      "An attribute set to merge with <option>networking.hosts</option>";
+    hosts = mkOpt attrs { } "An attribute set to merge with <option>networking.hosts</option>";
   };
 
   config = mkIf cfg.enable {
-    nixos-snowfall.user.extraGroups = [ "networkmanager" ];
+    ${namespace}.user.extraGroups = [ "networkmanager" ];
 
     networking = {
       hosts = {
         "127.0.0.1" = [ "local.test" ] ++ (cfg.hosts."127.0.0.1" or [ ]);
-      } // cfg.hosts;
+      }
+      // cfg.hosts;
 
       networkmanager = {
         enable = true;

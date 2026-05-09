@@ -1,14 +1,19 @@
-{ options, config, pkgs, lib, ... }:
+{
+  config,
+  lib,
+  namespace,
+  ...
+}:
 
 # NOTE - this 'zfs-storage' is regarding mountable zfs-storage, not root filesystem.
 with lib;
-with lib.nixos-snowfall;
-let cfg = config.nixos-snowfall.hardware.zfs-storage;
+with lib.${namespace};
+let
+  cfg = config.${namespace}.hardware.zfs-storage;
 in
 {
-  options.nixos-snowfall.hardware.zfs-storage = with types; {
-    enable = mkBoolOpt false
-      "Whether or not to enable support for extra zfs-storage devices.";
+  options.${namespace}.hardware.zfs-storage = with types; {
+    enable = mkBoolOpt false "Whether or not to enable support for extra zfs-storage devices.";
   };
 
   config = mkIf cfg.enable {

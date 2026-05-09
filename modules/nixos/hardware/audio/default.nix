@@ -1,4 +1,11 @@
-{ options, config, pkgs, namespace, lib, ... }:
+{
+  options,
+  config,
+  pkgs,
+  namespace,
+  lib,
+  ...
+}:
 
 with lib;
 with lib.${namespace};
@@ -9,10 +16,8 @@ in
   options.${namespace}.hardware.audio = with types; {
     enable = mkBoolOpt false "Whether or not to enable audio support.";
     alsa-monitor = mkOpt attrs { } "Alsa configuration.";
-    nodes = mkOpt (listOf attrs) [ ]
-      "Audio nodes to pass to Pipewire as `context.objects`.";
-    modules = mkOpt (listOf attrs) [ ]
-      "Audio modules to pass to Pipewire as `context.modules`.";
+    nodes = mkOpt (listOf attrs) [ ] "Audio nodes to pass to Pipewire as `context.objects`.";
+    modules = mkOpt (listOf attrs) [ ] "Audio modules to pass to Pipewire as `context.modules`.";
     extra-packages = mkOpt (listOf package) [
     ] "Additional packages to install.";
   };
