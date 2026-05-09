@@ -1,17 +1,22 @@
-{ options, config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  namespace,
+  ...
+}:
 
 with lib;
-with lib.nixos-snowfall;
+with lib.${namespace};
 let
-  cfg = config.nixos-snowfall.suites.video;
+  cfg = config.${namespace}.suites.video;
 in
 {
-  options.nixos-snowfall.suites.video = with types; {
+  options.${namespace}.suites.video = with types; {
     enable = mkBoolOpt false "Whether or not to enable video configuration.";
   };
 
   config = mkIf cfg.enable {
-    nixos-snowfall = {
+    ${namespace} = {
       apps = {
         obs = enabled;
         inkscape = enabled;

@@ -1,21 +1,27 @@
-{ options, config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  namespace,
+  ...
+}:
 
 with lib;
-with lib.nixos-snowfall;
+with lib.${namespace};
 let
-  cfg = config.nixos-snowfall.suites.desktop;
+  cfg = config.${namespace}.suites.desktop;
 in
 {
-  options.nixos-snowfall.suites.desktop = with types; {
-    enable =
-      mkBoolOpt false "Whether or not to enable common desktop configuration.";
+  options.${namespace}.suites.desktop = with types; {
+    enable = mkBoolOpt false "Whether or not to enable common desktop configuration.";
   };
 
   config = mkIf cfg.enable {
-    nixos-snowfall = {
+    ${namespace} = {
       desktop = {
         gnome = enabled;
-        addons = { wallpapers = enabled; };
+        addons = {
+          wallpapers = enabled;
+        };
       };
 
       apps = {

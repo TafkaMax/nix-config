@@ -1,17 +1,22 @@
-{ options, config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  namespace,
+  ...
+}:
 
 with lib;
-with lib.nixos-snowfall;
+with lib.${namespace};
 let
-  cfg = config.nixos-snowfall.suites.work;
+  cfg = config.${namespace}.suites.work;
 in
 {
-  options.nixos-snowfall.suites.work = with types; {
+  options.${namespace}.suites.work = with types; {
     enable = mkBoolOpt false "Whether or not to enable work PC configuration.";
   };
 
   config = mkIf cfg.enable {
-    nixos-snowfall = {
+    ${namespace} = {
       apps = {
         element = enabled;
         thunderbird = enabled;
