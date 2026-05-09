@@ -1,4 +1,12 @@
-{ options, config, pkgs, namespace, lib, inputs, ... }:
+{
+  options,
+  config,
+  pkgs,
+  namespace,
+  lib,
+  inputs,
+  ...
+}:
 
 with lib;
 with lib.${namespace};
@@ -15,43 +23,47 @@ let
       cp $src $out
     '';
 
-    passthru = { fileName = defaultIconFileName; };
+    passthru = {
+      fileName = defaultIconFileName;
+    };
   };
-  propagatedIcon = pkgs.runCommandNoCC "propagated-icon"
-    { passthru = { fileName = cfg.icon.fileName; }; }
-    ''
-      local target="$out/share/${namespace}-icons/user/${cfg.name}"
-      mkdir -p "$target"
+  propagatedIcon =
+    pkgs.runCommandNoCC "propagated-icon"
+      {
+        passthru = {
+          fileName = cfg.icon.fileName;
+        };
+      }
+      ''
+        local target="$out/share/${namespace}-icons/user/${cfg.name}"
+        mkdir -p "$target"
 
-      cp ${cfg.icon} "$target/${cfg.icon.fileName}"
-    '';
+        cp ${cfg.icon} "$target/${cfg.icon.fileName}"
+      '';
 in
 {
   options.${namespace}.user = with types; {
     name = mkOpt str "tafka" "The name to use for the user account.";
     fullName = mkOpt str "Taavi Ansper" "The full name of the user.";
     email = mkOpt str "taaviansperr@gmail.com" "The email of the user.";
-    initialPassword = mkOpt str "password"
-      "The initial password to use when the user is first created.";
-    icon = mkOpt (nullOr package) defaultIcon
-      "The profile picture to use for the user.";
+    initialPassword =
+      mkOpt str "password"
+        "The initial password to use when the user is first created.";
+    icon = mkOpt (nullOr package) defaultIcon "The profile picture to use for the user.";
     extraGroups = mkOpt (listOf str) [ ] "Groups for the user to be assigned.";
-    extraOptions = mkOpt attrs { }
-      "Extra options passed to <option>users.users.<name></option>.";
-    emailOptions = mkOpt attrs { }
-      "Extra options passed to thunderbird.";
-    mountpoints = mkOption
-      {
-        type = (listOf str);
-        default = [
-          "file:///home/${cfg.name}/Documents"
-          "file:///home/${cfg.name}/Music"
-          "file:///home/${cfg.name}/Pictures"
-          "file:///home/${cfg.name}/Videos"
-          "file:///home/${cfg.name}/Downloads"
-        ];
-        description = "Mountpoints to mount in Nautilus.";
-      };
+    extraOptions = mkOpt attrs { } "Extra options passed to <option>users.users.<name></option>.";
+    emailOptions = mkOpt attrs { } "Extra options passed to thunderbird.";
+    mountpoints = mkOption {
+      type = (listOf str);
+      default = [
+        "file:///home/${cfg.name}/Documents"
+        "file:///home/${cfg.name}/Music"
+        "file:///home/${cfg.name}/Pictures"
+        "file:///home/${cfg.name}/Videos"
+        "file:///home/${cfg.name}/Downloads"
+      ];
+      description = "Mountpoints to mount in Nautilus.";
+    };
   };
 
   config = {
@@ -67,7 +79,6 @@ in
       };
     };
 
-
     ${namespace} = {
       home = {
         file = {
@@ -79,9 +90,7 @@ in
           "Videos/.keep".text = "";
           "work/.keep".text = "";
           ".face".source = cfg.icon;
-          "Pictures/${
-          cfg.icon.fileName or (builtins.baseNameOf cfg.icon)
-        }".source = cfg.icon;
+          "Pictures/${cfg.icon.fileName or (builtins.baseNameOf cfg.icon)}".source = cfg.icon;
         };
 
         extraOptions = {
@@ -168,6 +177,7 @@ in
       #uid = 1000;
 
       extraGroups = [ "wheel" ] ++ cfg.extraGroups;
-    } // cfg.extraOptions;
+    }
+    // cfg.extraOptions;
   };
 }
