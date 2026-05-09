@@ -1,8 +1,15 @@
-{ options, config, pkgs, lib, namespace, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  namespace,
+  ...
+}:
 
 with lib;
 with lib.${namespace};
-let cfg = config.${namespace}.security.openconnect;
+let
+  cfg = config.${namespace}.security.openconnect;
 in
 {
   options.${namespace}.security.openconnect = with types; {

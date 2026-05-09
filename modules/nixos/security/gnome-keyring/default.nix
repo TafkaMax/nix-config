@@ -1,12 +1,18 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  namespace,
+  ...
+}:
 
 with lib;
-with lib.nixos-snowfall;
+with lib.${namespace};
 let
-  cfg = config.nixos-snowfall.security.keyring;
+  cfg = config.${namespace}.security.keyring;
 in
 {
-  options.nixos-snowfall.security.keyring = with types; {
+  options.${namespace}.security.keyring = with types; {
     enable = mkBoolOpt false "Whether to enable gnome keyring.";
   };
 
@@ -18,9 +24,9 @@ in
 
     services.gnome.gcr-ssh-agent.enable = false;
 
-    nixos-snowfall.home = {
+    ${namespace}.home = {
       extraOptions = {
-        home.file = mkIf config.nixos-snowfall.security.gpg.enable {
+        home.file = mkIf config.${namespace}.security.gpg.enable {
           ".config/environment.d/10-ssh-auth-sock.conf" = {
             text = ''
               SSH_AUTH_SOCK=$XDG_RUNTIME_DIR/gnupg/S.gpg-agent.ssh
