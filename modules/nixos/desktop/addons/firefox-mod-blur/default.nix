@@ -1,34 +1,40 @@
-{ options, config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  namespace,
+  ...
+}:
 
 with lib;
-with lib.nixos-snowfall;
+with lib.${namespace};
 let
-  cfg = config.nixos-snowfall.desktop.addons.firefox-mod-blur;
-  profileDir = ".mozilla/firefox/${config.nixos-snowfall.user.name}";
+  cfg = config.${namespace}.desktop.addons.firefox-mod-blur;
+  profileDir = ".mozilla/firefox/${config.${namespace}.user.name}";
 in
 {
-  options.nixos-snowfall.desktop.addons.firefox-mod-blur = with types; {
+  options.${namespace}.desktop.addons.firefox-mod-blur = with types; {
     enable = mkBoolOpt false "Whether to enable the Blur theme for firefox.";
   };
 
   config = mkIf cfg.enable {
-    nixos-snowfall.apps.firefox = {
+    ${namespace}.apps.firefox = {
       extraConfig = "user_pref(\"toolkit.legacyUserProfileCustomizations.stylesheets\", true)";
       userChrome = ''
-        @import "${pkgs.nixos-snowfall.firefox-mod-blur}/userChrome.css";
+        @import "${pkgs.${namespace}.firefox-mod-blur}/userChrome.css";
       '';
     };
-    nixos-snowfall.home = {
+    ${namespace}.home = {
 
       #file = {
-      #  ".mozilla/firefox/${config.nixos-snowfall.user.name}/chrome/image/" = "${pkgs.nixos-snowfall.firefox-mod-blur}/image/";
-      #  ".mozilla/firefox/${config.nixos-snowfall.user.name}/chrome/acrylic_micaforeveryone.css" = "${pkgs.nixos-snowfall.firefox-mod-blur}/EXTRA THEMES/MicaForEveryone Files/acrylic_micaforeveryone.css";
+      #  ".mozilla/firefox/${config.${namespace}.user.name}/chrome/image/" = "${pkgs.${namespace}.firefox-mod-blur}/image/";
+      #  ".mozilla/firefox/${config.${namespace}.user.name}/chrome/acrylic_micaforeveryone.css" = "${pkgs.${namespace}.firefox-mod-blur}/EXTRA THEMES/MicaForEveryone Files/acrylic_micaforeveryone.css";
       #};
       extraOptions = {
         programs.firefox = {
-          profiles.${config.nixos-snowfall.user.name} = {
+          profiles.${config.${namespace}.user.name} = {
             userContent = ''
-              @import "${pkgs.nixos-snowfall.firefox-mod-blur}/userContent.css";
+              @import "${pkgs.${namespace}.firefox-mod-blur}/userContent.css";
             '';
           };
         };
