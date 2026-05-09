@@ -1,12 +1,18 @@
-inputs@{ options, config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  namespace,
+  ...
+}:
 
 with lib;
-with lib.nixos-snowfall;
+with lib.${namespace};
 let
-  cfg = config.nixos-snowfall.cli-apps.flake;
+  cfg = config.${namespace}.cli-apps.flake;
 in
 {
-  options.nixos-snowfall.cli-apps.flake = with types; {
+  options.${namespace}.cli-apps.flake = with types; {
     enable = mkBoolOpt false "Whether or not to enable flake.";
   };
 
