@@ -1,20 +1,25 @@
-{ options, config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  namespace,
+  ...
+}:
 
 with lib;
-with lib.nixos-snowfall;
+with lib.${namespace};
 let
-  cfg = config.nixos-snowfall.apps.remmina;
+  cfg = config.${namespace}.apps.remmina;
 in
 {
-  options.nixos-snowfall.apps.remmina = with types; {
+  options.${namespace}.apps.remmina = with types; {
     enable = mkBoolOpt false "Whether or not to enable Remmina.";
   };
 
-  config =
-    mkIf cfg.enable {
-      environment.systemPackages = with pkgs; [
-        remmina
-        freerdp
-      ];
-    };
+  config = mkIf cfg.enable {
+    environment.systemPackages = with pkgs; [
+      remmina
+      freerdp
+    ];
+  };
 }

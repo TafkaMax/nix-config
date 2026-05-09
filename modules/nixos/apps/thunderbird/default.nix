@@ -1,21 +1,30 @@
-{ options, config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  namespace,
+  ...
+}:
 
 with lib;
-with lib.nixos-snowfall;
+with lib.${namespace};
 let
-  cfg = config.nixos-snowfall.apps.thunderbird;
-  user = config.nixos-snowfall.user;
+  cfg = config.${namespace}.apps.thunderbird;
+  user = config.${namespace}.user;
 in
 {
-  options.nixos-snowfall.apps.thunderbird = with types; {
+  options.${namespace}.apps.thunderbird = with types; {
     enable = mkBoolOpt false "Whether or not to enable Thundebird mail client.";
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = with pkgs; [ thunderbird openldap ]; #install openldap for client for directory services
+    environment.systemPackages = with pkgs; [
+      thunderbird
+      openldap
+    ]; # install openldap for client for directory services
 
     # manage thunderbird using home-manager
-    nixos-snowfall.home = {
+    ${namespace}.home = {
       extraOptions = {
         programs.thunderbird = {
           enable = true;
@@ -59,15 +68,14 @@ in
             };
           };
           signature = user.emailOptions.signature;
-          smtp =
-            {
-              host = user.emailOptions.host;
-              port = 25;
-              tls = {
-                enable = true;
-                useStartTls = true;
-              };
+          smtp = {
+            host = user.emailOptions.host;
+            port = 25;
+            tls = {
+              enable = true;
+              useStartTls = true;
             };
+          };
           userName = user.name;
         };
       };

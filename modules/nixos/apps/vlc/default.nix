@@ -1,12 +1,18 @@
-{ options, config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  namespace,
+  ...
+}:
 
 with lib;
-with lib.nixos-snowfall;
+with lib.${namespace};
 let
-  cfg = config.nixos-snowfall.apps.vlc;
+  cfg = config.${namespace}.apps.vlc;
 in
 {
-  options.nixos-snowfall.apps.vlc = with types; {
+  options.${namespace}.apps.vlc = with types; {
     enable = mkBoolOpt false "Whether or not to enable vlc.";
   };
 

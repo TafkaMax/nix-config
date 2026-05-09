@@ -1,12 +1,18 @@
-{ options, config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  namespace,
+  ...
+}:
 
 with lib;
-with lib.nixos-snowfall;
+with lib.${namespace};
 let
-  cfg = config.nixos-snowfall.apps.element;
+  cfg = config.${namespace}.apps.element;
 in
 {
-  options.nixos-snowfall.apps.element = with types; {
+  options.${namespace}.apps.element = with types; {
     enable = mkBoolOpt false "Whether or not to enable Element.";
   };
 

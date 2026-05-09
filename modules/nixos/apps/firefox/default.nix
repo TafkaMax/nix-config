@@ -1,4 +1,10 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  namespace,
+  ...
+}:
 
 with lib;
 with lib.nixos-snowfall;
@@ -18,10 +24,8 @@ in
 {
   options.nixos-snowfall.apps.firefox = with types; {
     enable = mkBoolOpt false "Whether or not to enable Firefox.";
-    extraConfig =
-      mkOpt str "" "Extra configuration for the user profile JS file.";
-    userChrome =
-      mkOpt str "" "Extra configuration for the user chrome CSS file.";
+    extraConfig = mkOpt str "" "Extra configuration for the user profile JS file.";
+    userChrome = mkOpt str "" "Extra configuration for the user chrome CSS file.";
     settings = mkOpt attrs defaultSettings "Settings to apply to the profile.";
   };
 
@@ -36,15 +40,13 @@ in
       extraOptions = {
         programs.firefox = {
           enable = true;
-          package = pkgs.firefox.override (
-            {
-              cfg = {
-                enableBrowserpass = false;
-                enableGnomeExtensions = config.nixos-snowfall.desktop.gnome.enable;
-              };
+          package = pkgs.firefox.override ({
+            cfg = {
+              enableBrowserpass = false;
+              enableGnomeExtensions = config.nixos-snowfall.desktop.gnome.enable;
+            };
 
-            }
-          );
+          });
 
           profiles.${config.nixos-snowfall.user.name} = {
             inherit (cfg) extraConfig userChrome settings;

@@ -1,12 +1,18 @@
-{ options, config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  namespace,
+  ...
+}:
 
 with lib;
-with lib.nixos-snowfall;
+with lib.${namespace};
 let
-  cfg = config.nixos-snowfall.apps.zoom-us;
+  cfg = config.${namespace}.apps.zoom-us;
 in
 {
-  options.nixos-snowfall.apps.zoom-us = with types; {
+  options.${namespace}.apps.zoom-us = with types; {
     enable = mkBoolOpt false "Whether or not to enable zoom-us.";
   };
 

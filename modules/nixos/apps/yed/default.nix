@@ -1,12 +1,18 @@
-{ options, config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  namespace,
+  ...
+}:
 
 with lib;
-with lib.nixos-snowfall;
+with lib.${namespace};
 let
-  cfg = config.nixos-snowfall.apps.yed;
+  cfg = config.${namespace}.apps.yed;
 in
 {
-  options.nixos-snowfall.apps.yed = with types; {
+  options.${namespace}.apps.yed = with types; {
     enable = mkBoolOpt false "Whether or not to enable yed.";
   };
 
