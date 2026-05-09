@@ -81,7 +81,6 @@ in
       cryptsetup
       paperkey
       gnupg
-      pinentry
       pinentry-curses
       pinentry-gnome3
       pinentry-qt
