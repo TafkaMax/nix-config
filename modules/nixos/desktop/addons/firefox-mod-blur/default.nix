@@ -18,24 +18,26 @@ in
   };
 
   config = mkIf cfg.enable {
-    ${namespace}.apps.firefox = {
-      extraConfig = "user_pref(\"toolkit.legacyUserProfileCustomizations.stylesheets\", true)";
-      userChrome = ''
-        @import "${pkgs.${namespace}.firefox-mod-blur}/userChrome.css";
-      '';
-    };
-    ${namespace}.home = {
+    ${namespace} = {
+      apps.firefox = {
+        extraConfig = "user_pref(\"toolkit.legacyUserProfileCustomizations.stylesheets\", true)";
+        userChrome = ''
+          @import "${pkgs.${namespace}.firefox-mod-blur}/userChrome.css";
+        '';
+      };
+      home = {
 
-      #file = {
-      #  ".mozilla/firefox/${config.${namespace}.user.name}/chrome/image/" = "${pkgs.${namespace}.firefox-mod-blur}/image/";
-      #  ".mozilla/firefox/${config.${namespace}.user.name}/chrome/acrylic_micaforeveryone.css" = "${pkgs.${namespace}.firefox-mod-blur}/EXTRA THEMES/MicaForEveryone Files/acrylic_micaforeveryone.css";
-      #};
-      extraOptions = {
-        programs.firefox = {
-          profiles.${config.${namespace}.user.name} = {
-            userContent = ''
-              @import "${pkgs.${namespace}.firefox-mod-blur}/userContent.css";
-            '';
+        #file = {
+        #  ".mozilla/firefox/${config.${namespace}.user.name}/chrome/image/" = "${pkgs.${namespace}.firefox-mod-blur}/image/";
+        #  ".mozilla/firefox/${config.${namespace}.user.name}/chrome/acrylic_micaforeveryone.css" = "${pkgs.${namespace}.firefox-mod-blur}/EXTRA THEMES/MicaForEveryone Files/acrylic_micaforeveryone.css";
+        #};
+        extraOptions = {
+          programs.firefox = {
+            profiles.${config.${namespace}.user.name} = {
+              userContent = ''
+                @import "${pkgs.${namespace}.firefox-mod-blur}/userContent.css";
+              '';
+            };
           };
         };
       };
