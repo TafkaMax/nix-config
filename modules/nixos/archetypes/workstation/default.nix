@@ -1,16 +1,21 @@
-{ options, config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  namespace,
+  ...
+}:
 with lib;
-with lib.nixos-snowfall;
-let cfg = config.nixos-snowfall.archetypes.workstation;
+with lib.${namespace};
+let
+  cfg = config.${namespace}.archetypes.workstation;
 in
 {
-  options.nixos-snowfall.archetypes.workstation = with types; {
-    enable =
-      mkBoolOpt false "Whether or not to enable the workstation archetype.";
+  options.${namespace}.archetypes.workstation = with types; {
+    enable = mkBoolOpt false "Whether or not to enable the workstation archetype.";
   };
 
   config = mkIf cfg.enable {
-    nixos-snowfall = {
+    ${namespace} = {
       suites = {
         common = enabled;
         desktop = enabled;
