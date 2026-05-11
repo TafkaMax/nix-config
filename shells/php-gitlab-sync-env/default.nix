@@ -9,18 +9,27 @@
   # programmatically or you may add the named attributes as arguments here.
   pkgs,
   stdenv,
+  mkShell,
   ...
 }:
 let
-  phpEnv = pkgs.php82.buildEnv {
+  # 1. Initialize the old nixpkgs using the same system as the current pkgs
+  pkgsOld = import inputs.nixpkgs-old {
+    inherit (stdenv.hostPlatform) system;
+    config = {
+      allowUnfree = true;
+      # If you need insecure packages from the old repo too:
+      allowInsecurePredicate = pkg: builtins.elem (lib.getName pkg) [
+        "php"
+      ];
+    };
+  };
+  phpEnv = pkgsOld.php81.buildEnv {
     extensions = { enabled, all}: enabled ++ (with all; [ xsl ]);
     extraConfig = "memory_limit=-1";
   };
 in
-pkgs.mkShell {
-  # Create your shell
-  #LD_LIBRARY_PATH = lib.makeLibraryPath [ pkgs.stdenv.cc.cc ];
-  #LD_LIBRARY_PATH = "$LD_LIBRARY_PATH:${pkgs.stdenv.cc.cc.lib}/lib";
+mkShell {
   packages = with pkgs; [
     phpEnv
     phpEnv.packages.composer
@@ -29,7 +38,8 @@ pkgs.mkShell {
     phpEnv
     phpEnv.packages.composer
   ];
-#nativeBuildInputs = with pkgs; [
-#    stdenv.cc.cc.lib
-#  ];
+  shellHook = ''
+    echo "PHP Dev Environment loaded."
+    php -v
+  '';
 }

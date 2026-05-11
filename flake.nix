@@ -25,6 +25,8 @@
     # Official NixOS package source, using nixos's stable branch by default
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    # Required for php81
+    nixpkgs-old.url = "github:nixos/nixpkgs/nixos-25.05";
 
     # macOS Support (master)
     darwin.url = "github:nix-darwin/nix-darwin";
@@ -161,6 +163,9 @@
       channels-config = {
         # Allow unfree pkgs.
         allowUnfree = true;
+        permittedInsecurePackages = [
+          "php81"
+        ];
       };
 
       # Import overlays from other inputs than just nixpkgs.
