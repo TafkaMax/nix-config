@@ -18,6 +18,11 @@ in
 
   config = mkIf cfg.enable {
     services.printing.enable = true;
-    environment.systemPackages = with pkgs; [ ptouch-print ];
+    environment.systemPackages = with pkgs; [
+      ptouch-print
+      cups-kyocera-3500-4500
+      cups-kyocera-ecosys-m552x-p502x
+      hplip
+    ];
   };
 }

@@ -164,7 +164,7 @@
         # Allow unfree pkgs.
         allowUnfree = true;
         permittedInsecurePackages = [
-          "php81"
+          "python3.13-pypdf3-1.0.6"
         ];
       };
 
