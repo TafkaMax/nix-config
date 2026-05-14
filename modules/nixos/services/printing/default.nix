@@ -17,12 +17,22 @@ in
   };
 
   config = mkIf cfg.enable {
-    services.printing.enable = true;
-    environment.systemPackages = with pkgs; [
-      ptouch-print
-      cups-kyocera-3500-4500
-      cups-kyocera-ecosys-m552x-p502x
-      hplip
-    ];
+    services.printing = {
+      enable = true;
+      drivers = with pkgs; [
+        cups-kyocera
+        cups-kyocera-3500-4500
+        cups-kyocera-ecosys-m552x-p502x
+        hplip
+      ];
+    };
+#environment.systemPackages = with pkgs; [
+#      ptouch-print
+#      cups-kyocera
+#      cups-kyocera-ecosys-m552x-p502x
+#      hplip
+#      foomatic-db-ppds
+#      cups-kyodialog
+#    ];
   };
 }
