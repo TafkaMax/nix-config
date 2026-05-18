@@ -78,3 +78,13 @@ If you have agenix installed:
 If you don't have agenix installed:
 
 `bash nix run github:ryantm/agenix -- -e ./encrypt/$secret_name.age`
+
+## 2026 update to use agenix-rekey
+
+In 2026 I updated the repo to use `agenix-rekey` and learned a lot and it is super frustrating.
+
+**NB!** Some commands I ran in any random order. Might make this more coherent in the future.
+
+1. If you lose the SSH key like me or forget that running under sudo doesnt have access to **yubikey** ssh keys that are run from normal user agent then these commands might help.
+  1. `rage -e -R yubikey_ssh_rsa.pub -o ./encrypt/ai-api-key.age secret.txt`
+    1. I ran this command in my `secrets` repository. I used `nix shell nixpkgs#rage` to get access to the rage CLI tool. I used `ssh-add -L > yubikey_ssh_rsa.pub` to get the pub key from a working setup.

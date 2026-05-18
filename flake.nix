@@ -203,5 +203,10 @@
     snowfallFlake
     // {
       self = inputs.self;
+      # FIXED: Expose your hosts to the CLI tool exactly where it expects to find them!
+      agenix-rekey = inputs.agenix-rekey.configure {
+        userFlake = inputs.self;
+        inherit (snowfallFlake) nixosConfigurations;
+      };
     };
 }
