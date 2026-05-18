@@ -62,6 +62,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # yubikey support for secrets
+    agenix-rekey = {
+      url = "github:oddlama/agenix-rekey";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # nix language server, used by vscode & neovim
     nil.url = "github:oxalica/nil/2025-06-13";
 
@@ -181,6 +187,8 @@
         home-manager.nixosModules.home-manager
         # Add agenix for managing secrets.
         agenix.nixosModules.default
+        # Agenix rekey for yubikey support for agenix
+        agenix-rekey.nixosModules.default
         # Import non-flake config from secrets private-repository.
         (import secrets)
         # Add NUR (Nix User Repository), similar to AUR, as it is not as protected as nixpkgs.
