@@ -151,8 +151,7 @@
     let
       # Create lib from information from current directory. e.g. if there is a lib directory present functions from there will we imported so you can use them. E.g. mkDeploy
       lib = inputs.snowfall-lib.mkLib {
-        # Remove agenix from inputs to flake-utils-plus, as agenix does not have a default system target.
-        inputs = builtins.removeAttrs inputs [ "agenix" ];
+        inherit inputs;
         src = ./.;
         snowfall = {
           meta = {
@@ -163,49 +162,49 @@
           namespace = "nixos-snowfall";
         };
       };
+
+      # 1. Generate core Snowfall flake outputs and store them in a variable
+      snowfallFlake = lib.mkFlake {
+        channels-config = {
+          # Configure channels.
+          allowUnfree = true; # Allow unfree pkgs.
+          permittedInsecurePackages = [
+            "python3.13-pypdf3-1.0.6"
+          ];
+        };
+
+        overlays = with inputs; [
+          flake.overlays.default
+          agenix.overlays.default
+          snowfall-docs.overlays.default
+        ]; # Import overlays from other inputs than just nixpkgs.
+
+        systems.modules.nixos = with inputs; [
+          home-manager.nixosModules.home-manager # Add home-manager for managing /home
+          agenix.nixosModules.default # Add agenix for managing secrets.
+          agenix-rekey.nixosModules.default # Agenix rekey for yubikey support for agenix
+          (import secrets)
+          nur.modules.nixos.default # Add NUR (Nix User Repository), similar to AUR, as it is not as protected as nixpkgs.
+        ]; # Import modules from other inputs than just nixpkgs.
+
+        deploy = lib.mkDeploy {
+          inherit (inputs) self;
+        }; # mkDeploy is defined under ./lib/deploy/default.nix
+
+        checks = builtins.mapAttrs (
+          system: deploy-lib: deploy-lib.deployChecks inputs.self.deploy
+        ) inputs.deploy-rs.lib;
+
+        outputs-builder = channels: { formatter = channels.nixpkgs.nixfmt; };
+      };
     in
-    lib.mkFlake {
-      # Configure channels.
-      channels-config = {
-        # Allow unfree pkgs.
-        allowUnfree = true;
-        permittedInsecurePackages = [
-          "python3.13-pypdf3-1.0.6"
-        ];
-      };
-
-      # Import overlays from other inputs than just nixpkgs.
-      overlays = with inputs; [
-        flake.overlays.default
-        agenix.overlays.default
-        snowfall-docs.overlays.default
-      ];
-
-      # Import modules from other inputs than just nixpkgs.
-      systems.modules.nixos = with inputs; [
-        # Add home-manager for managing /home
-        home-manager.nixosModules.home-manager
-        # Add agenix for managing secrets.
-        agenix.nixosModules.default
-        # Agenix rekey for yubikey support for agenix
-        agenix-rekey.nixosModules.default
-        # Import non-flake config from secrets private-repository.
-        (import secrets)
-        # Add NUR (Nix User Repository), similar to AUR, as it is not as protected as nixpkgs.
-        nur.modules.nixos.default
-      ];
-
-      # mkDeploy is defined under ./lib/deploy/default.nix
-      deploy = lib.mkDeploy {
-        inherit (inputs) self;
-      };
-
-      checks = builtins.mapAttrs (
-        system: deploy-lib: deploy-lib.deployChecks inputs.self.deploy
-      ) inputs.deploy-rs.lib;
-
-      outputs-builder = channels: { formatter = channels.nixpkgs.nixfmt-rfc-style; };
-    }
+    # 2. Shallow merge everything together.
+    # This attaches agenix-rekey commands onto Snowfall's configurations.
+    snowfallFlake
+    // (inputs.agenix-rekey.configure {
+      userFlake = inputs.self;
+      inherit (snowfallFlake) nixosConfigurations;
+    })
     // {
       self = inputs.self;
     };
