@@ -201,10 +201,6 @@
     # 2. Shallow merge everything together.
     # This attaches agenix-rekey commands onto Snowfall's configurations.
     snowfallFlake
-    // (inputs.agenix-rekey.configure {
-      userFlake = inputs.self;
-      inherit (snowfallFlake) nixosConfigurations;
-    })
     // {
       self = inputs.self;
     };
