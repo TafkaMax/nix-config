@@ -2,7 +2,7 @@
   age.rekey = {
     # Every machine inherits this same Yubikey master identity
     masterIdentities = [
-      ./yubikey.id
+      ./yubikey.pub
     ];
 
     storageMode = "local";
