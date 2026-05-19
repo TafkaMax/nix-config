@@ -21,6 +21,10 @@ let
     pinentry-program ${pkgs.pinentry-gnome3}/bin/pinentry
   '';
 
+  scdaemonConf = ''
+    disable-ccid
+  '';
+
   guide = "${inputs.yubikey-guide}/README.md";
 
   theme = pkgs.fetchFromGitHub {
@@ -64,25 +68,9 @@ in
   };
 
   config = mkIf cfg.enable {
-    services.pcscd.enable = false;
+    services.pcscd.enable = true;
     services.udev.packages = with pkgs; [ yubikey-personalization ];
     #services.yubikey-agent.enable = true;
-
-    # @NOTE(jakehamilton): This should already have been added by programs.gpg, but
-    # keeping it here for now just in case.
-    #environment.shellInit = ''
-    #  export GPG_TTY="$(tty)"
-    #  export SSH_AUTH_SOCK=$(${pkgs.gnupg}/bin/gpgconf --list-dirs agent-ssh-socket)
-
-    #  ${pkgs.coreutils}/bin/timeout ${builtins.toString cfg.agentTimeout} ${pkgs.gnupg}/bin/gpgconf --launch gpg-agent
-    #  gpg_agent_timeout_status=$?
-
-    #  if [ "$gpg_agent_timeout_status" = 124 ]; then
-    #    # Command timed out...
-    #    echo "GPG Agent timed out..."
-    #    echo 'Run "gpgconf --launch gpg-agent" to try and launch it again.'
-    #  fi
-    #'';
 
     environment.systemPackages = with pkgs; [
       cryptsetup
@@ -113,6 +101,11 @@ in
       yubikey-touch-detector.enable = true;
     };
 
+    # Declarative chmod 700
+    systemd.user.tmpfiles.rules = [
+      "z %h/.gnupg 0700 - - -"
+    ];
+
     ${namespace} = {
       home.file = {
         ".gnupg/.keep".text = "";
@@ -122,6 +115,8 @@ in
 
         ".gnupg/gpg.conf".source = gpgConf;
         ".gnupg/gpg-agent.conf".text = gpgAgentConf;
+
+        ".gnupg/scdaemon.conf".text = scdaemonConf;
       };
     };
   };

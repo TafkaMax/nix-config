@@ -91,3 +91,4 @@ In 2026 I updated the repo to use `agenix-rekey` and learned a lot and it is sup
 2. The stupid `hostPubkey` is actually specific to each host and you have to define it under directory `systems/arch/hostname/default.nix`. It goes in the topmost config not in snowfalllib logic, under age. You can get the key from each host like so `cat /etc/ssh/ssh_host_ed25519_key.pub`
 3. To run the rekey you need to specify it like so `nix run .#agenix-rekey.x86_64-linux.rekey`
 4. The `yubikey.pub` in this repositories `nixos/modules/secrets/yubikey.pub` is a special thing to reference to look at the ssh-agent-sock or whatevere.
+5. Using **Yubikey**. I have again hit the hell of yubikey. I finally found that my scdaemon.conf is missing this option: https://ludovicrousseau.blogspot.com/2019/06/gnupg-and-pcsc-conflicts.html
