@@ -940,11 +940,11 @@
     "secrets": {
       "flake": false,
       "locked": {
-        "lastModified": 1725809555,
-        "narHash": "sha256-cdeJm0u3+8JnSzTi6w2VMyoiIPNnP/ViJERd6WZEQ3k=",
+        "lastModified": 1779222446,
+        "narHash": "sha256-BVb0T2SMyjDQn8DjzAvF8WHEWQN4Pr+ntMr65U+BlKA=",
         "ref": "refs/heads/main",
-        "rev": "be019f2cb2bf474fcd7909a8d254ecfdda4be8d4",
-        "revCount": 9,
+        "rev": "81a851ec4f0e80710123fc019a923224422ec14a",
+        "revCount": 11,
         "type": "git",
         "url": "ssh://git@github.com/tafkamax/nix-secrets"
       },

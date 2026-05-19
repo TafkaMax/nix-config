@@ -3,6 +3,7 @@
     # Every machine inherits this same Yubikey master identity
     masterIdentities = [
       ./yubikey-5nano.pub
+      ./yubikey-5c-nano.pub
     ];
 
     storageMode = "local";
