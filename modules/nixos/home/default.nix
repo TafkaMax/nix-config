@@ -95,8 +95,6 @@ in
       };
     };
 
-    #snowfallorg.users.${config.${namespace}.user.name}.home.config = config.${namespace}.home.extraOptions;
-
     home-manager = {
       useUserPackages = true;
       useGlobalPkgs = true;
