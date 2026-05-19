@@ -74,18 +74,18 @@ in
 
     environment.systemPackages = with pkgs; [
       cryptsetup
-      paperkey
+      paperkey  #print gpg keys on paper
       gnupg
       pinentry-curses
       pinentry-gnome3
       pinentry-qt
-      paperkey
       guideDesktopItem
       reload-yubikey
-      yubioath-flutter
+      yubioath-flutter  #UI to see yubikey config yubikey-authenticator app
       age-plugin-yubikey
       libyubikey
       libfido2
+      yubikey-manager
     ];
 
     programs = {

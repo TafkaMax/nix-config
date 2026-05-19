@@ -92,3 +92,7 @@ In 2026 I updated the repo to use `agenix-rekey` and learned a lot and it is sup
 3. To run the rekey you need to specify it like so `nix run .#agenix-rekey.x86_64-linux.rekey`
 4. The `yubikey.pub` in this repositories `nixos/modules/secrets/yubikey.pub` is a special thing to reference to look at the ssh-agent-sock or whatevere.
 5. Using **Yubikey**. I have again hit the hell of yubikey. I finally found that my scdaemon.conf is missing this option: https://ludovicrousseau.blogspot.com/2019/06/gnupg-and-pcsc-conflicts.html
+6. So with `age-plugin-yubikey` you cant use the same SSH credentials that I am normally using on the OTP slots. Or whatever. So you have to put them on the PIV slots.
+  1. If there is nothing set up run `nix run nixpkgs#age-plugin-yubikey`
+    1. **NB!** Check that gnupg and gpg are working nicely beforehand.
+    2. The slots are not the same as for the GPG Agent!
