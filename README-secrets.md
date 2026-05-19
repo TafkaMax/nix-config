@@ -85,14 +85,16 @@ In 2026 I updated the repo to use `agenix-rekey` and learned a lot and it is sup
 
 **NB!** Some commands I ran in any random order. Might make this more coherent in the future.
 
-1. If you lose the SSH key like me or forget that running under sudo doesnt have access to **yubikey** ssh keys that are run from normal user agent then these commands might help.
-  1. `rage -e -R yubikey_ssh_rsa.pub -o ./encrypt/ai-api-key.age secret.txt`
-    1. I ran this command in my `secrets` repository. I used `nix shell nixpkgs#rage` to get access to the rage CLI tool. I used `ssh-add -L > yubikey_ssh_rsa.pub` to get the pub key from a working setup.
-2. The stupid `hostPubkey` is actually specific to each host and you have to define it under directory `systems/arch/hostname/default.nix`. It goes in the topmost config not in snowfalllib logic, under age. You can get the key from each host like so `cat /etc/ssh/ssh_host_ed25519_key.pub`
-3. To run the rekey you need to specify it like so `nix run .#agenix-rekey.x86_64-linux.rekey`
-4. The `yubikey.pub` in this repositories `nixos/modules/secrets/yubikey.pub` is a special thing to reference to look at the ssh-agent-sock or whatevere.
-5. Using **Yubikey**. I have again hit the hell of yubikey. I finally found that my scdaemon.conf is missing this option: https://ludovicrousseau.blogspot.com/2019/06/gnupg-and-pcsc-conflicts.html
-6. So with `age-plugin-yubikey` you cant use the same SSH credentials that I am normally using on the OTP slots. Or whatever. So you have to put them on the PIV slots.
+- You need to have the whole shebang working with SSH and PIV created I suppose. `rage -e -r <IDENTITY> -o ./encrypt/ai-api-key.age ai-api-key.txt`
+  1. You can get the identity using `nix run nixpkgs#age-plugin-yubikey -- --list` and copy the last line
+- If you lose the SSH key like me or forget that running under sudo doesnt have access to **yubikey** ssh keys that are run from normal user agent then these commands might help.
+  1. `rage -e -r <IDENDITY> -o ./encrypt/ai-api-key.age ai-api-key.txt`
+    1. I ran this command in my `secrets` repository. I used `nix shell nixpkgs#rage` to get access to the rage CLI tool. Look at the previous step how to get the `<IDENTITY>`
+- The stupid `hostPubkey` is actually specific to each host and you have to define it under directory `systems/arch/hostname/default.nix`. It goes in the topmost config not in snowfalllib logic, under age. You can get the key from each host like so `cat /etc/ssh/ssh_host_ed25519_key.pub`
+- To run the rekey you need to specify it like so `nix run .#agenix-rekey.x86_64-linux.rekey`
+- The `yubikey.pub` in this repositories `nixos/modules/secrets/yubikey.pub` is a special thing to reference to look at the ssh-agent-sock or whatevere.
+- Using **Yubikey**. I have again hit the hell of yubikey. I finally found that my scdaemon.conf is missing this option: https://ludovicrousseau.blogspot.com/2019/06/gnupg-and-pcsc-conflicts.html
+- So with `age-plugin-yubikey` you cant use the same SSH credentials that I am normally using on the OTP slots. Or whatever. So you have to put them on the PIV slots.
   1. If there is nothing set up run `nix run nixpkgs#age-plugin-yubikey`
     1. **NB!** Check that gnupg and gpg are working nicely beforehand.
     2. The slots are not the same as for the GPG Agent!
