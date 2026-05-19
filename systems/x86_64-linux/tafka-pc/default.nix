@@ -16,7 +16,13 @@ with lib.${namespace};
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
 
-  nixos-snowfall = {
+  age = {
+    rekey = {
+      hostPubkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDVLOcHkl+JETafiovKefivFPh7soFZ2KUBSMicWsDV6 root@tafka-pc";
+    };
+  };
+
+  ${namespace} = {
 
     hardware.zfs-storage.enable = true;
     hardware.corectrl.enable = true;
