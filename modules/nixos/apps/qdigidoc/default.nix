@@ -17,6 +17,6 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = with pkgs; [ qdigidoc libdigidocpp ];
+    environment.systemPackages = with pkgs; [ qdigidoc libdigidocpp opensc p11-kit ];
   };
 }

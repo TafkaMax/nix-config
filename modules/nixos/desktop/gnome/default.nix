@@ -199,6 +199,8 @@ in
       [
         gnome-tweaks
         dconf-editor
+        gsettings-desktop-schemas
+        wrapGAppsHook3
       ]
       ++ defaultExtensions
       ++ cfg.extensions;
