@@ -23,7 +23,7 @@
     # which represents the GitHub repository URL + branch/commit-id/tag.
 
     # Official NixOS package source, using nixos's stable branch by default
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     # Required for php81
     nixpkgs-old.url = "github:nixos/nixpkgs/nixos-25.05";
@@ -49,7 +49,7 @@
 
     # home-manager, used for managing user configuration
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.11";
+      url = "github:nix-community/home-manager/release-26.05";
       # The `follows` keyword in inputs is used for inheritance.
       # Here, `inputs.nixpkgs` of home-manager is kept consistent with the `inputs.nixpkgs` of the current flake,
       # to avoid problems caused by different versions of nixpkgs dependencies.
