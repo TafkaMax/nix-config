@@ -170,6 +170,7 @@
           allowUnfree = true; # Allow unfree pkgs.
           permittedInsecurePackages = [
             "python3.13-pypdf3-1.0.6"
+            "docker-28.5.2"
           ];
         };
 
