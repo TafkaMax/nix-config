@@ -50,7 +50,6 @@ in
       "light"
       "dark"
     ]) "dark" "The color scheme to use.";
-    wayland = mkBoolOpt true "Whether or not to use Wayland.";
     suspend = mkBoolOpt true "Whether or not to suspend the machine after inactivity.";
     monitors = mkOpt (nullOr path) null "The monitors.xml file to create.";
     extensions = mkOpt (listOf package) [ ] "Extra Gnome extensions to install.";
@@ -305,7 +304,6 @@ in
 
     services.displayManager.gdm = {
       enable = true;
-      wayland = cfg.wayland;
       autoSuspend = cfg.suspend;
     };
 
