@@ -250,8 +250,9 @@ with lib.${namespace};
         };
 
         minimap = {
-          minimap-vim.enable = false;
-          codewindow.enable = true; # lighter, faster, and uses lua for configuration: https://github.com/gorbit99/codewindow.nvim?tab=readme-ov-file#configuration
+          minimap-vim.enable = true;
+          #{TODO} Change when https://github.com/NotAShelf/nvf/issues/1426 is fixed. Codewindow is a culprit.
+          codewindow.enable = false; # lighter, faster, and uses lua for configuration: https://github.com/gorbit99/codewindow.nvim?tab=readme-ov-file#configuration
         };
 
         terminal = {
