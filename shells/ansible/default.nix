@@ -16,12 +16,12 @@ pkgs.mkShell {
   LD_LIBRARY_PATH = lib.makeLibraryPath [ pkgs.stdenv.cc.cc ];
   #LD_LIBRARY_PATH = "$LD_LIBRARY_PATH:${pkgs.stdenv.cc.cc.lib}/lib";
   packages = with pkgs; [
-    python311
-    python311Packages.pip
+    python313
+    python313Packages.pip
     poetry
   ];
   buildInputs = with pkgs; [
-    python311
+    python313
   ];
   nativeBuildInputs = with pkgs; [
     stdenv.cc.cc.lib
