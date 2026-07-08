@@ -84,8 +84,10 @@
     };
 
     # Snowfall Flake
-    flake.url = "github:snowfallorg/flake";
-    flake.inputs.nixpkgs.follows = "nixpkgs-unstable";
+    flake = {
+      url = "github:TafkaMax/flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # System Deployment
     deploy-rs.url = "github:serokell/deploy-rs";
@@ -127,7 +129,7 @@
 
     # snowfall-lib docs
     snowfall-docs = {
-      url = "github:snowfallorg/docs";
+      url = "github:TafkaMax/docs";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
