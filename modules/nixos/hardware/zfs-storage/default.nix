@@ -17,6 +17,9 @@ in
   };
 
   config = mkIf cfg.enable {
-    boot.supportedFilesystems.zfs = true;
+    boot = {
+      supportedFilesystems.zfs = true;
+      zfs.forceImportRoot = false;
+    };
   };
 }
