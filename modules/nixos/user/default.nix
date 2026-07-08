@@ -119,6 +119,7 @@ in
               enable = true;
               enableCompletion = true;
               autosuggestion.enable = true;
+              dotDir = "${config.home-manager.users.${config.${namespace}.user.name}.xdg.configHome}/zsh";
               syntaxHighlighting = {
                 enable = true;
               };

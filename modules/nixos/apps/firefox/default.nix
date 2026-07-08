@@ -40,6 +40,7 @@ in
         extraOptions = {
           programs.firefox = {
             enable = true;
+            configPath = "${config.home-manager.users.${config.${namespace}.user.name}.xdg.configHome}/mozilla/firefox";
             package = pkgs.firefox.override ({
               cfg = {
                 enableBrowserpass = false;
