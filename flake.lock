@@ -425,17 +425,17 @@
         "flake-utils": "flake-utils_5"
       },
       "locked": {
-        "lastModified": 1715533576,
-        "narHash": "sha256-fT4ppWeCJ0uR300EH3i7kmgRZnAVxrH+XtK09jQWihk=",
+        "lastModified": 1779563444,
+        "narHash": "sha256-+rEagECcF6BhWfLs8VCkPqsBuxxSSIRxMlgjXj6G8UQ=",
         "owner": "gytis-ivaskevicius",
         "repo": "flake-utils-plus",
-        "rev": "3542fe9126dc492e53ddd252bb0260fe035f2c0f",
+        "rev": "a00f6f51907b5c74d2fde086b10b19d446d15717",
         "type": "github"
       },
       "original": {
         "owner": "gytis-ivaskevicius",
+        "ref": "v1.6.0",
         "repo": "flake-utils-plus",
-        "rev": "3542fe9126dc492e53ddd252bb0260fe035f2c0f",
         "type": "github"
       }
     },
@@ -812,11 +812,11 @@
         "nixpkgs": "nixpkgs_4"
       },
       "locked": {
-        "lastModified": 1783515627,
-        "narHash": "sha256-5xfPMNgoJuY/cbbPf9aHwIQwGD9Ijt1mS9BeA5y3ELA=",
+        "lastModified": 1783518605,
+        "narHash": "sha256-QVxNyLM7mOTeHehELPkDq6PS+Uziv8TKVbWt10X91FY=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "972ab90dfefc4cc6e006203fd383d7c9d632d3dd",
+        "rev": "e9423d28116d4e917181bdee77b662af4ca39d38",
         "type": "github"
       },
       "original": {
@@ -1013,15 +1013,15 @@
         ]
       },
       "locked": {
-        "lastModified": 1765361626,
-        "narHash": "sha256-kX0Dp/kYSRbQ+yd9e3lmmUWdNbipufvKfL2IzbrSpnY=",
-        "owner": "snowfallorg",
+        "lastModified": 1783520771,
+        "narHash": "sha256-RYWwnsp0Z89hWvF/h2O4YprbTyO8A7KrwyiOTrCvAxM=",
+        "owner": "TafkaMax",
         "repo": "lib",
-        "rev": "c566ad8b7352c30ec3763435de7c8f1c46ebb357",
+        "rev": "2e1ae9a6b8f16310d409ef7a61c4d861d893f1d4",
         "type": "github"
       },
       "original": {
-        "owner": "snowfallorg",
+        "owner": "TafkaMax",
         "repo": "lib",
         "type": "github"
       }

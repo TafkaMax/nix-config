@@ -79,7 +79,7 @@
 
     # Snowfall Lib
     snowfall-lib = {
-      url = "github:snowfallorg/lib";
+      url = "github:TafkaMax/lib";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
