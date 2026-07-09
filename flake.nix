@@ -87,6 +87,7 @@
     flake = {
       url = "github:TafkaMax/flake";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.snowfall-lib.follows = "snowfall-lib";
     };
 
     # System Deployment
