@@ -24,7 +24,6 @@ in
       };
       gamescope = {
         enable = true;
-        enableWsi = true;
         capSysNice = false;
       };
     };
