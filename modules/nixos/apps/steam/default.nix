@@ -17,8 +17,17 @@ in
   };
 
   config = mkIf cfg.enable {
-    programs.steam.enable = true;
-    programs.steam.gamescopeSession.enable = true;
+    programs = {
+      steam = {
+        enable = true;
+        gamescopeSession.enable = true;
+      };
+      gamescope = {
+        enable = true;
+        enableWsi = true;
+        capSysNice = false;
+      };
+    };
 
     hardware.steam-hardware.enable = true;
 
