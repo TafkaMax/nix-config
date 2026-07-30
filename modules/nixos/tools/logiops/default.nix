@@ -63,6 +63,30 @@ in
                 threshold: 150;
                 default_threshold: 150;
               };
+            },
+            {
+              name: "MX Master 4";
+              dpi: 800;
+              hiresscroll: {
+                hires: true;
+                invert: false;
+                target: true;
+            	  up: {
+                  mode: "Axis";
+                  axis: "REL_WHEEL";
+                  axis_multiplier: 0.2;
+                },
+              	down: {
+                  mode: "Axis";
+                  axis: "REL_WHEEL";
+                  axis_multiplier: -0.2;
+              	}
+              };
+              smartshift: {
+                on: true;
+                threshold: 150;
+                default_threshold: 150;
+              };
             }
             );
           '';
