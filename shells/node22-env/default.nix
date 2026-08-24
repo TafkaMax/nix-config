@@ -7,17 +7,17 @@
   ...
 }:
 let
-  # Fallback to latest nodejs if nodejs_24 is not yet in your nixpkgs channel
+  # Fallback to latest nodejs if nodejs_22 is not yet in your nixpkgs channel
   nodePkg = pkgs.nodejs_22 or pkgs.nodejs;
 in
 mkShell {
   packages = [
     nodePkg
-    pkgs.yarn
+    pkgs.yarn-berry
     pkgs.git
     pkgs.curl
     pkgs.jq
-    pkgs.nodePackages.corepack
+    pkgs.corepack_22
   ];
 
   shellHook = ''
