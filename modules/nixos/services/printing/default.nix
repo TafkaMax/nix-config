@@ -26,13 +26,13 @@ in
         hplip
       ];
     };
-#environment.systemPackages = with pkgs; [
-#      ptouch-print
-#      cups-kyocera
-#      cups-kyocera-ecosys-m552x-p502x
-#      hplip
-#      foomatic-db-ppds
-#      cups-kyodialog
-#    ];
+    #environment.systemPackages = with pkgs; [
+    #      ptouch-print
+    #      cups-kyocera
+    #      cups-kyocera-ecosys-m552x-p502x
+    #      hplip
+    #      foomatic-db-ppds
+    #      cups-kyodialog
+    #    ];
   };
 }
