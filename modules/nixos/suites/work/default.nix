@@ -33,6 +33,7 @@ in
         wireshark = enabled;
         apache-directory-studio = enabled;
         misc-work = enabled;
+        claude-code = enabled;
         #sshfs = enabled;
       };
     };
