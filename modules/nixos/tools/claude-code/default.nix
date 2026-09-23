@@ -16,5 +16,8 @@ in
     enable = mkBoolOpt false "Whether or not to enable claude-code.";
   };
 
-  config = mkIf cfg.enable { environment.systemPackages = with pkgs; [ claude-code ]; };
+  config = mkIf cfg.enable { environment.systemPackages = with pkgs; [
+    claude-code
+    claude-agent-acp
+  ]; };
 }
