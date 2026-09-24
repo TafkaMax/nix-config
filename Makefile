@@ -11,7 +11,7 @@
 ############################################################################
 
 deploy:
-	sudo nixos-rebuild switch --flake .
+	sudo --preserve-env=SSH_AUTH_SOCK nixos-rebuild switch --flake .
 
 # Use this whenever you have impure flakes.
 deploy-impure:
