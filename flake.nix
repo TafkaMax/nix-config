@@ -141,6 +141,12 @@
     nvf = {
       url = "github:notashelf/nvf/release/26.07";
     };
+
+    # Sandboxed/jailed coding agents (Claude Code, etc.) via bubblewrap
+    jailed-agents = {
+      url = "github:andersonjoseph/jailed-agents";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   # The `outputs` function will return all the build results of the flake.
