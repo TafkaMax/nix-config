@@ -20,6 +20,7 @@ in
     environment.systemPackages = with pkgs; [
       claude-code
       claude-agent-acp
+      pkgs.${namespace}.jailed-claude
     ];
   };
 }
