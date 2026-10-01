@@ -56,12 +56,24 @@ in
               id = 0;
               isDefault = true;
               name = config.${namespace}.user.name;
-              #extensions = with pkgs.nur.repos.rycee.firefox-addons; [
-              #  ublock-origin
-              #  keepassxc-browser
-              #  user-agent-string-switcher
-              #  gnome-shell-integration
-              #];
+              extensions = {
+                packages = with pkgs.nur.repos.rycee.firefox-addons; [
+                  ublock-origin
+                  keepassxc-browser
+                  user-agent-string-switcher
+                  gnome-shell-integration
+                ];
+
+                settings."uBlock0@raymondhill.net".settings = {
+                  selectedFilterLists = [
+                    "ublock-filters"
+                    "ublock-badware"
+                    "ublock-privacy"
+                    "ublock-unbreak"
+                    "ublock-quick-fixes"
+                  ];
+                };
+              };
             };
           };
         };

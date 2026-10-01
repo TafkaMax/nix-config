@@ -186,7 +186,8 @@
           flake.overlays.default
           agenix.overlays.default
           snowfall-docs.overlays.default
-        ]; # Import overlays from other inputs than just nixpkgs.
+          nur.overlays.default # Exposes pkgs.nur (e.g. pkgs.nur.repos.rycee.firefox-addons).
+        ];# Import overlays from other inputs than just nixpkgs.
 
         systems.modules.nixos = with inputs; [
           home-manager.nixosModules.home-manager # Add home-manager for managing /home
