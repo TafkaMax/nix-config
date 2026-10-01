@@ -10,6 +10,30 @@ with lib;
 with lib.${namespace};
 let
   cfg = config.${namespace}.apps.firefox;
+  addons = pkgs.nur.repos.rycee.firefox-addons;
+
+  # Not available in rycee's NUR repo, packaged from addons.mozilla.org.
+  passwork-self-hosted = addons.buildFirefoxXpiAddon rec {
+    pname = "passwork-self-hosted";
+    version = "2.0.38";
+    addonId = "{5772be84-2f2f-49a8-8236-0e002ce5165d}";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4836655/passwork_self_hosted-${version}.xpi";
+    sha256 = "a1537a8fbc206ad689d45a3d1b2f489f5cda471518e35cc41106c6764e289b05";
+    meta = {
+      description = "Passwork self-hosted browser extension";
+      license = licenses.unfree;
+      platforms = platforms.all;
+    };
+  };
+
+  extensionPackages = with addons; [
+    ublock-origin
+    keepassxc-browser
+    user-agent-string-switcher
+    gnome-shell-integration
+    passwork-self-hosted
+  ];
+
   defaultSettings = {
     "browser.aboutwelcome.enabled" = false;
     "browser.meta_refresh_when_inactive.disabled" = true;
@@ -51,18 +75,23 @@ in
 
             });
 
+            # Allow all managed extensions to run in private windows.
+            policies.ExtensionSettings = listToAttrs (
+              map (p: nameValuePair p.addonId { private_browsing = true; }) extensionPackages
+            );
+
             profiles.${config.${namespace}.user.name} = {
-              inherit (cfg) extraConfig userChrome settings;
+              inherit (cfg) extraConfig userChrome;
+              settings = cfg.settings // {
+                # Enable extensions installed by home-manager without asking.
+                "extensions.autoDisableScopes" = 0;
+              };
               id = 0;
               isDefault = true;
               name = config.${namespace}.user.name;
               extensions = {
-                packages = with pkgs.nur.repos.rycee.firefox-addons; [
-                  ublock-origin
-                  keepassxc-browser
-                  user-agent-string-switcher
-                  gnome-shell-integration
-                ];
+                force = true; # For migration from self-managed to nix managed.
+                packages = extensionPackages;
 
                 settings."uBlock0@raymondhill.net".settings = {
                   selectedFilterLists = [
