@@ -3,7 +3,7 @@
 pkgs.fetchFromGitHub {
   owner = "datguypiko";
   repo = "Firefox-Mod-Blur";
-  rev = "6cd15ad2ebd710a9228439c6e2fc0d059633abb6";
-  sha256 = "sha256-RQpOnpW68FnUN05jnh0RV5RnDr0GGpp084keAyfoiPY=";
+  rev = "862997246204d946cd768fc3b036daff8e505003";
+  sha256 = "sha256-oPXsHswAAJcP4j1PNZ7kjqa5ixfYJkid/qVk2YA1DRk=";
   name = "firefox-mod-blur";
 }
