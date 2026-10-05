@@ -23,6 +23,7 @@ in
         cups-kyocera
         cups-kyocera-3500-4500
         cups-kyocera-ecosys-m552x-p502x
+        cups-kyodialog
         hplip
       ];
     };
