@@ -14,3 +14,4 @@ result
 result/
 # Keep empty host_vars directory
 !ansible/host_vars/.gitkeep
+.claude
