@@ -65,8 +65,8 @@ in
               };
             },
             {
-              name: "MX Master 4";
-              dpi: 800;
+              name: "MX Master 4 for Business";
+              dpi: 900;
               hiresscroll: {
                 hires: true;
                 invert: false;
@@ -74,19 +74,28 @@ in
             	  up: {
                   mode: "Axis";
                   axis: "REL_WHEEL";
-                  axis_multiplier: 0.2;
+                  axis_multiplier: 0.5;
                 },
               	down: {
                   mode: "Axis";
                   axis: "REL_WHEEL";
-                  axis_multiplier: -0.2;
+                  axis_multiplier: -0.5;
               	}
               };
               smartshift: {
                 on: true;
-                threshold: 150;
-                default_threshold: 150;
+                threshold: 15;
+                torque: 40;
               };
+              buttons: (
+                {
+                  # Mode shift button behind the scroll wheel
+                  cid: 0xc4;
+                  action = {
+                    type: "ToggleSmartShift";
+                  };
+                }
+              );
             }
             );
           '';
