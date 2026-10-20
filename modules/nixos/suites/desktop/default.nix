@@ -36,6 +36,7 @@ in
         flameshot = enabled;
         wl-clipboard = enabled;
         logiops = enabled;
+        openlogi = enabled;
       };
 
       security = {
