@@ -35,7 +35,6 @@ in
       tools = {
         flameshot = enabled;
         wl-clipboard = enabled;
-        logiops = enabled;
         openlogi = enabled;
       };
 
