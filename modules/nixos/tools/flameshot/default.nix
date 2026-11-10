@@ -11,10 +11,9 @@ with lib.${namespace};
 let
   cfg = config.${namespace}.tools.flameshot;
 
-  flameshotfix = ''
-    #!/run/current-system/sw/bin/bash
-    env QT_QPA_PLATFORM=wayland flameshot gui
-    EOF
+  flameshot-gui = pkgs.writeShellScriptBin "flameshot-gui" ''
+    export QT_QPA_PLATFORM=wayland
+    exec ${pkgs.flameshot}/bin/flameshot gui "$@"
   '';
 in
 {
@@ -23,14 +22,9 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = with pkgs; [ flameshot ];
-    ${namespace} = {
-      home.file = {
-        ".local/bin/fixflameshot" = {
-          text = flameshotfix;
-          executable = true;
-        };
-      };
-    };
+    environment.systemPackages = [
+      pkgs.flameshot
+      flameshot-gui
+    ];
   };
 }

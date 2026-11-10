@@ -171,19 +171,19 @@ in
               "org/gnome/settings-daemon/plugins/media-keys" = {
                 screensaver = [ "<Shift>Escape" ];
                 custom-keybindings = [
-                  "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/"
-                  "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/"
+                  "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/terminal/"
+                  "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/flameshot/"
                 ];
               };
-              "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
+              "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/terminal" = {
                 name = "Launch terminal";
                 binding = "<Super>t";
                 command = "kitty";
               };
-              "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1" = {
+              "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/flameshot" = {
                 name = "Flameshot screenshot";
                 binding = "<Super>Print";
-                command = "fixflameshot";
+                command = "flameshot-gui";
               };
             };
         };
